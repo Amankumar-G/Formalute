@@ -2,8 +2,7 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const MultiCheckBox = ({ label, id, name , options}) => {
-    console.log(options)    
+const MultiCheckBox = ({ label, id, name , options}) => {  
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   const style = {

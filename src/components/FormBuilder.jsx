@@ -55,7 +55,7 @@ function FormBuilder(props) {
                      {props.formElements.map(renderFormElement)}
                  </div>
         </SortableContext>
-    
+        
         </div>
       </div>
   )

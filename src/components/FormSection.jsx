@@ -1,30 +1,21 @@
-import React from 'react'
+import React from 'react';
+import FieldItem from './FieldItem';
 
-function FormSection(props) {
+function FormSection({ group, addElement }) {
   return (
     <>
-     {/* Heading */}
-     <h1 className="text-base font-semibold text-fontBlack pt-5 pl-5">{props.group.heading}</h1>
-          
-     {/* Grid */}
-     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-4xl p-5">
-       {/* Grid Items */}
+      {/* Heading */}
+      <h1 className="text-base font-semibold text-fontBlack pt-5 pl-5">{group.heading}</h1>
 
-       {props.group.fields.map((field, index) => (
-         <div
-          onClick={props.addElement}
-           key={index}
-           name={field.type}
-           className="bg-fontBlack text-white font-light text-sm flex justify-start items-center h-10 rounded"
-         >
-           <span className='flex justify-center items-center mx-3'><img className="w-5" src={field.image} alt="" /></span>
-          {field.label}
-         </div>
-       ))}
-
-     </div>
+      {/* Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-4xl p-5">
+        {/* Grid Items */}
+        {group.fields.map((field, index) => (
+          <FieldItem key={index} field={field} addElement={addElement} />
+        ))}
+      </div>
     </>
-  )
+  );
 }
 
-export default FormSection
+export default FormSection;
