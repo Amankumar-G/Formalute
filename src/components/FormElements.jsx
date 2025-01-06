@@ -4,7 +4,7 @@ import FormSection from './FormSection'
 
 const FormElements = (props) => {
   const sections = FormElementsData.map((group,index) =>{
-    return <FormSection key={index} group={group} addElement={props.addElement} />
+    return <FormSection key={index} group={group} />
   })
   return (
     <div className={`min-h-screen bg-customGray flex flex-col transition-all duration-500 ${

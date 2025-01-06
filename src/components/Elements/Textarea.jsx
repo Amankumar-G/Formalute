@@ -3,9 +3,10 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 const Textarea = ({ label, id, name, placeholder }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+  const { attributes, listeners, setNodeRef, transform, transition,isDragging } = useSortable({ id });
 
   const style = {
+    opacity: isDragging ? 0.5 : undefined,
     transform: CSS.Transform.toString(transform),
     transition,
   };
