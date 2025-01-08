@@ -15,7 +15,8 @@ const Button = ({ id, type, value }) => {
     <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="sortable-item">
       <button
         type={type}
-        className="bg-zinc-500 hover:bg-zinc-700 text-white text-xl py-2 px-4 rounded my-auto block"
+        className="bg-zinc-500 hover:bg-zinc-700 text-white text-xl py-2 px-4 rounded my-auto block disabled:bg-white disabled:text-black disabled:cursor-default"
+        disabled
       >
         {value}
       </button>

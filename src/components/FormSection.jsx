@@ -1,7 +1,7 @@
 import React from 'react';
 import FieldItem from './FieldItem';
 
-function FormSection({ group, addElement ,activeId}) {
+function FormSection({ group, onAddTask}) {
   return (
     <>
       {/* Heading */}
@@ -11,7 +11,7 @@ function FormSection({ group, addElement ,activeId}) {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-4xl p-5">
         {/* Grid Items */}
         {group.fields.map((field, index) => (
-          <FieldItem key={index} field={field} />
+        <FieldItem key={index} field={field} onAddTask={onAddTask} />
         ))}
       </div>
     </>

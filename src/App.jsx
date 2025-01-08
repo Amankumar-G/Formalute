@@ -7,23 +7,32 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-  closestCorners,
+  rectIntersection,
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import config from "./MainConfigFile";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import Notification from "./components/Notification";
+import FormData from "./components/FormData";
+import PropertyBar from "./components/PropertyBar";
 
 function App() {
-  const [isExpanded, setIsExpanded] = useState(true);
-  const [formElements, setFormElements] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isProperty, setIsProperty] = useState(false);
+  const [formElements, setFormElements] = useState(FormData);
   const [activeId, setActiveId] = useState(null);
+  const [notification, setNotification] = useState(null); // For popup message
 
   const handleButtonClick = () => {
     setIsExpanded((prev) => !prev);
   };
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -47,8 +56,9 @@ function App() {
     if (originalPos === -1) {
       setFormElements((tasks) => {
         const newTasks = [...tasks];
-        const newItem = addTask(event.active.id, newTasks); // Add the new task
+        const newItem = addTask(event.active.id); // Add the new task
 
+        showNotification("Form Element added as a new Task!");
         if (newItem) {
           setActiveId(newItem.id);
           event.active.data.current = { newId: newItem.id, hasAdded: true };
@@ -78,7 +88,7 @@ function App() {
     });
   }, [getTaskPos]);
 
-  const addTask = (type, currentElements) => {
+  const addTask = (type) => {
     const response = config.find((input) => input.type === type);
     if (!response) return null;
 
@@ -88,7 +98,17 @@ function App() {
     };
   };
 
-  const handleDragEnd = useCallback(() => {
+  const handleDragEnd = useCallback((event) => {
+    const { active, over } = event;
+
+    // Check if the element was not dropped in a valid droppable area
+    if (!over) {
+      const activeId = active.data.current?.newId || active.id;
+
+      // Remove the task from the formElements array
+      setFormElements((tasks) => tasks.filter((task) => task.id !== activeId));
+    }
+
     setActiveId(null);
   }, []);
 
@@ -96,17 +116,39 @@ function App() {
     const data = JSON.stringify(formElements, null, 2); // Convert formElements to JSON
 
     // Create a Blob with the JSON data and trigger download
-    const blob = new Blob([data], { type: 'application/json' });
-    const link = document.createElement('a');
+    const blob = new Blob([data], { type: "application/json" });
+    const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = 'ConfigForm.json';
+    link.download = "ConfigForm.json";
     link.click();
+  };
+
+  const handleAddTask = (field) => {
+    const newItem = addTask(field.type);
+    setFormElements((tasks) => {
+      return [...tasks, newItem];
+    });
+
+    // Show the notification
+    showNotification("Form Element added as a new Task!");
+  };
+
+  const showNotification = (message) => {
+    setNotification(message); // Set the notification message
+    setTimeout(() => {
+      setNotification(null); // Hide the notification after 4 seconds
+    }, 1000);
   };
 
   return (
     <div className="flex relative h-screen overflow-x-hidden">
+      {/* Notification Popup */}
+      {notification && (
+        <Notification notification={notification}/>
+      )}
+
       <DndContext
-        collisionDetection={closestCorners}
+        collisionDetection={rectIntersection}
         onDragEnd={handleDragEnd}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
@@ -124,7 +166,17 @@ function App() {
         />
 
         {/* Right Side */}
-        <FormElements isExpanded={isExpanded} />
+      {/* Right Side (FormElements with Transition) */}
+      <div
+        className={`transform transition-all duration-500 ${
+          isExpanded
+          ? "translate-x-0 w-1/2 opacity-100"
+          : "translate-x-full w-0 opacity-0"
+        }`}
+      >
+        <FormElements onAddTask={handleAddTask} />
+      </div>
+      
       </DndContext>
 
       {/* Buttons */}
