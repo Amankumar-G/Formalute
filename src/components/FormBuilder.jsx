@@ -41,7 +41,10 @@ const renderFormElement = (element) => {
     }
 };
 
+
 function FormBuilder(props) {
+    
+    
     return (
         <div
             className={`bg-gray-100  pt-24 min-h-screen overflow-y-auto text-black text-4xl font-bold transition-all duration-500 ${
@@ -58,7 +61,7 @@ function FormBuilder(props) {
                         {props.formElements.map((element) => (
                             <div
                                 key={element.id}
-                                onClick={() => console.log(element)}
+                                onClick={()=>props.handleIsProperty(element)}
                                 className="p-4 border border-transparent hover:border-gray-600 transition-all  rounded-lg duration-300"
                             >
                                 {renderFormElement(element)}

@@ -21,11 +21,21 @@ function App() {
   const [isProperty, setIsProperty] = useState(false);
   const [formElements, setFormElements] = useState(FormData);
   const [activeId, setActiveId] = useState(null);
+  const [activeElement, setActiveElement] = useState(null);
   const [notification, setNotification] = useState(null); // For popup message
 
   const handleButtonClick = () => {
-    setIsExpanded((prev) => !prev);
+    if(isProperty)
+     setIsProperty((prev) => false)  
+    else 
+      setIsExpanded((prev) => !prev);
   };
+
+  const handleIsProperty =(element) =>{
+    setActiveElement(element)
+    setIsExpanded((prev) => true);
+    setIsProperty((prev) => true)
+  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -163,6 +173,7 @@ function App() {
           setFormElements={setFormElements}
           addTask={addTask}
           getTaskPos={getTaskPos}
+          handleIsProperty={handleIsProperty}
         />
 
         {/* Right Side */}
@@ -174,7 +185,9 @@ function App() {
           : "translate-x-full w-0 opacity-0"
         }`}
       >
-        <FormElements onAddTask={handleAddTask} />
+        {isProperty 
+         ? <PropertyBar activeElement={activeElement} setFormElements={setFormElements}/>
+         : <FormElements onAddTask={handleAddTask} />}
       </div>
       
       </DndContext>

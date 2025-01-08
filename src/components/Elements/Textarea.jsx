@@ -12,7 +12,7 @@ const Textarea = ({ label, id, name, placeholder }) => {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="sortable-item h-24">
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="sortable-item">
       <label htmlFor={id} className="block text-base font-bold text-gray-700 mb-2">
         {label}
       </label>
@@ -20,9 +20,9 @@ const Textarea = ({ label, id, name, placeholder }) => {
         id={id}
         name={name}
         placeholder={placeholder}
-        rows="1"
+        rows="5"
         disabled
-        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-white disabled:text-black disabled:cursor-default"
+        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-white disabled:text-black disabled:cursor-default resize-none"
       ></textarea>
     </div>
   );
