@@ -18,7 +18,7 @@ const Checkbox = ({ label, id, name }) => {
           type="checkbox"
           id={id}
           name={name}
-          className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 disabled:bg-white disabled:text-black disabled:cursor-default"
+          className="pointer-events-none h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 disabled:bg-white disabled:text-black disabled:cursor-default"
           disabled
         />
         <label htmlFor={id} className="ml-2 block text-sm text-gray-700">

@@ -59,13 +59,16 @@ function FormBuilder(props) {
                 <SortableContext items={props.formElements} strategy={() => {}}>
                     <div className="flex flex-col gap-6">
                         {props.formElements.map((element) => (
-                            <div
-                                key={element.id}
-                                onClick={()=>props.handleIsProperty(element)}
-                                className="p-4 border border-transparent hover:border-gray-600 transition-all  rounded-lg duration-300"
-                            >
-                                {renderFormElement(element)}
-                            </div>
+                           <div
+                           key={element.id}
+                           onClick={(event) => {
+                               event.stopPropagation(); // Prevents event bubbling to parent elements.
+                               props.handleIsProperty(element); // Triggers the parent click behavior.
+                           }}
+                           className="p-4 border border-transparent hover:border-gray-600 transition-all rounded-lg duration-300"
+                       >
+                           {renderFormElement(element)}
+                       </div>                       
                         ))}
                     </div>
                 </SortableContext>

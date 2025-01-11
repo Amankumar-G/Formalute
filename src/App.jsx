@@ -15,11 +15,12 @@ import { v4 as uuidv4 } from "uuid";
 import Notification from "./components/Notification";
 import FormData from "./components/FormData";
 import PropertyBar from "./components/PropertyBar";
+import './App.css';
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isProperty, setIsProperty] = useState(false);
-  const [formElements, setFormElements] = useState(FormData);
+  const [ formElements, setFormElements] = useState(FormData);
   const [activeId, setActiveId] = useState(null);
   const [activeElement, setActiveElement] = useState(null);
   const [notification, setNotification] = useState(null); // For popup message

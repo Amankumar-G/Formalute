@@ -1,11 +1,13 @@
 const config = [
     {
         type: "text",
-        name: "username",
+        name: "text",
         value: "",
-        label: "Username",
-        placeholder: "Enter your username",
-        required: true
+        label: "Text Field",
+        placeholder: "Enter your Text",
+        required: true,
+        pattern: "^[A-Za-z0-9_]+$", // Alphanumeric with underscores
+        autocomplete: "text",
     },
     {
         type: "email",
@@ -13,7 +15,8 @@ const config = [
         value: "",
         label: "Email Address",
         placeholder: "Enter your email address",
-        required: true
+        required: true,
+        autocomplete: "email",
     },
     {
         type: "password",
@@ -21,7 +24,10 @@ const config = [
         value: "",
         label: "Password",
         placeholder: "Enter your password",
-        required: true
+        required: true,
+        minlength: 8,
+        pattern: "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}", // Minimum 8 characters, at least one letter and one number
+        autocomplete: "new-password",
     },
     {
         type: "number",
@@ -29,7 +35,10 @@ const config = [
         value: "",
         label: "Age",
         placeholder: "Enter your age",
-        required: false
+        required: false,
+        min: 0,
+        max: 120,
+        step: 1,
     },
     {
         type: "date",
@@ -37,7 +46,9 @@ const config = [
         value: "",
         label: "Date of Birth",
         placeholder: "Select your birthdate",
-        required: true
+        required: true,
+        min: "1900-01-01",
+        max: "2023-12-31",
     },
     {
         type: "tel",
@@ -45,7 +56,9 @@ const config = [
         value: "",
         label: "Phone Number",
         placeholder: "Enter your phone number",
-        required: false
+        required: false,
+        pattern: "\\d{10}", // 10-digit number
+        autocomplete: "tel",
     },
     {
         type: "url",
@@ -53,7 +66,9 @@ const config = [
         value: "",
         label: "Website",
         placeholder: "Enter your website URL",
-        required: false
+        required: false,
+        pattern: "https?://.*", // Must start with http:// or https://
+        autocomplete: "url",
     },
     {
         type: "file",
@@ -61,7 +76,9 @@ const config = [
         value: "",
         label: "Upload File",
         placeholder: "",
-        required: false
+        required: false,
+        accept: "image/*", // Accept only image files
+        multiple: false,
     },
     {
         type: "checkbox",
@@ -69,7 +86,8 @@ const config = [
         value: "yes",
         label: "I accept the terms and conditions",
         placeholder: "",
-        required: true
+        required: true,
+        checked: false, // Default unchecked
     },
     {
         type: "radio",
@@ -77,7 +95,12 @@ const config = [
         value: "female",
         label: "Female",
         placeholder: "",
-        required: true
+        required: true,
+        options: [
+            { label: "Male", value: "male" },
+            { label: "Female", value: "female" },
+            { label: "Other", value: "other" },
+        ],
     },
     {
         type: "range",
@@ -85,7 +108,10 @@ const config = [
         value: "50",
         label: "Satisfaction Level",
         placeholder: "",
-        required: false
+        required: false,
+        min: 0,
+        max: 100,
+        step: 1,
     },
     {
         type: "textarea",
@@ -93,8 +119,84 @@ const config = [
         value: "",
         label: "Comments",
         placeholder: "Enter your comments here",
-        required: false
-    }
+        required: false,
+        maxlength: 500,
+        rows: 5,
+        cols: 30,
+    },
+    {
+        type: "color",
+        name: "favoriteColor",
+        value: "#000000",
+        label: "Favorite Color",
+        placeholder: "",
+        required: false,
+    },
+    {
+        type: "search",
+        name: "searchQuery",
+        value: "",
+        label: "Search",
+        placeholder: "Search here",
+        required: false,
+    },
+    {
+        type: "hidden",
+        name: "userID",
+        value: "12345",
+        label: "",
+        placeholder: "",
+        required: false,
+    },
+    {
+        type: "datetime-local",
+        name: "appointment",
+        value: "",
+        label: "Appointment Date & Time",
+        placeholder: "",
+        required: true,
+        min: "2023-01-01T00:00",
+        max: "2024-12-31T23:59",
+    },
+    {
+        type: "month",
+        name: "birthMonth",
+        value: "",
+        label: "Birth Month",
+        placeholder: "",
+        required: false,
+    },
+    {
+        type: "week",
+        name: "workWeek",
+        value: "",
+        label: "Preferred Work Week",
+        placeholder: "",
+        required: false,
+    },
+    {
+        type: "time",
+        name: "preferredTime",
+        value: "",
+        label: "Preferred Time",
+        placeholder: "",
+        required: false,
+    },
+    {
+        type: "select",
+        name: "country",
+        value: "",
+        label: "Country",
+        placeholder: "",
+        required: true,
+        options: [
+            { label: "United States", value: "us" },
+            { label: "Canada", value: "ca" },
+            { label: "United Kingdom", value: "uk" },
+            { label: "India", value: "in" },
+            { label: "Australia", value: "au" },
+        ],
+    },
 ];
 
 export default config;

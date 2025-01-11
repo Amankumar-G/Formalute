@@ -20,7 +20,7 @@ const Select = ({ label, id, name, options = [] }) => {
         id={id}
         name={name}
         disabled
-        className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-white disabled:text-black disabled:cursor-default"
+        className="pointer-events-none block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-white disabled:text-black disabled:cursor-default"
       >
         {options.map((option, index) => (
           <option key={index} value={option.value}>

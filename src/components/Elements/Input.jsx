@@ -22,7 +22,7 @@ const Input = ({ label, type = 'text', id, name, placeholder }) => {
         name={name}
         placeholder={placeholder}
         disabled
-        className="block w-full h-14 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-white disabled:text-black disabled:cursor-default"
+        className="pointer-events-none block w-full h-14 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-white disabled:text-black disabled:cursor-default"
       />
     </div>
   );
