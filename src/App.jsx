@@ -18,9 +18,9 @@ import PropertyBar from "./components/PropertyBar";
 import './App.css';
 
 function App() {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [isProperty, setIsProperty] = useState(false);
-  const [ formElements, setFormElements] = useState(FormData);
+  const [ formElements, setFormElements] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [activeElement, setActiveElement] = useState(null);
   const [notification, setNotification] = useState(null); // For popup message
@@ -152,62 +152,74 @@ function App() {
   };
 
   return (
-    <div className="flex relative h-screen overflow-x-hidden">
-      {/* Notification Popup */}
-      {notification && (
-        <Notification notification={notification}/>
-      )}
+<div className="flex relative min-h-screen overflow-x-hidden">
+  {/* Notification Popup */}
+  {notification && <Notification notification={notification} />}
 
-      <DndContext
-        collisionDetection={rectIntersection}
-        onDragEnd={handleDragEnd}
-        onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-        onDragCancel={handleDragEnd}
-        sensors={sensors}
-      >
-        {/* Left Side */}
-        <FormBuilder
-          isExpanded={isExpanded}
-          formElements={formElements}
-          activeId={activeId}
-          setFormElements={setFormElements}
-          addTask={addTask}
-          getTaskPos={getTaskPos}
-          handleIsProperty={handleIsProperty}
-        />
+  <DndContext
+    collisionDetection={rectIntersection}
+    onDragEnd={handleDragEnd}
+    onDragStart={handleDragStart}
+    onDragOver={handleDragOver}
+    onDragCancel={handleDragEnd}
+    sensors={sensors}
+  >
+    {/* Left Side */}
+    <div
+      className={`transition-all duration-500 ${
+        isExpanded ? "w-1/2" : "w-full"
+      } overflow-y-scroll h-screen`}
+    >
+      <FormBuilder
+        isExpanded={isExpanded}
+        formElements={formElements}
+        activeId={activeId}
+        setFormElements={setFormElements}
+        addTask={addTask}
+        getTaskPos={getTaskPos}
+        handleIsProperty={handleIsProperty}
+      />
+    </div>
 
-        {/* Right Side */}
-      {/* Right Side (FormElements with Transition) */}
-      <div
-        className={`transform transition-all duration-500 ${
-          isExpanded
+    {/* Right Side */}
+    <div
+      className={`transform transition-all duration-500 ${
+        isExpanded
           ? "translate-x-0 w-1/2 opacity-100"
           : "translate-x-full w-0 opacity-0"
-        }`}
-      >
-        {isProperty 
-         ? <PropertyBar activeElement={activeElement} setFormElements={setFormElements}/>
-         : <FormElements onAddTask={handleAddTask} />}
-      </div>
-      
-      </DndContext>
-
-      {/* Buttons */}
-      <button
-        onClick={handleButtonClick}
-        className="absolute bottom-20 right-20 bg-green-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-green-600"
-      >
-        +
-      </button>
-
-      <button
-        onClick={handleSave}
-        className="absolute bottom-10 right-20 bg-blue-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-blue-600"
-      >
-        Save
-      </button>
+      }`}
+    >
+      {isProperty ? (
+        <div className="h-screen overflow-y-scroll">
+          <PropertyBar
+            activeElement={activeElement}
+            setFormElements={setFormElements}
+          />
+        </div>
+      ) : (
+        <div className="h-screen overflow-y-scroll">
+          <FormElements onAddTask={handleAddTask} />
+        </div>
+      )}
     </div>
+  </DndContext>
+
+  {/* Buttons */}
+  <button
+    onClick={handleButtonClick}
+    className="absolute bottom-20 right-20 bg-green-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-green-600"
+  >
+    +
+  </button>
+
+  <button
+    onClick={handleSave}
+    className="absolute bottom-10 right-20 bg-blue-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-blue-600"
+  >
+    Save
+  </button>
+</div>
+
   );
 }
 

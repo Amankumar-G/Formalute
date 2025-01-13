@@ -4,7 +4,7 @@ import { CSS } from '@dnd-kit/utilities';
 
 const Input = ({ label, type = 'text', id, name, placeholder }) => {
   const { attributes, listeners, setNodeRef, transform, transition,isDragging} = useSortable({ id });
-
+  console.log(type)
   const style = {
     opacity: isDragging ? 0.5 : undefined,
     transform: CSS.Transform.toString(transform),
@@ -17,7 +17,7 @@ const Input = ({ label, type = 'text', id, name, placeholder }) => {
         {label}
       </label>
       <input
-        type={type}
+        type={type === "hidden"? "text" : type}
         id={id}
         name={name}
         placeholder={placeholder}

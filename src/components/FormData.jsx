@@ -104,7 +104,7 @@ const FormData = [
       "type": "hidden",
       "name": "userID",
       "value": "12345",
-      "label": "",
+      "label": "Hidden Field",
       "placeholder": "",
       "required": false,
       "id": "ed038623-7c4c-4632-8547-341bf4364fe5"

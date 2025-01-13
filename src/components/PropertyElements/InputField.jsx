@@ -1,12 +1,12 @@
 import React from "react";
 
-const InputField = ({ id, label, placeholder, value, onChange }) => (
+const InputField = ({ type,id, label, placeholder, value, onChange }) => (
   <div className="flex flex-col w-3/4">
     <label htmlFor={id} className="text-gray-600 font-medium mb-2">
       {label}
     </label>
     <input
-      type="text"
+      type={type}
       id={id}
       placeholder={placeholder}
       value={value}

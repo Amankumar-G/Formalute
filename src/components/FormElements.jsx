@@ -9,7 +9,7 @@ const FormElements = (props) => {
   })
 
   return (
-    <div className={`min-h-screen bg-customGray flex flex-col transition-all duration-500 opacity-100`}>
+    <div className={`h-screen overflow-y-scroll bg-customGray flex flex-col transition-all duration-500 opacity-100`}>
      {sections}
     </div>
   )

@@ -5,7 +5,7 @@ const config = [
         value: "",
         label: "Text Field",
         placeholder: "Enter your Text",
-        required: true,
+        required: false,
         pattern: "^[A-Za-z0-9_]+$", // Alphanumeric with underscores
         autocomplete: "text",
     },
@@ -15,7 +15,7 @@ const config = [
         value: "",
         label: "Email Address",
         placeholder: "Enter your email address",
-        required: true,
+        required: false,
         autocomplete: "email",
     },
     {
@@ -24,7 +24,7 @@ const config = [
         value: "",
         label: "Password",
         placeholder: "Enter your password",
-        required: true,
+        required: false,
         minlength: 8,
         pattern: "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}", // Minimum 8 characters, at least one letter and one number
         autocomplete: "new-password",
@@ -46,7 +46,7 @@ const config = [
         value: "",
         label: "Date of Birth",
         placeholder: "Select your birthdate",
-        required: true,
+        required: false,
         min: "1900-01-01",
         max: "2023-12-31",
     },
@@ -86,22 +86,19 @@ const config = [
         value: "yes",
         label: "I accept the terms and conditions",
         placeholder: "",
-        required: true,
+        required: false,
         checked: false, // Default unchecked
     },
     {
         type: "radio",
-        name: "gender",
-        value: "female",
-        label: "Female",
-        placeholder: "",
+        label: "Select your favorite option",
         required: true,
+        defaultSelected: "option1", // Indicates which option is selected by default
         options: [
-            { label: "Male", value: "male" },
-            { label: "Female", value: "female" },
-            { label: "Other", value: "other" },
-        ],
-    },
+          { value: "option1", text: "Option 1" },
+          { value: "option2", text: "Option 2" }
+        ]
+      },
     {
         type: "range",
         name: "satisfaction",
@@ -144,7 +141,7 @@ const config = [
         type: "hidden",
         name: "userID",
         value: "12345",
-        label: "",
+        label: "Hidden Field",
         placeholder: "",
         required: false,
     },
@@ -154,7 +151,7 @@ const config = [
         value: "",
         label: "Appointment Date & Time",
         placeholder: "",
-        required: true,
+        required: false,
         min: "2023-01-01T00:00",
         max: "2024-12-31T23:59",
     },
@@ -188,14 +185,25 @@ const config = [
         value: "",
         label: "Country",
         placeholder: "",
-        required: true,
+        required: false,
         options: [
-            { label: "United States", value: "us" },
-            { label: "Canada", value: "ca" },
-            { label: "United Kingdom", value: "uk" },
-            { label: "India", value: "in" },
-            { label: "Australia", value: "au" },
+            { text: "United States", value: "us" },
+            { text: "Canada", value: "ca" },
+            { text: "United Kingdom", value: "uk" },
+            { text: "India", value: "in" },
+            { text: "Australia", value: "au" },
         ],
+    },
+    {
+        type: "multiple-checkbox", // Type of element
+        label: "Subscribe to Newsletter", // Label for the checkbox
+        required: true, // Checkbox is required
+        defaultChecked: false, // The checkbox is not checked by default
+        options: [ // Options for the checkbox (useful for grouped checkboxes)
+          { value: "yes", text: "Yes, I want to receive newsletters" },
+          { value: "no", text: "No, I do not want to receive newsletters" },
+        ],
+        description: "This checkbox allows the user to subscribe or unsubscribe from the newsletter.", // Optional description
     },
 ];
 
