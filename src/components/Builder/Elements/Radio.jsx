@@ -6,7 +6,7 @@ const Radio = ({ id, label, options, defaultSelected, required }) => {
   return (
     <div className="radio-group">
       {/* Render group label */}
-      {label && <h3 className="text-lg font-bold mb-4 text-gray-700">{label}</h3>}
+      {label && <h3 className="mb-2 block text-sm font-bold text-gray-700">{label}</h3>}
 
       {/* Render radio buttons */}
       {options.map(({ value, text }) => (
@@ -52,7 +52,7 @@ const SortableRadioItem = ({ id, name, value, label, defaultChecked, required })
           disabled
           className="pointer-events-none h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500 disabled:bg-white disabled:text-black disabled:cursor-default"
         />
-        <label htmlFor={id} className="ml-2 block text-sm text-gray-700">
+        <label htmlFor={id} className="ml-2 block text-xs text-gray-700">
           {label}
         </label>
       </div>

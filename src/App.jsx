@@ -1,132 +1,111 @@
 import React, { useState, useMemo, useCallback } from "react";
-import FormElements from "./components/FormElements";
-import FormBuilder from "./components/FormBuilder";
-import {
-  DndContext,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  rectIntersection,
-} from "@dnd-kit/core";
+import { DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors, rectIntersection } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import config from "./MainConfigFile";
 import { v4 as uuidv4 } from "uuid";
+import FormElements from "./components/Sidebar/FormElements";
+import FormBuilder from "./components/Builder/FormBuilder";
 import Notification from "./components/Notification";
-import FormData from "./components/FormData";
-import PropertyBar from "./components/PropertyBar";
-import './App.css';
+import PropertyBar from "./components/Property/PropertyBar";
+import FormData from "./FormData";
+import config from "./MainConfigFile";
+import "./App.css";
 
 function App() {
+  // State variables
   const [isExpanded, setIsExpanded] = useState(true);
   const [isProperty, setIsProperty] = useState(false);
-  const [ formElements, setFormElements] = useState([]);
+  const [formElements, setFormElements] = useState(FormData);
   const [activeId, setActiveId] = useState(null);
   const [activeElement, setActiveElement] = useState(null);
-  const [notification, setNotification] = useState(null); // For popup message
+  const [notification, setNotification] = useState(null);
 
-  const handleButtonClick = () => {
-    if(isProperty)
-     setIsProperty((prev) => false)  
-    else 
-      setIsExpanded((prev) => !prev);
-  };
-
-  const handleIsProperty =(element) =>{
-    setActiveElement(element)
-    setIsExpanded((prev) => true);
-    setIsProperty((prev) => true)
-  }
-
+  // Drag-and-Drop sensors
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 5,
-      },
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
-  const positionMap = useMemo(() => {
-    return formElements.reduce((acc, task, index) => {
-      acc[task.id] = index;
-      return acc;
-    }, {});
-  }, [formElements]);
-
-  const getTaskPos = useCallback(
-    (id) => positionMap[id] ?? -1,
-    [positionMap]
+  // Utility: Map form element IDs to their positions
+  const positionMap = useMemo(
+    () =>
+      formElements.reduce((acc, element, index) => {
+        acc[element.id] = index;
+        return acc;
+      }, {}),
+    [formElements]
   );
 
-  const handleDragStart = useCallback((event) => {
-    const originalPos = getTaskPos(event.active.id);
+  const getTaskPos = useCallback((id) => positionMap[id] ?? -1, [positionMap]);
 
-    if (originalPos === -1) {
-      setFormElements((tasks) => {
-        const newTasks = [...tasks];
-        const newItem = addTask(event.active.id); // Add the new task
-
-        showNotification("Form Element added as a new Task!");
-        if (newItem) {
-          setActiveId(newItem.id);
-          event.active.data.current = { newId: newItem.id, hasAdded: true };
-          return [...newTasks, newItem]; // Return the updated task list
-        }
-        return tasks;
-      });
-    } else {
-      event.active.data.current = { hasAdded: false };
-    }
-
-    setActiveId(event.active.data.current?.newId || event.active.id);
-  }, [getTaskPos]);
-
-  const handleDragOver = useCallback((event) => {
-    const { active, over } = event;
-    const activeId = active.data.current?.newId || active.id;
-
-    if (!over || activeId === over.id) {
-      return;
-    }
-
-    setFormElements((tasks) => {
-      const originalPos = getTaskPos(activeId);
-      const newPos = getTaskPos(over.id);
-      return arrayMove(tasks, originalPos, newPos);
-    });
-  }, [getTaskPos]);
-
-  const addTask = (type) => {
-    const response = config.find((input) => input.type === type);
-    if (!response) return null;
-
-    return {
-      ...response,
-      id: uuidv4(),
-    };
+  // Handlers
+  const handleExpandToggle = () => {
+    setIsProperty(false);
+    setIsExpanded((prev) => !prev);
   };
+
+  const handleIsProperty = (element) => {
+    setActiveElement(element);
+    setIsExpanded(true);
+    setIsProperty(true);
+  };
+
+  const handleDragStart = useCallback(
+    (event) => {
+      const originalPos = getTaskPos(event.active.id);
+
+      if (originalPos === -1) {
+        // Add a new form element
+        setFormElements((prevElements) => {
+          const newElement = addTask(event.active.id);
+          if (newElement) {
+            setActiveId(newElement.id);
+            event.active.data.current = { newId: newElement.id, hasAdded: true };
+            showNotification("Form Element added!");
+            return [...prevElements, newElement];
+          }
+          return prevElements;
+        });
+      } else {
+        event.active.data.current = { hasAdded: false };
+      }
+
+      setActiveId(event.active.data.current?.newId || event.active.id);
+    },
+    [getTaskPos]
+  );
+
+  const handleDragOver = useCallback(
+    (event) => {
+      const { active, over } = event;
+      if (!over || active.id === over.id) return;
+
+      setFormElements((prevElements) => {
+        const originalPos = getTaskPos(active.data.current?.newId || active.id);
+        const newPos = getTaskPos(over.id);
+        return arrayMove(prevElements, originalPos, newPos);
+      });
+    },
+    [getTaskPos]
+  );
 
   const handleDragEnd = useCallback((event) => {
     const { active, over } = event;
-
-    // Check if the element was not dropped in a valid droppable area
     if (!over) {
-      const activeId = active.data.current?.newId || active.id;
-
-      // Remove the task from the formElements array
-      setFormElements((tasks) => tasks.filter((task) => task.id !== activeId));
+      setFormElements((prevElements) =>
+        prevElements.filter((element) => element.id !== (active.data.current?.newId || active.id))
+      );
     }
-
     setActiveId(null);
   }, []);
 
-  const handleSave = () => {
-    const data = JSON.stringify(formElements, null, 2); // Convert formElements to JSON
+  const addTask = (type) => {
+    const template = config.find((input) => input.type === type);
+    if (!template) return null;
+    return { ...template, id: uuidv4() };
+  };
 
-    // Create a Blob with the JSON data and trigger download
+  const handleSave = () => {
+    const data = JSON.stringify(formElements, null, 2);
     const blob = new Blob([data], { type: "application/json" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -135,92 +114,82 @@ function App() {
   };
 
   const handleAddTask = (field) => {
-    const newItem = addTask(field.type);
-    setFormElements((tasks) => {
-      return [...tasks, newItem];
-    });
-
-    // Show the notification
-    showNotification("Form Element added as a new Task!");
+    const newElement = addTask(field.type);
+    setFormElements((prevElements) => [...prevElements, newElement]);
+    showNotification("Form Element added!");
   };
 
   const showNotification = (message) => {
-    setNotification(message); // Set the notification message
-    setTimeout(() => {
-      setNotification(null); // Hide the notification after 4 seconds
-    }, 1000);
+    setNotification(message);
+    setTimeout(() => setNotification(null), 1000);
   };
 
   return (
-<div className="flex relative min-h-screen overflow-x-hidden">
-  {/* Notification Popup */}
-  {notification && <Notification notification={notification} />}
-
-  <DndContext
-    collisionDetection={rectIntersection}
-    onDragEnd={handleDragEnd}
-    onDragStart={handleDragStart}
-    onDragOver={handleDragOver}
-    onDragCancel={handleDragEnd}
-    sensors={sensors}
-  >
-    {/* Left Side */}
-    <div
-      className={`transition-all duration-500 ${
-        isExpanded ? "w-1/2" : "w-full"
-      } overflow-y-scroll h-screen`}
-    >
-      <FormBuilder
-        isExpanded={isExpanded}
-        formElements={formElements}
-        activeId={activeId}
-        setFormElements={setFormElements}
-        addTask={addTask}
-        getTaskPos={getTaskPos}
-        handleIsProperty={handleIsProperty}
-      />
+    <div className="flex relative min-h-screen overflow-x-hidden flex-col">
+    {/* Navbar */}
+    <div className="w-full fixed top-0 left-0 z-10 bg-gray-700 text-white p-4 flex justify-between items-center shadow-md">
+      {/* Navbar Title */}
+      <div className="text-lg font-bold">Ninja JS</div>
+      
+      {/* Navbar Menu */}
+      <div className="flex space-x-6">
+        <button
+          onClick={handleExpandToggle}
+          className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+        >
+          Add Element
+        </button>
+        <button
+          onClick={handleSave}
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        >
+          Sav
+        </button>
+      </div>
     </div>
-
-    {/* Right Side */}
-    <div
-      className={`transform transition-all duration-500 ${
-        isExpanded
-          ? "translate-x-0 w-1/2 opacity-100"
-          : "translate-x-full w-0 opacity-0"
-      }`}
-    >
-      {isProperty ? (
-        <div className="h-screen overflow-y-scroll">
-          <PropertyBar
-            activeElement={activeElement}
+  
+    {/* Main Content */}
+    <div className="flex min-h-screen overflow-x-hidden pt-16">
+      {/* Notification */}
+      {notification && <Notification notification={notification} />}
+  
+      {/* Drag-and-Drop Context */}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={rectIntersection}
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragEnd={handleDragEnd}
+        onDragCancel={handleDragEnd}
+      >
+        {/* Left Panel */}
+        <div className={`transition-all duration-500 ${isExpanded ? "w-1/2" : "w-full"} overflow-y-scroll h-screen`}>
+          <FormBuilder
+            isExpanded={isExpanded}
+            formElements={formElements}
+            activeId={activeId}
             setFormElements={setFormElements}
+            addTask={addTask}
+            getTaskPos={getTaskPos}
+            handleIsProperty={handleIsProperty}
           />
         </div>
-      ) : (
-        <div className="h-screen overflow-y-scroll">
-          <FormElements onAddTask={handleAddTask} />
+  
+        {/* Right Panel */}
+        <div className={`transform transition-all duration-500 ${isExpanded ? "translate-x-0 w-1/2 opacity-100" : "translate-x-full w-0 opacity-0"}`}>
+          {isProperty ? (
+            <PropertyBar activeElement={activeElement} setFormElements={setFormElements} />
+          ) : (
+            <FormElements onAddTask={handleAddTask} />
+          )}
         </div>
-      )}
+      </DndContext>
     </div>
-  </DndContext>
-
-  {/* Buttons */}
-  <button
-    onClick={handleButtonClick}
-    className="absolute bottom-20 right-20 bg-green-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-green-600"
-  >
-    +
-  </button>
-
-  <button
-    onClick={handleSave}
-    className="absolute bottom-10 right-20 bg-blue-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-blue-600"
-  >
-    Save
-  </button>
-</div>
+  </div>
+  
 
   );
 }
 
 export default App;
+

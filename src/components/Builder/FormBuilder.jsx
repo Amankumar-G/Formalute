@@ -8,7 +8,7 @@ import Button from './Elements/Button';
 import { SortableContext } from '@dnd-kit/sortable';
 import MultiCheckBox from './Elements/MultiCheckBox';
 import { DragOverlay } from '@dnd-kit/core';
-import config from '../MainConfigFile';
+
 
 const renderFormElement = (element) => {
     switch (element.type) {
@@ -46,7 +46,7 @@ const renderFormElement = (element) => {
 function FormBuilder(props) {
     return (
         <div
-            className={`bg-gray-100 pt-24 min-h-screen overflow-y-auto text-black text-4xl font-bold transition-all duration-500 w-full`}
+            className={`bg-gray-100 pt-5 min-h-screen overflow-y-auto transition-all duration-500 w-full`}
         >
             <div
                 className={`mx-auto transition-all duration-500 ${
@@ -54,7 +54,7 @@ function FormBuilder(props) {
                 }`}
             >
                 <SortableContext items={props.formElements} strategy={() => {}}>
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-2">
                         {props.formElements.map((element) => (
                             <div
                                 key={element.id}

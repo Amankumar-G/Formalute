@@ -13,7 +13,7 @@ const Textarea = ({ label, id, name, placeholder }) => {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="sortable-item">
-      <label htmlFor={id} className="block text-base font-bold text-gray-700 mb-2">
+      <label htmlFor={id} className="mb-2 block text-sm font-bold text-gray-700">
         {label}
       </label>
       <textarea

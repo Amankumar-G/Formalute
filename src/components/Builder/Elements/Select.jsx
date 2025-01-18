@@ -13,7 +13,7 @@ const Select = ({ label, id, name, options = [] }) => {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="sortable-item">
-  <label htmlFor={id} className="block text-base font-bold text-gray-700 mb-2">
+  <label htmlFor={id} className="mb-2 block text-sm font-bold text-gray-700">
     {label}
   </label>
   <select
@@ -24,7 +24,7 @@ const Select = ({ label, id, name, options = [] }) => {
     className="pointer-events-none block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-white disabled:text-black disabled:cursor-default"
   >
     {options.map((option, index) => (
-      <option key={index} value={option.value}>
+      <option key={index} value={option.value} className='text-xs'>
         {option.text}
       </option>
     ))}
