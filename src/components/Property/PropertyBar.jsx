@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "./PropertyElements/Header";
 import TextProperties from "./PropertyElements/TextProperties";
 import NumberProperties from "./PropertyElements/NumberProperties";
 import SelectProperties from "./PropertyElements/SelectProperties";

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Textarea from './Elements/Textarea';
 import Select from './Elements/Select';
 import Input from './Elements/Input';
@@ -46,7 +46,7 @@ const renderFormElement = (element) => {
 function FormBuilder(props) {
     return (
         <div
-            className={`bg-gray-100 pt-5 transition-all duration-500 w-full`}
+            className={`bg-gray-100 py-5 transition-all duration-500 w-full`}
         >
             <div
                 className={`mx-auto transition-all duration-500 ${
@@ -75,7 +75,7 @@ function FormBuilder(props) {
                             (elem) => elem.id === props.activeId
                         );
                         return elem ? (
-                            <div className="p-2 opacity-90 hover:opacity-75 transition-all duration-300">
+                            <div className={`${props.isInvalidDropZone ? "invalid-zone" : ""} rounded-lg  p-2 opacity-90 hover:opacity-75 transition-all duration-300`}>
                                 {renderFormElement(elem)}
                             </div>
                         ) : null;

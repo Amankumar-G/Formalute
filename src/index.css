@@ -12,3 +12,85 @@ html {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+* {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.invalid-zone {
+animation: shake 0.5s ease-in-out infinite;
+background-color: rgba(255, 0, 0, 0.2);
+}
+
+@keyframes shake {
+0%, 100% {
+transform: translateX(0);
+}
+25% {
+transform: translateX(-5px);
+}
+50% {
+transform: translateX(5px);
+}
+75% {
+transform: translateX(-5px);
+}
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: white;
+    padding: 20px 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+  }
+  
+  .modal p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .modal button {
+    margin: 10px 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal button:hover {
+    opacity: 0.9;
+  }
+  
+  .modal button:first-child {
+    background-color: #f44336; /* Red for delete */
+    color: white;
+  }
+  
+  .modal button:last-child {
+    background-color: #ddd; /* Gray for cancel */
+    color: #333;
+  }
+  
+  /* Background overlay */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  

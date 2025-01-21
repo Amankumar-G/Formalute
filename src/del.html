@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .invalid-zone {
+        width: 100px;
+        height: 100px;
+  animation: shake 0.5s ease-in-out infinite;
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+</style>
+<body>
+    <div class="invalid-zone"></div>
+</body>
+</html>

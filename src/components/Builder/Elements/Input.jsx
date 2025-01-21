@@ -12,7 +12,7 @@ const Input = ({ label, type = 'text', id, name, placeholder }) => {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="sortable-item h-20">
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}  className="sortable-item h-20">
       <label htmlFor={id} className="mb-2 block text-sm font-bold text-gray-700">
         {label}
       </label>

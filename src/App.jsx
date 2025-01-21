@@ -21,6 +21,10 @@ function App() {
   const [activeId, setActiveId] = useState(null);
   const [activeElement, setActiveElement] = useState(null);
   const [notification, setNotification] = useState(null);
+  const [isDeleteWarningVisible, setIsDeleteWarningVisible] = useState(false);
+  const [pendingDeletionElement, setPendingDeletionElement] = useState(null);
+  const [isInvalidDropZone, setIsInvalidDropZone] = useState(false);
+
   // Drag-and-Drop sensors
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -78,6 +82,11 @@ function App() {
   const handleDragOver = useCallback(
     (event) => {
       const { active, over } = event;
+        if(over==null){
+          setIsInvalidDropZone(true);
+        }else{
+          setIsInvalidDropZone(false);
+        }
       if (!over || active.id === over.id) return;
 
       setFormElements((prevElements) => {
@@ -92,11 +101,11 @@ function App() {
   const handleDragEnd = useCallback((event) => {
     const { active, over } = event;
     if (!over) {
-      setFormElements((prevElements) =>
-        prevElements.filter((element) => element.id !== (active.data.current?.newId || active.id))
-      );
+      setPendingDeletionElement(active.data.current?.newId || active.id);
+      setIsDeleteWarningVisible(true);
+    } else {
+      setActiveId(null);
     }
-    setActiveId(null);
   }, []);
 
   const addTask = (type) => {
@@ -114,12 +123,6 @@ function App() {
     link.click();
   };
   
-  const handlePreview = () => {
-    const data = JSON.stringify(formElements, null, 2);
-    const blob = new Blob([data], { type: "application/json" });
-    setJsonConfig((prev)=>prev = data)
-  };
-  
   const handleRenderer = () =>{
     setIsRendered((prev)=> !prev)
   }
@@ -134,6 +137,15 @@ function App() {
     setNotification(message);
     setTimeout(() => setNotification(null), 1000);
   };
+
+  const handleConfirmDelete = () => {
+    setFormElements((prevElements) =>
+      prevElements.filter((element) => element.id !== pendingDeletionElement)
+    );
+    setIsDeleteWarningVisible(false);
+    setPendingDeletionElement(null);
+  };
+  
  useEffect(() => {
   setJsonConfig(JSON.stringify(formElements, null, 2)); // Convert formElements to a JSON string
 }, [formElements]); // This effect runs when formElements changes
@@ -141,6 +153,17 @@ function App() {
   return (
     <div className="flex h-screen overflow-x-hidden flex-col">
     {notification && <Notification notification={notification} />}
+    {isDeleteWarningVisible && (
+  <>
+    <div className="modal-overlay"></div>
+    <div className="modal">
+      <p>Are you sure you want to delete this element?</p>
+      <button onClick={handleConfirmDelete}>Confirm</button>
+      <button onClick={() => setIsDeleteWarningVisible(false)}>Cancel</button>
+    </div>
+  </>
+)}
+
     {/* Navbar */}
     <div className="w-full z-10 bg-gray-700 text-white p-4 flex justify-between items-center shadow-md">
       {/* Navbar Title */}
@@ -150,19 +173,19 @@ function App() {
       <div className="flex space-x-6">
         <button
           onClick={handleExpandToggle}
-          className="bg-green-500 text-white px-2 py-2 rounded-lg hover:bg-green-600"
+          className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
         >
           Add Element
         </button>
         <button
           onClick={handleSave}
-          className="bg-blue-500 text-white px-2 py-2 rounded-lg hover:bg-blue-600"
+          className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
         >
           Save
         </button>
         <button
           onClick={handleRenderer}
-          className="bg-blue-500 text-white px-2 py-2 rounded-lg hover:bg-blue-600"
+          className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
         >
           Preview
         </button>
@@ -191,6 +214,7 @@ function App() {
               addTask={addTask}
               getTaskPos={getTaskPos}
               handleIsProperty={handleIsProperty}
+              isInvalidDropZone={isInvalidDropZone}
             />
           </div>
         )}
@@ -212,7 +236,7 @@ function App() {
   
         {/* FormRenderer (Only shows when isRendered is true) */}
         {isRendered && (
-          <div className={`transform transition-all duration-500 translate-y-0 w-full opacity-100`}>
+          <div className={`overflow-y-scroll transform transition-all duration-500 translate-y-0 w-full opacity-100`}>
             <FormRenderer jsonConfig={jsonConfig} />
           </div>
         )}

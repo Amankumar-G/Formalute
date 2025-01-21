@@ -2,7 +2,7 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const Radio = ({ id, label, options, defaultSelected, required }) => {
+const Radio = ({ id, label, options, required }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id });
 
