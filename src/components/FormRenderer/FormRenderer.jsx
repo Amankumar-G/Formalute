@@ -1,13 +1,53 @@
 import React, { useState } from 'react';
 
-const FormRenderer = ({ formConfig }) => {
+const FormRenderer = ({jsonConfig}) => {
+  console.log(jsonConfig)
+  // [
+  //   {
+  //     "type": "text",
+  //     "name": "text",
+  //     "value": "",
+  //     "label": "UserName",
+  //     "placeholder": "Enter your userName",
+  //     "required": true,
+  //     "pattern": "^[A-Za-z0-9_]+$",
+  //     "autocomplete": "text",
+  //     "id": "b746a6fc-8b5d-4932-9abb-c2556e566db5",
+  //     "maxlength": "3",
+  //     "minlength": "-7",
+  //     "spellcheck": "true",
+  //     "size": ""
+  //   },
+  //   {
+  //     "type": "email",
+  //     "name": "email",
+  //     "value": "",
+  //     "label": "Email Address",
+  //     "placeholder": "Enter your email address",
+  //     "required": true,
+  //     "autocomplete": "email",
+  //     "id": "979c29ac-38be-47da-a66d-e6f4f6e9daf6",
+  //     "pattern": "",
+  //     "maxlength": "",
+  //     "minlength": "",
+  //     "spellcheck": "",
+  //     "size": ""
+  //   },
+  // ]
+  const parsedConfig = React.useMemo(() => {
+    try {
+      return JSON.parse(jsonConfig); // Parse string into array
+    } catch (err) {
+      console.error("Invalid JSON Config:", err);
+      return []; // Fallback to empty array
+    }
+  }, [jsonConfig]);
   const [formData, setFormData] = useState(
-    formConfig.reduce((acc, field) => {
+    parsedConfig .reduce((acc, field) => {
       acc[field.name] = field.value || '';
       return acc;
     }, {})
   );
-
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     setFormData({
@@ -233,8 +273,8 @@ const FormRenderer = ({ formConfig }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      {formConfig.map(renderField)}
+    <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-6 mt-16 bg-white rounded-lg shadow-md">
+      {parsedConfig.map(renderField)}
       <div className="mt-4">
         <button
           type="submit"

@@ -111,7 +111,7 @@ const PropertyBar = ({ activeElement, setFormElements }) => {
 
   return (
     <div
-      className="h-full overflow-y-auto overflow-x-hidden bg-gray-100 border-l border-gray-300"
+      className="h-full bg-gray-200 border-l border-gray-300"
     >
       {renderPropertyComponent()}
     </div>

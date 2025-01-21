@@ -46,7 +46,7 @@ const renderFormElement = (element) => {
 function FormBuilder(props) {
     return (
         <div
-            className={`bg-gray-100 pt-5 min-h-screen overflow-y-auto transition-all duration-500 w-full`}
+            className={`bg-gray-100 pt-5 transition-all duration-500 w-full`}
         >
             <div
                 className={`mx-auto transition-all duration-500 ${

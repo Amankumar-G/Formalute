@@ -53,7 +53,7 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200 flex flex-col px-6 py-4 space-y-8">
+    <div className=" bg-gray-200 flex flex-col px-6 py-4 space-y-8">
       <Header
         title={`Type : ${capitalize(activeElement.type)}`}
         buttonText="DONE"

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors, rectIntersection } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { v4 as uuidv4 } from "uuid";
@@ -6,19 +6,21 @@ import FormElements from "./components/Sidebar/FormElements";
 import FormBuilder from "./components/Builder/FormBuilder";
 import Notification from "./components/Notification";
 import PropertyBar from "./components/Property/PropertyBar";
+import FormRenderer from "./components/FormRenderer/FormRenderer";
 import FormData from "./FormData";
 import config from "./MainConfigFile";
-import "./App.css";
+import './index.css' 
 
 function App() {
   // State variables
   const [isExpanded, setIsExpanded] = useState(true);
+  const [isRendered, setIsRendered] = useState(false);
+  const [jsonConfig , setJsonConfig] = useState(null)
   const [isProperty, setIsProperty] = useState(false);
   const [formElements, setFormElements] = useState(FormData);
   const [activeId, setActiveId] = useState(null);
   const [activeElement, setActiveElement] = useState(null);
   const [notification, setNotification] = useState(null);
-
   // Drag-and-Drop sensors
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -42,17 +44,16 @@ function App() {
     setIsProperty(false);
     setIsExpanded((prev) => !prev);
   };
-
   const handleIsProperty = (element) => {
     setActiveElement(element);
     setIsExpanded(true);
     setIsProperty(true);
   };
-
+  
   const handleDragStart = useCallback(
     (event) => {
       const originalPos = getTaskPos(event.active.id);
-
+      
       if (originalPos === -1) {
         // Add a new form element
         setFormElements((prevElements) => {
@@ -68,12 +69,12 @@ function App() {
       } else {
         event.active.data.current = { hasAdded: false };
       }
-
+      
       setActiveId(event.active.data.current?.newId || event.active.id);
     },
     [getTaskPos]
   );
-
+  
   const handleDragOver = useCallback(
     (event) => {
       const { active, over } = event;
@@ -112,6 +113,16 @@ function App() {
     link.download = "ConfigForm.json";
     link.click();
   };
+  
+  const handlePreview = () => {
+    const data = JSON.stringify(formElements, null, 2);
+    const blob = new Blob([data], { type: "application/json" });
+    setJsonConfig((prev)=>prev = data)
+  };
+  
+  const handleRenderer = () =>{
+    setIsRendered((prev)=> !prev)
+  }
 
   const handleAddTask = (field) => {
     const newElement = addTask(field.type);
@@ -123,11 +134,15 @@ function App() {
     setNotification(message);
     setTimeout(() => setNotification(null), 1000);
   };
+ useEffect(() => {
+  setJsonConfig(JSON.stringify(formElements, null, 2)); // Convert formElements to a JSON string
+}, [formElements]); // This effect runs when formElements changes
 
   return (
-    <div className="flex relative min-h-screen overflow-x-hidden flex-col">
+    <div className="flex h-screen overflow-x-hidden flex-col">
+    {notification && <Notification notification={notification} />}
     {/* Navbar */}
-    <div className="w-full fixed top-0 left-0 z-10 bg-gray-700 text-white p-4 flex justify-between items-center shadow-md">
+    <div className="w-full z-10 bg-gray-700 text-white p-4 flex justify-between items-center shadow-md">
       {/* Navbar Title */}
       <div className="text-lg font-bold">Ninja JS</div>
       
@@ -135,24 +150,27 @@ function App() {
       <div className="flex space-x-6">
         <button
           onClick={handleExpandToggle}
-          className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+          className="bg-green-500 text-white px-2 py-2 rounded-lg hover:bg-green-600"
         >
           Add Element
         </button>
         <button
           onClick={handleSave}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+          className="bg-blue-500 text-white px-2 py-2 rounded-lg hover:bg-blue-600"
         >
-          Sav
+          Save
+        </button>
+        <button
+          onClick={handleRenderer}
+          className="bg-blue-500 text-white px-2 py-2 rounded-lg hover:bg-blue-600"
+        >
+          Preview
         </button>
       </div>
     </div>
-  
+    
     {/* Main Content */}
-    <div className="flex min-h-screen overflow-x-hidden pt-16">
-      {/* Notification */}
-      {notification && <Notification notification={notification} />}
-  
+    <div className="flex flex-1 overflow-hidden">
       {/* Drag-and-Drop Context */}
       <DndContext
         sensors={sensors}
@@ -163,26 +181,41 @@ function App() {
         onDragCancel={handleDragEnd}
       >
         {/* Left Panel */}
-        <div className={`transition-all duration-500 ${isExpanded ? "w-1/2" : "w-full"} overflow-y-scroll h-screen`}>
-          <FormBuilder
-            isExpanded={isExpanded}
-            formElements={formElements}
-            activeId={activeId}
-            setFormElements={setFormElements}
-            addTask={addTask}
-            getTaskPos={getTaskPos}
-            handleIsProperty={handleIsProperty}
-          />
-        </div>
+        {!isRendered && (
+          <div className={`transition-all duration-500 ${isExpanded ? "w-1/2" : "w-full"} overflow-y-auto`}>
+            <FormBuilder
+              isExpanded={isExpanded}
+              formElements={formElements}
+              activeId={activeId}
+              setFormElements={setFormElements}
+              addTask={addTask}
+              getTaskPos={getTaskPos}
+              handleIsProperty={handleIsProperty}
+            />
+          </div>
+        )}
   
         {/* Right Panel */}
-        <div className={`transform transition-all duration-500 ${isExpanded ? "translate-x-0 w-1/2 opacity-100" : "translate-x-full w-0 opacity-0"}`}>
-          {isProperty ? (
-            <PropertyBar activeElement={activeElement} setFormElements={setFormElements} />
-          ) : (
-            <FormElements onAddTask={handleAddTask} />
-          )}
-        </div>
+        {!isRendered && (
+          <div
+            className={`transform  transition-all duration-500 ${
+              isExpanded ? "translate-x-0 w-1/2 opacity-100" : "translate-x-full w-0 opacity-0"
+            } overflow-y-auto`}
+          >
+            {isProperty ? (
+                <PropertyBar activeElement={activeElement} setFormElements={setFormElements} />
+            ) : (
+              <FormElements onAddTask={handleAddTask} />
+            )}
+          </div>
+        )}
+  
+        {/* FormRenderer (Only shows when isRendered is true) */}
+        {isRendered && (
+          <div className={`transform transition-all duration-500 translate-y-0 w-full opacity-100`}>
+            <FormRenderer jsonConfig={jsonConfig} />
+          </div>
+        )}
       </DndContext>
     </div>
   </div>
@@ -192,4 +225,7 @@ function App() {
 }
 
 export default App;
+
+
+
 

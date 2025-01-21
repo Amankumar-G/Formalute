@@ -3,27 +3,6 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 const Radio = ({ id, label, options, defaultSelected, required }) => {
-  return (
-    <div className="radio-group">
-      {/* Render group label */}
-      {label && <h3 className="mb-2 block text-sm font-bold text-gray-700">{label}</h3>}
-
-      {/* Render radio buttons */}
-      {options.map(({ value, text }) => (
-        <SortableRadioItem
-          key={value}
-          id={`${id}-${value}`}
-          name={id}
-          value={value}
-          label={text}
-          required={required}
-        />
-      ))}
-    </div>
-  );
-};
-
-const SortableRadioItem = ({ id, name, value, label, defaultChecked, required }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id });
 
@@ -41,7 +20,30 @@ const SortableRadioItem = ({ id, name, value, label, defaultChecked, required })
       {...listeners}
       className="sortable-item mb-3"
     >
-      <div className="flex items-center mx-auto">
+    <div className="radio-group">
+      {/* Render group label */}
+      {label && <h3 className="mb-2 block text-sm font-bold text-gray-700">{label}</h3>}
+
+      {/* Render radio buttons */}
+      {options.map(({ value, text }) => (
+        <RadioItem
+          key={value}
+          id={`${id}-${value}`}
+          name={id}
+          value={value}
+          label={text}
+          required={required}
+        />
+      ))}
+    </div>
+    </div>
+  );
+};
+
+const RadioItem = ({ id, name, value, label, defaultChecked, required }) => {
+  return (
+    
+      <div className="flex items-center mx-auto mb-3">
         <input
           type="radio"
           id={id}
@@ -56,7 +58,7 @@ const SortableRadioItem = ({ id, name, value, label, defaultChecked, required })
           {label}
         </label>
       </div>
-    </div>
+
   );
 };
 

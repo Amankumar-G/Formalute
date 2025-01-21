@@ -26,7 +26,7 @@ const HiddenProperties = ({ activeElement, capitalize, handleDone }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200 flex flex-col px-6 py-4 space-y-8">
+    <div className=" bg-gray-200 flex flex-col px-6 py-4 space-y-8">
       {/* Header with Done Button */}
       <Header
         title={`Type : ${capitalize(activeElement.type)}`}
