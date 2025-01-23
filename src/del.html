@@ -1,35 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stepper Form</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: #f0f0f0;
+}
+
+.stepper-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.step {
+  width: 30px;
+  height: 30px;
+  background: #ddd;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #fff;
+}
+
+.step.active {
+  background: #4caf50;
+}
+
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+}
+
+button {
+  margin: 10px 5px 0;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.next-btn {
+  background: #4caf50;
+  color: #fff;
+}
+
+button.prev-btn {
+  background: #f44336;
+  color: #fff;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+  </style>
 </head>
-<style>
-    .invalid-zone {
-        width: 100px;
-        height: 100px;
-  animation: shake 0.5s ease-in-out infinite;
-  background-color: rgba(255, 0, 0, 0.2);
-}
-
-@keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-}
-
-</style>
 <body>
-    <div class="invalid-zone"></div>
+  <div class="stepper-container">
+    <div class="steps">
+      <div class="step active">1</div>
+      <div class="step">2</div>
+      <div class="step">3</div>
+    </div>
+    <form id="stepper-form">
+      <div class="form-step active">
+        <h2>Step 1</h2>
+        <input type="text" placeholder="Enter your name" required>
+        <button type="button" class="next-btn">Next</button>
+      </div>
+      <div class="form-step">
+        <h2>Step 2</h2>
+        <input type="email" placeholder="Enter your email" required>
+        <button type="button" class="prev-btn">Previous</button>
+        <button type="button" class="next-btn">Next</button>
+      </div>
+      <div class="form-step">
+        <h2>Step 3</h2>
+        <input type="password" placeholder="Enter your password" required>
+        <button type="button" class="prev-btn">Previous</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    const steps = document.querySelectorAll(".step");
+const formSteps = document.querySelectorAll(".form-step");
+const nextBtns = document.querySelectorAll(".next-btn");
+const prevBtns = document.querySelectorAll(".prev-btn");
+
+let currentStep = 0;
+
+nextBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    steps[currentStep].classList.remove("active");
+    formSteps[currentStep].classList.remove("active");
+    currentStep++;
+    steps[currentStep].classList.add("active");
+    formSteps[currentStep].classList.add("active");
+  });
+});
+
+prevBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    steps[currentStep].classList.remove("active");
+    formSteps[currentStep].classList.remove("active");
+    currentStep--;
+    steps[currentStep].classList.add("active");
+    formSteps[currentStep].classList.add("active");
+  });
+});
+
+document.getElementById("stepper-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  alert("Form submitted!");
+});
+
+  </script>
 </body>
 </html>

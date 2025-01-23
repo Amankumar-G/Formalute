@@ -4,7 +4,7 @@ const config = [
         name: "text",
         value: "",
         label: "Text Field",
-        placeholder: "Enter your Text",
+        placeholder: "Enter text",
         required: false,
         pattern: "^[A-Za-z0-9_]+$", // Alphanumeric with underscores
         autocomplete: "text",
@@ -13,8 +13,8 @@ const config = [
         type: "email",
         name: "email",
         value: "",
-        label: "Email Address",
-        placeholder: "Enter your email address",
+        label: "Email",
+        placeholder: "Enter email",
         required: false,
         autocomplete: "email",
     },
@@ -23,86 +23,87 @@ const config = [
         name: "password",
         value: "",
         label: "Password",
-        placeholder: "Enter your password",
+        placeholder: "Enter password",
         required: false,
         minlength: 8,
-        pattern: "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}", // Minimum 8 characters, at least one letter and one number
+        pattern: "", // Minimum 8 characters, at least one letter and one number
         autocomplete: "new-password",
     },
     {
         type: "number",
-        name: "age",
+        name: "number",
         value: "",
-        label: "Age",
-        placeholder: "Enter your age",
+        label: "Number",
+        placeholder: "Enter a number",
         required: false,
         min: 0,
-        max: 120,
+        max: 100,
         step: 1,
     },
     {
         type: "date",
-        name: "birthdate",
+        name: "date",
         value: "",
-        label: "Date of Birth",
-        placeholder: "Select your birthdate",
+        label: "Date",
+        placeholder: "Select a date",
         required: false,
         min: "1900-01-01",
         max: "2023-12-31",
     },
     {
         type: "tel",
-        name: "phone",
+        name: "tel",
         value: "",
-        label: "Phone Number",
-        placeholder: "Enter your phone number",
+        label: "Phone",
+        placeholder: "Enter phone number",
         required: false,
         pattern: "\\d{10}", // 10-digit number
         autocomplete: "tel",
     },
     {
         type: "url",
-        name: "website",
+        name: "url",
         value: "",
-        label: "Website",
-        placeholder: "Enter your website URL",
+        label: "URL",
+        placeholder: "Enter a URL",
         required: false,
         pattern: "https?://.*", // Must start with http:// or https://
         autocomplete: "url",
     },
     {
         type: "file",
-        name: "fileUpload",
+        name: "file",
         value: "",
-        label: "Upload File",
+        label: "File Upload",
         placeholder: "",
         required: false,
-        sizeLimit:10,
+        sizeLimit: 10, // File size limit in MB
         accept: "image/*", // Accept only image files
         multiple: false,
     },
     {
         type: "checkbox",
-        name: "acceptTerms",
-        label: "I accept the terms and conditions",
+        name: "checkbox",
+        label: "Checkbox Label",
         placeholder: "",
         required: false,
     },
     {
         type: "radio",
-        label: "Select your favorite option",
-        required: true,
+        name: "radio",
+        label: "Radio Group",
+        required: false,
         defaultSelected: "option1", // Indicates which option is selected by default
         options: [
-          { value: "option1", text: "Option 1" },
-          { value: "option2", text: "Option 2" }
+            { value: "option1", text: "Option 1" },
+            { value: "option2", text: "Option 2" }
         ]
-      },
+    },
     {
         type: "range",
-        name: "satisfaction",
+        name: "range",
         value: "50",
-        label: "Satisfaction Level",
+        label: "Range Selector",
         placeholder: "",
         required: false,
         min: 0,
@@ -111,10 +112,10 @@ const config = [
     },
     {
         type: "textarea",
-        name: "comments",
+        name: "textarea",
         value: "",
-        label: "Comments",
-        placeholder: "Enter your comments here",
+        label: "Textarea",
+        placeholder: "Enter text here",
         required: false,
         maxlength: 500,
         rows: 5,
@@ -122,15 +123,15 @@ const config = [
     },
     {
         type: "color",
-        name: "favoriteColor",
+        name: "color",
         value: "#000000",
-        label: "Favorite Color",
+        label: "Color Picker",
         placeholder: "",
         required: false,
     },
     {
         type: "search",
-        name: "searchQuery",
+        name: "search",
         value: "",
         label: "Search",
         placeholder: "Search here",
@@ -138,7 +139,7 @@ const config = [
     },
     {
         type: "hidden",
-        name: "userID",
+        name: "hidden",
         value: "12345",
         label: "Hidden Field",
         placeholder: "",
@@ -146,9 +147,9 @@ const config = [
     },
     {
         type: "datetime-local",
-        name: "appointment",
+        name: "datetime",
         value: "",
-        label: "Appointment Date & Time",
+        label: "Date & Time",
         placeholder: "",
         required: false,
         min: "2023-01-01T00:00",
@@ -156,54 +157,53 @@ const config = [
     },
     {
         type: "month",
-        name: "birthMonth",
+        name: "month",
         value: "",
-        label: "Birth Month",
+        label: "Month Selector",
         placeholder: "",
         required: false,
     },
     {
         type: "week",
-        name: "workWeek",
+        name: "week",
         value: "",
-        label: "Preferred Work Week",
+        label: "Week Selector",
         placeholder: "",
         required: false,
     },
     {
         type: "time",
-        name: "preferredTime",
+        name: "time",
         value: "",
-        label: "Preferred Time",
+        label: "Time Selector",
         placeholder: "",
         required: false,
     },
     {
         type: "select",
-        name: "country",
+        name: "select",
         value: "",
-        label: "Country",
+        label: "Dropdown",
         placeholder: "",
         required: false,
         options: [
-            { text: "United States", value: "us" },
-            { text: "Canada", value: "ca" },
-            { text: "United Kingdom", value: "uk" },
-            { text: "India", value: "in" },
-            { text: "Australia", value: "au" },
+            { text: "Option 1", value: "option1" },
+            { text: "Option 2", value: "option2" },
+            { text: "Option 3", value: "option3" }
         ],
     },
     {
         type: "multiple-checkbox", // Type of element
-        label: "Subscribe to Newsletter", // Label for the checkbox
-        required: true, // Checkbox is required
+        name: "multipleCheckbox", // Name of the element
+        label: "Multiple Checkbox Group", // Label for the checkbox
+        required: false, // Checkbox is required
         defaultChecked: false, // The checkbox is not checked by default
         options: [ // Options for the checkbox (useful for grouped checkboxes)
-          { value: "yes", text: "Yes, I want to receive newsletters" },
-          { value: "no", text: "No, I do not want to receive newsletters" },
+            { value: "option1", text: "Option 1" },
+            { value: "option2", text: "Option 2" }
         ],
-        value : [],
-        description: "This checkbox allows the user to subscribe or unsubscribe from the newsletter.", // Optional description
+        value: [],
+        description: "Description of the checkbox group.", // Optional description
     },
 ];
 

@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from 'react';
+import  convertAttributesToCamelCase  from './RendererElements/camleCaseUtil';
 import InputField from './RendererElements/InputField';
 import TextareaField from './RendererElements/TextareaField';
 import SelectField from './RendererElements/SelectField';
 import CheckboxField from './RendererElements/CheckboxField';
+import MultipleCheckbox from './RendererElements/MultipleCheckbox';
+import MultipleRadio from './RendererElements/MultipleRadio';
 import FileField from './RendererElements/FileField';
 import HiddenField from './RendererElements/HiddenField';
-import convertAttributesToCamelCase from './RendererElements/camleCaseUtil.js';
-import MultipleCheckbox from './RendererElements/MultipleCheckbox';
-import MultipleRadio from './RendererElements/MultipleRadio.jsx';
 
 const FormRenderer = ({ jsonConfig }) => {
   const parsedConfig = useMemo(() => {
@@ -30,9 +30,9 @@ const FormRenderer = ({ jsonConfig }) => {
     const { name, value, type, checked, files, options, multiple, dataset } = e.target;
     setFormData((prev) => {
       let updatedValue;
-  
-      const inputType = dataset.type || type; // Use custom type from data-* if provided, else fallback to original type
-  
+
+      const inputType = dataset.type || type;
+
       switch (inputType) {
         case 'checkbox':
           updatedValue = checked;
@@ -47,7 +47,7 @@ const FormRenderer = ({ jsonConfig }) => {
               .map((option) => option.value);
           }
           break;
-        case 'multiple-checkbox': // Custom logic for grouped checkboxes
+        case 'multiple-checkbox':
           updatedValue = prev[name] || [];
           if (checked) {
             updatedValue = [...updatedValue, value];
@@ -58,16 +58,13 @@ const FormRenderer = ({ jsonConfig }) => {
         default:
           updatedValue = value;
       }
-  
+
       return {
         ...prev,
         [name]: updatedValue,
       };
     });
   };
-  
-  
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,8 +73,19 @@ const FormRenderer = ({ jsonConfig }) => {
 
   const renderField = (field) => {
     const value = formData[field.name];
-    const fieldProps = { field : convertAttributesToCamelCase(field) , value, handleChange };
-    console.log(fieldProps)
+    const fieldProps = { field: convertAttributesToCamelCase(field), value, handleChange };
+
+    // Add styling for invalid and valid states
+    const baseClass =
+      'mt-1 block w-full rounded-md border shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500';
+    const validationClass = 'invalid:border-red-500 invalid:ring-red-500 valid:border-green-500';
+
+    const inputFieldProps = {
+      ...fieldProps,
+      className: `${baseClass} ${validationClass}`,
+      required: field.required,
+    };
+
     switch (field.type) {
       case 'text':
       case 'email':
@@ -86,21 +94,21 @@ const FormRenderer = ({ jsonConfig }) => {
       case 'url':
       case 'number':
       case 'date':
-        return <InputField {...fieldProps} />;
+        return <InputField {...inputFieldProps} />;
       case 'textarea':
-        return <TextareaField {...fieldProps} />;
+        return <TextareaField {...inputFieldProps} />;
       case 'select':
-        return <SelectField {...fieldProps} />;
+        return <SelectField {...inputFieldProps} />;
       case 'checkbox':
-        return <CheckboxField {...fieldProps} />;
+        return <CheckboxField {...inputFieldProps} />;
       case 'multiple-checkbox':
-        return <MultipleCheckbox {...fieldProps} />;
+        return <MultipleCheckbox {...inputFieldProps} />;
       case 'radio':
-        return <MultipleRadio {...fieldProps} />;
+        return <MultipleRadio {...inputFieldProps} />;
       case 'file':
-        return <FileField {...fieldProps} />;
+        return <FileField {...inputFieldProps} />;
       case 'hidden':
-        return <HiddenField {...fieldProps} />;
+        return <HiddenField {...inputFieldProps} />;
       default:
         console.warn(`Unsupported field type: ${field.type}`);
         return null;
