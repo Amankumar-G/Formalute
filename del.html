@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel with Ninja Form Builder</title>
+
+  <script type="module">
+    import React from 'https://esm.sh/react@18';
+    import ReactDOM from 'https://esm.sh/react-dom@18';
+
+    import { NinjaFormBuilder } from './dist/index.esm.js';  
+    document.addEventListener('DOMContentLoaded', function () {
+      const rootElement = document.getElementById('root');
+      const root = ReactDOM.createRoot(rootElement);
+
+      root.render(
+        React.createElement(NinjaFormBuilder, {
+          title: "Admin Form Builder",
+          theme: "light",
+        })
+      );
+    });
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #root {
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Mounting Point -->
+  <div id="root"></div>
+</body>
+</html>

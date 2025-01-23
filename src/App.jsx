@@ -11,7 +11,7 @@ import FormData from "./FormData";
 import config from "./MainConfigFile";
 import './index.css' 
 
-function App() { 
+function App({onSave}) { 
   // State variables
   const [isExpanded, setIsExpanded] = useState(true);
   const [isRendered, setIsRendered] = useState(false);
@@ -121,6 +121,9 @@ function App() {
     link.href = URL.createObjectURL(blob);
     link.download = "ConfigForm.json";
     link.click();
+    if(onSave!==undefined){
+      onSave(data) 
+    } 
   };
   
   const handleRenderer = () =>{

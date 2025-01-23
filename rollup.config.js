@@ -7,23 +7,34 @@ import terser from '@rollup/plugin-terser';
 import packageJson from './package.json' with { type: "json" };
 import tailwindcss from 'tailwindcss';
 import tailwindConfig from './tailwind.config.cjs';
+
 export default {
   input: 'src/index.js',
   output: [
     {
       file: packageJson.main,
       format: 'cjs',
-      sourcemap: true, // Set to 'inline' if needed
+      sourcemap: true, 
     },
     {
       file: packageJson.module,
       format: 'esm',
-      sourcemap: true, // Set to 'inline' if needed
+      sourcemap: true, 
+    },
+    {
+      file: 'dist/ninja-formbuilder.umd.js', // Add UMD output
+      format: 'umd',
+      name: 'NinjaFormBuilder', // Global variable name
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+      },
+      sourcemap: true,
     },
   ],
   plugins: [
     resolve({
-      extensions: ['.js', '.jsx'], // Add .jsx to the list of extensions
+      extensions: ['.js', '.jsx'],
     }),
     peerDepsExternal(),
     commonjs(),
@@ -34,9 +45,6 @@ export default {
       plugins: ['@babel/plugin-transform-runtime'],
     }),
     postcss({
-      config: {
-        path: './postcss.config.js',
-      },
       extensions: ['.css'],
       minimize: true,
       inject: {
@@ -44,17 +52,7 @@ export default {
       },
       plugins: [tailwindcss(tailwindConfig)],
     }),
-    terser(), // Minifies the output
-    {
-      input: "src/index.css",
-      output: [{ file: "dist/index.css", format: "es" }],
-      plugins: [
-          postcss({
-              extract: true,
-              minimize: true,
-          }),
-      ],
-      },    
+    terser(),
   ],
   external: Object.keys(packageJson.peerDependencies || {}),
 };

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ninja Form Builder</title>
+  
+  <!-- React and ReactDOM CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- UMD Build of Ninja Form Builder -->
+  <script src="dist/ninja-formbuilder.umd.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    #root {
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Mounting Point -->
+  <div id="root"></div>
+
+  <script>
+    // Access the UMD global directly
+    const NinjaFormBuilder = window.NinjaFormBuilder.NinjaFormBuilder;
+  
+    // Create a root and render the React component
+    const rootElement = document.getElementById('root');
+    const root = ReactDOM.createRoot(rootElement);
+  
+    // Define the onSave callback function
+    const handleSave = (jsonConfig) => {
+      console.log("Saved JSON Configuration:", jsonConfig);
+      // You can handle the jsonConfig however you like, for example, displaying it, sending it to an API, etc.
+    };
+  
+    root.render(
+      React.createElement(NinjaFormBuilder, {
+        // Pass the onSave prop to the component
+        title: "Sample Form",
+        theme: "light",
+        onSave: handleSave, // Here is the onSave prop being passed
+      })
+    );
+  </script>
+  
+</body>
+</html>
