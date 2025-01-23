@@ -8,6 +8,7 @@ import FileUploadProperties from "./PropertyElements/FileUploadProperties";
 import HiddenProperties from "./PropertyElements/HiddenProperties";
 import CheckboxProperties from "./PropertyElements/CheckboxProperties";
 import RadioButtonProperties from "./PropertyElements/RadioButtonProperties";
+import SingleCheckBox from "./PropertyElements/SingleCheckBox";
 
 function capitalize(str) {
   if (!str) return str;
@@ -42,6 +43,14 @@ const PropertyBar = ({ activeElement, setFormElements }) => {
       case "multiple-checkbox":
         return (
           <CheckboxProperties
+            activeElement={activeElement}
+            capitalize={capitalize}
+            handleDone={handleDone}
+          />
+        );
+      case "checkbox":
+        return (
+          <SingleCheckBox
             activeElement={activeElement}
             capitalize={capitalize}
             handleDone={handleDone}

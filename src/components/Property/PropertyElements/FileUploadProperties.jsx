@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import InputField from "./InputField";  // Assuming you have this InputField component
 import Toggle from './Toggle';          // Assuming you have this Toggle component
 import Header from "./Header";         // Assuming you have this Header component
@@ -9,9 +9,20 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
     required: activeElement.required || false,
     accept: activeElement.accept || ".jpg,.jpeg,.png,.pdf",
     multiple: activeElement.multiple || false,
-    sizeLimit: activeElement.sizeLimit || 10, // in MB
+    sizeLimit: activeElement.sizeLimit || 10,
+    name: activeElement.name || "",  // in MB
   });
 
+  useEffect(() => {
+    setFormDetails({
+      label: activeElement.label || "",
+      required: activeElement.required || false,
+      accept: activeElement.accept || ".jpg,.jpeg,.png,.pdf",
+      multiple: activeElement.multiple || false,
+      sizeLimit: activeElement.sizeLimit || 10,
+      name: activeElement.name || "",
+    });
+  }, [activeElement]);
   const handleFieldChange = (field, value) => {
     setFormDetails((prevDetails) => ({
       ...prevDetails,
@@ -26,7 +37,13 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
         buttonText="DONE"
         onClick={() => handleDone(formDetails)}
       />
-      
+      <InputField
+        id="name"
+        label="NAME"
+        placeholder="Enter name"
+        value={formDetails.name}
+        onChange={handleFieldChange}
+      />
       {/* General Properties (label & required toggle) */}
       <div className="flex items-center space-x-8">
         <InputField
@@ -36,7 +53,7 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
           value={formDetails.label}
           onChange={handleFieldChange}
         />
-        <Toggle   
+        <Toggle
           id="required"
           label="REQUIRED FIELD"
           checked={formDetails.required}
@@ -57,7 +74,7 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
       {/* Toggle for multiple file selection */}
       <div className="flex items-center space-x-8">
         <label className="font-medium">Allow Multiple Files</label>
-        <Toggle   
+        <Toggle
           id="multiple"
           checked={formDetails.multiple}
           onChange={handleFieldChange}

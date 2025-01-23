@@ -11,6 +11,7 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
     required: activeElement.required || false,
     defaultSelected: activeElement.defaultSelected || "",
     options: activeElement.options || [{ value: "", text: "" }],
+    name: activeElement.name || "", 
   });
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
       required: activeElement.required || false,
       defaultSelected: activeElement.defaultSelected || "",
       options: activeElement.options || [{ value: "", text: "" }],
+      name: activeElement.name || "",   
     });
   }, [activeElement]);
 
@@ -59,7 +61,13 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
         buttonText="DONE"
         onClick={() => handleDone(formDetails)}
       />
-
+       <InputField
+          id="name"
+          label="NAME"
+          placeholder="Enter name"
+          value={formDetails.name}
+          onChange={handleFieldChange}
+        />
       {/* General Properties */}
       <div className="flex items-center space-x-8">
         <InputField

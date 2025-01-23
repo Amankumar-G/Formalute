@@ -4,14 +4,13 @@ import Toggle from './Toggle';
 import Header from "./Header";
 
 const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
-  const [showAdditionalProperties, setShowAdditionalProperties] = useState(false);
-  console.log(activeElement)
-  const [formDetails, setFormDetails] = useState({
+   const [formDetails, setFormDetails] = useState({
     label: activeElement.label || "",
     required: activeElement.required || false,
     multiple: activeElement.multiple || false,
     size: activeElement.size || "",
     options: activeElement.options || [{ value: "", text: "" }],
+    name: activeElement.name || "",
   });
 
   useEffect(() => {
@@ -21,6 +20,7 @@ const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
       multiple: activeElement.multiple || false,
       size: activeElement.size || "",
       options: activeElement.options || [{ value: "", text: "" }],
+      name: activeElement.name || "",
     });
   }, [activeElement]);
 
@@ -61,7 +61,13 @@ const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
         buttonText="DONE"
         onClick={() => handleDone(formDetails)}
       />
-
+      <InputField
+          id="name"
+          label="NAME"
+          placeholder="Enter name"
+          value={formDetails.name}
+          onChange={handleFieldChange}
+        />
       {/* General Properties (label & required toggle) */}
       <div className="flex items-center space-x-8">
         <InputField
@@ -122,29 +128,7 @@ const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
         >
           Add Option
         </button>
-      </div>
-
-      {/* Toggle Button for Additional Properties */}
-      <button
-        className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
-        onClick={() => setShowAdditionalProperties((prev) => !prev)}
-      >
-        {showAdditionalProperties ? "Hide Additional Properties" : "Show Additional Properties"}
-      </button>
-
-      {/* Additional Properties Section */}
-      {showAdditionalProperties && (
-        <div className="grid grid-cols-2 gap-6 mt-4">
-          <InputField
-            id="size"
-            type="number"
-            label="SIZE"
-            placeholder="Enter visible size"
-            value={formDetails.size}
-            onChange={handleFieldChange}
-          />
-        </div>
-      )}
+      </div>   
     </div>
   );
 };

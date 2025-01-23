@@ -11,13 +11,13 @@ import FormData from "./FormData";
 import config from "./MainConfigFile";
 import './index.css' 
 
-function App() {
+function App() { 
   // State variables
   const [isExpanded, setIsExpanded] = useState(true);
   const [isRendered, setIsRendered] = useState(false);
   const [jsonConfig , setJsonConfig] = useState(null)
   const [isProperty, setIsProperty] = useState(false);
-  const [formElements, setFormElements] = useState(FormData);
+  const [formElements, setFormElements] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [activeElement, setActiveElement] = useState(null);
   const [notification, setNotification] = useState(null);

@@ -20,23 +20,41 @@ html {
 }
 
 .invalid-zone {
-animation: shake 0.5s ease-in-out infinite;
-background-color: rgba(255, 0, 0, 0.2);
+  animation: shake 0.5s ease-in-out infinite, disco 1.5s linear infinite;
+  background-color: rgba(255, 0, 0, 0.2); /* Starting color */
 }
 
 @keyframes shake {
-0%, 100% {
-transform: translateX(0);
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
 }
-25% {
-transform: translateX(-5px);
-}
-50% {
-transform: translateX(5px);
-}
-75% {
-transform: translateX(-5px);
-}
+
+@keyframes disco {
+  0% {
+    background-color: rgba(255, 0, 0, 0.6); /* Red */
+  }
+  25% {
+    background-color: rgba(0, 255, 0, 0.6); /* Green */
+  }
+  50% {
+    background-color: rgba(0, 0, 255, 0.6); /* Blue */
+  }
+  75% {
+    background-color: rgba(255, 255, 0, 0.6); /* Yellow */
+  }
+  100% {
+    background-color: rgba(255, 0, 255, 0.6); /* Purple */
+  }
 }
 
 .modal {

@@ -3,8 +3,7 @@ import InputField from "./InputField";
 import Toggle from './Toggle';
 import Header from "./Header";
 
-
-const TextProperties = ({ activeElement,capitalize ,handleDone }) => {
+const TextProperties = ({ activeElement, capitalize, handleDone }) => {
   const [showAdditionalProperties, setShowAdditionalProperties] = useState(false);
 
   const [formDetails, setFormDetails] = useState({
@@ -17,6 +16,7 @@ const TextProperties = ({ activeElement,capitalize ,handleDone }) => {
     minlength: activeElement.minlength || "",
     spellcheck: activeElement.spellcheck || "",
     size: activeElement.size || "",
+    name: activeElement.name || "", // Added name field
   });
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const TextProperties = ({ activeElement,capitalize ,handleDone }) => {
       minlength: activeElement.minlength || "",
       spellcheck: activeElement.spellcheck || "",
       size: activeElement.size || "",
+      name: activeElement.name || "", // Initialize name field
     });
   }, [activeElement]);
 
@@ -41,14 +42,14 @@ const TextProperties = ({ activeElement,capitalize ,handleDone }) => {
   };
 
   return (
-    <div className=" bg-gray-200 flex flex-col px-6 py-4 space-y-8">
-       <Header
+    <div className="bg-gray-200 flex flex-col px-6 py-4 space-y-8">
+      <Header
         title={`Type : ${capitalize(activeElement.type)}`}
         buttonText="DONE"
-        onClick={()=>handleDone(formDetails)}
+        onClick={() => handleDone(formDetails)}
       />
 
-      {/* General Properties (label & required toggle) */}
+      {/* General Properties (label, name, & required toggle) */}
       <div className="flex items-center space-x-8">
         <InputField
           id="label"
@@ -57,13 +58,15 @@ const TextProperties = ({ activeElement,capitalize ,handleDone }) => {
           value={formDetails.label}
           onChange={handleFieldChange}
         />
-        <Toggle   
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
+        <InputField
+          id="name"
+          label="NAME"
+          placeholder="Enter name"
+          value={formDetails.name}
           onChange={handleFieldChange}
         />
       </div>
+      <div className="flex items-center space-x-8">
       {/* Basic Properties */}
       <InputField
         id="placeholder"
@@ -73,7 +76,13 @@ const TextProperties = ({ activeElement,capitalize ,handleDone }) => {
         value={formDetails.placeholder}
         onChange={handleFieldChange}
       />
-
+        <Toggle
+          id="required"
+          label="REQUIRED FIELD"
+          checked={formDetails.required}
+          onChange={handleFieldChange}
+        />
+      </div>
       {/* Toggle Button for Additional Properties */}
       <button
         className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"

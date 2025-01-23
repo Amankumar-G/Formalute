@@ -13,6 +13,7 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
     min: activeElement.min || "",
     max: activeElement.max || "",
     step: activeElement.step || "",
+    name: activeElement.name || "",
   });
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
       min: activeElement.min || "",
       max: activeElement.max || "",
       step: activeElement.step || "",
+      name: activeElement.name || "",
     });
   }, [activeElement]);
 
@@ -50,14 +52,15 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
           value={formDetails.label}
           onChange={handleFieldChange}
         />
-        <Toggle   
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
+        <InputField
+          id="name"
+          label="NAME"
+          placeholder="Enter name"
+          value={formDetails.name}
           onChange={handleFieldChange}
         />
       </div>
-
+      <div className="flex items-center space-x-8">
       {/* Basic Properties */}
       <InputField
         id="placeholder"
@@ -67,7 +70,13 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
         value={formDetails.placeholder}
         onChange={handleFieldChange}
       />
-
+      <Toggle   
+          id="required"
+          label="REQUIRED FIELD"
+          checked={formDetails.required}
+          onChange={handleFieldChange}
+      />
+      </div>
       {/* Toggle Button for Additional Properties */}
       <button
         className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"

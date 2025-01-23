@@ -77,17 +77,16 @@ const config = [
         label: "Upload File",
         placeholder: "",
         required: false,
+        sizeLimit:10,
         accept: "image/*", // Accept only image files
         multiple: false,
     },
     {
         type: "checkbox",
         name: "acceptTerms",
-        value: "yes",
         label: "I accept the terms and conditions",
         placeholder: "",
         required: false,
-        checked: false, // Default unchecked
     },
     {
         type: "radio",
@@ -203,6 +202,7 @@ const config = [
           { value: "yes", text: "Yes, I want to receive newsletters" },
           { value: "no", text: "No, I do not want to receive newsletters" },
         ],
+        value : [],
         description: "This checkbox allows the user to subscribe or unsubscribe from the newsletter.", // Optional description
     },
 ];

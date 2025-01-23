@@ -13,7 +13,20 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
     rows: activeElement.rows || 4,
     cols: activeElement.cols || 50,
     maxlength: activeElement.maxlength || 500,
+    name: activeElement.name || "",
   });
+
+   useEffect(() => {
+      setFormDetails({
+        label: activeElement.label || "",
+        required: activeElement.required || false,
+        placeholder: activeElement.placeholder || "",
+        rows: activeElement.rows || 4,
+        cols: activeElement.cols || 50,
+        maxlength: activeElement.maxlength || 500,
+        name: activeElement.name || "",// Initialize name field
+      });
+    }, [activeElement]);
 
   const handleFieldChange = (field, value) => {
     setFormDetails((prevDetails) => ({
@@ -39,14 +52,15 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
           value={formDetails.label}
           onChange={handleFieldChange}
         />
-        <Toggle   
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
+         <InputField
+          id="name"
+          label="NAME"
+          placeholder="Enter name"
+          value={formDetails.name}
           onChange={handleFieldChange}
         />
       </div>
-
+      <div className="flex items-center space-x-8">
       {/* Basic Properties */}
       <InputField
         id="placeholder"
@@ -56,7 +70,13 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
         value={formDetails.placeholder}
         onChange={handleFieldChange}
       />
-
+       <Toggle   
+          id="required"
+          label="REQUIRED FIELD"
+          checked={formDetails.required}
+          onChange={handleFieldChange}
+        />
+        </div>
       {/* Toggle Button for Additional Properties */}
       <button
         className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"

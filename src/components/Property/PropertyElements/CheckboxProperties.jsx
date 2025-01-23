@@ -11,6 +11,7 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
     required: activeElement.required || false,
     defaultChecked: activeElement.defaultChecked || false,
     options: activeElement.options || [{ value: "", text: "" }],
+    name: activeElement.name || "", 
   });
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
       required: activeElement.required || false,
       defaultChecked: activeElement.defaultChecked || false,
       options: activeElement.options || [{ value: "", text: "" }],
+      name: activeElement.name || "", 
     });
   }, [activeElement]);
 
@@ -69,14 +71,21 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
           value={formDetails.label}
           onChange={handleFieldChange}
         />
-        <Toggle
+        <InputField
+          id="name"
+          label="NAME"
+          placeholder="Enter name"
+          value={formDetails.name}
+          onChange={handleFieldChange}
+        />
+      </div>
+      <div className="flex items-center space-x-8">
+      <Toggle
           id="required"
           label="REQUIRED FIELD"
           checked={formDetails.required}
           onChange={handleFieldChange}
         />
-      </div>
-
       {/* Default Checked Property */}
       <Toggle
         id="defaultChecked"
@@ -84,7 +93,7 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
         checked={formDetails.defaultChecked}
         onChange={handleFieldChange}
       />
-
+     </div>
       {/* Options Section */}
       <div className="space-y-4">
         <h3 className="text-lg font-bold text-gray-700">Options</h3>
