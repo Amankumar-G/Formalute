@@ -15,17 +15,30 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const PropertyBar = ({ activeElement, setFormElements }) => {
+const PropertyBar = ({ activeElement, setFormPartitions, activePartitionIndex }) => {
   const handleDone = (formDetails) => {
-    setFormElements((prevElements) =>
-      prevElements.map((element) =>
-        element.id === activeElement.id
-          ? { ...element, ...formDetails }
-          : element
-      )
-    );
+    setFormPartitions((prevPartitions) => {
+      const updatedPartitions = [...prevPartitions];
+      updatedPartitions[activePartitionIndex] = prevPartitions[activePartitionIndex].map(
+        (element) =>
+          element.id === activeElement.id
+            ? { ...element, ...formDetails }
+            : element
+      );
+      console.log(updatedPartitions);
+      return updatedPartitions;
+    });
   };
-
+  // setFormPartitions((prevPartitions) => {
+  //   const updatedPartitions = [...prevPartitions];
+  //   updatedPartitions[activePartitionIndex] = prevPartitions[activePartitionIndex].filter(
+  //     (element) =>
+  //       element.id === activeElement.id
+  // ? { ...element, ...formDetails }
+  // : element
+  //   );
+  //   return updatedPartitions;
+  // });
   const renderPropertyComponent = () => {
     switch (activeElement.type) {
       case "text":

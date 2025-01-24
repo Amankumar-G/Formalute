@@ -9,7 +9,6 @@ import { SortableContext } from '@dnd-kit/sortable';
 import MultiCheckBox from './Elements/MultiCheckBox';
 import { DragOverlay } from '@dnd-kit/core';
 
-
 const renderFormElement = (element) => {
     switch (element.type) {
         case 'text':
@@ -42,49 +41,49 @@ const renderFormElement = (element) => {
     }
 };
 
-
 function FormBuilder(props) {
+    const activeElement = props.activeId
+        ? props.formElements.find((elem) => elem.id === props.activeId)
+        : null;
+
     return (
         <div
-            className={` py-5 transition-all duration-500 w-full`}
-        >
+    className={`py-5 mx-auto transition-all duration-500 ${
+        props.isExpanded ? 'w-1/2' : 'w-1/3'
+    } overflow-y-auto`} // Parent allows scrolling if content overflows
+>
+    <div className={`flex flex-col gap-2 ${props.stepper ? "max-h-[70vh]" : "max-h-[80vh]"} overflow-y-auto`}> {/* Added max-height and overflow-y-auto */}
+        <SortableContext items={props.formElements} strategy={() => {}}>
+            {props.formElements.map((element) => (
+                <div
+                    key={element.id}
+                    onClick={(event) => {
+                        event.stopPropagation(); // Prevents event bubbling to parent elements.
+                        props.handleIsProperty(element); // Triggers the parent click behavior.
+                    }}
+                    className="p-4 border border-transparent hover:border-gray-600 transition-all rounded-lg duration-300"
+                >
+                    {renderFormElement(element)}
+                </div>
+            ))}
+        </SortableContext>
+    </div>
+
+    <DragOverlay>
+        {activeElement && (
             <div
-                className={`mx-auto transition-all duration-500 ${
-                    props.isExpanded ? 'w-1/2' : 'w-1/3'
-                }`}
+                className={`${
+                    props.isInvalidDropZone ? 'invalid-zone' : ''
+                } rounded-lg p-4 bg-white shadow-md opacity-90 hover:opacity-75 transition-all duration-300`}
             >
-                <SortableContext items={props.formElements} strategy={() => {}}>
-                    <div className="flex flex-col gap-2">
-                        {props.formElements.map((element) => (
-                            <div
-                                key={element.id}
-                                onClick={(event) => {
-                                    event.stopPropagation(); // Prevents event bubbling to parent elements.
-                                    props.handleIsProperty(element); // Triggers the parent click behavior.
-                                }}
-                                className="p-4 border border-transparent hover:border-gray-600 transition-all rounded-lg duration-300"
-                            >
-                                {renderFormElement(element)}
-                            </div>
-                        ))}
-                    </div>
-                </SortableContext>
-                <DragOverlay>
-                    {props.activeId ? (() => {
-                        const elem = props.formElements.find(
-                            (elem) => elem.id === props.activeId
-                        );
-                        return elem ? (
-                            <div className={`${props.isInvalidDropZone ? "invalid-zone" : ""} rounded-lg  p-2 opacity-90 hover:opacity-75 transition-all duration-300`}>
-                                {renderFormElement(elem)}
-                            </div>
-                        ) : null;
-                    })() : null}
-                </DragOverlay>
+                {renderFormElement(activeElement)}
             </div>
-        </div>
-    );
+        )}
+    </DragOverlay>
+</div>
+
     
+    );
 }
 
 export default FormBuilder;
