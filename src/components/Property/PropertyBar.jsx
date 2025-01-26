@@ -9,13 +9,14 @@ import HiddenProperties from "./PropertyElements/HiddenProperties";
 import CheckboxProperties from "./PropertyElements/CheckboxProperties";
 import RadioButtonProperties from "./PropertyElements/RadioButtonProperties";
 import SingleCheckBox from "./PropertyElements/SingleCheckBox";
+import HtmlProperties from "./PropertyElements/HtmlProperties";
 
 function capitalize(str) {
   if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const PropertyBar = ({ activeElement, setFormPartitions, activePartitionIndex }) => {
+const PropertyBar = ({ activeElement, setFormPartitions, setIsProperty,activePartitionIndex }) => {
   const handleDone = (formDetails) => {
     setFormPartitions((prevPartitions) => {
       const updatedPartitions = [...prevPartitions];
@@ -25,6 +26,7 @@ const PropertyBar = ({ activeElement, setFormPartitions, activePartitionIndex })
             ? { ...element, ...formDetails }
             : element
       );
+      setIsProperty(false);
       console.log(updatedPartitions);
       return updatedPartitions;
     });
@@ -104,6 +106,14 @@ const PropertyBar = ({ activeElement, setFormPartitions, activePartitionIndex })
       case "select":
         return (
           <SelectProperties
+            activeElement={activeElement}
+            capitalize={capitalize}
+            handleDone={handleDone}
+          />
+        );
+      case "html":
+        return (
+          <HtmlProperties
             activeElement={activeElement}
             capitalize={capitalize}
             handleDone={handleDone}

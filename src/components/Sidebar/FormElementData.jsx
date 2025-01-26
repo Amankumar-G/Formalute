@@ -19,12 +19,12 @@ const FormElementsData = [
       },
       {
         type: "number",
-        label: "Age",
+        label: "Number",
         image: "https://example.com/images/age.png",
       },
       {
         type: "textarea",
-        label: "Comments",
+        label: "Textarea",
         image: "https://example.com/images/comments.png",
       }
     ],
@@ -39,12 +39,12 @@ const FormElementsData = [
       },
       {
         type: "file",
-        label: "Upload Avatar",
+        label: "Upload File",
         image: "https://example.com/images/upload.png",
       },
       {
         type: "tel",
-        label: "Phone Number",
+        label: "Telephone Number",
         image: "https://example.com/images/phone.png",
       },
       {
@@ -64,7 +64,7 @@ const FormElementsData = [
       },
       {
         type: "checkbox",
-        label: "Agree to Terms",
+        label: "Single Checkbox",
         image: "https://example.com/images/checkbox.png",
       },  
       {
@@ -74,17 +74,37 @@ const FormElementsData = [
       },
       {
         type: "radio",
-        label: "Radio Buttons",
+        label: "Multiple - Radio Buttons",
         image: "https://example.com/images/gender.png",
       },
       {
         type: "url",
-        label: "Website",
+        label: "URL",
         image: "https://example.com/images/website.png",
       },
       {
         type: "range",
         label: "Range",
+        image: "https://example.com/images/range.png",
+      }
+    ],
+  },
+  {
+    heading: "Attributes",
+    fields: [
+      {
+        type: "html",
+        label: "HTML Content",
+        image: "https://example.com/images/country.png",
+      }, 
+      {
+        type: "color",
+        label: "Color Picker",
+        image: "https://example.com/images/checkbox.png",
+      },
+      {
+        type: "divider",
+        label : "Divider",
         image: "https://example.com/images/range.png",
       }
     ],

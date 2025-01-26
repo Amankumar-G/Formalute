@@ -205,6 +205,21 @@ const config = [
         value: [],
         description: "Description of the checkbox group.", // Optional description
     },
+    {
+        type : "html",
+        name : "html",
+        value : "h1",
+        color : "black",
+        italic : false,
+        bold : false,
+        label : "HTML Content",
+        required : false,
+        description : "HTML content description",
+    },
+    {
+        type: "divider",
+        name: "divider",
+    },  
 ];
 
 export default config;

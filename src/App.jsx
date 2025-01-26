@@ -27,6 +27,7 @@ function App({ onSave }) {
   const [isRendered, setIsRendered] = useState(false);
   const [jsonConfig, setJsonConfig] = useState(null);
   const [isProperty, setIsProperty] = useState(false);
+  const [isMultiPart, setIsMultiPart] = useState(false);
   const [activeId, setActiveId] = useState(null);
   const [activeElement, setActiveElement] = useState(null);
   const [notification, setNotification] = useState(null);
@@ -39,7 +40,7 @@ function App({ onSave }) {
     () => formPartitions[activePartitionIndex] || [],
     [formPartitions, activePartitionIndex]
   );
-
+  console.log("isMultiPart", isMultiPart);  
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -168,7 +169,15 @@ function App({ onSave }) {
     []
   );
 
-
+  const handleDelete = (id) => {
+    setFormPartitions((prev) => {
+      const updatedPartitions = [...prev];
+      updatedPartitions[activePartitionIndex] = updatedPartitions[
+        activePartitionIndex
+      ].filter((el) => el.id !== id);
+      return updatedPartitions;
+    });
+  };
   const addTask = (type) => {
     const template = config.find((input) => input.type === type);
     return template ? { ...template, id: uuidv4() } : null;
@@ -216,6 +225,33 @@ function App({ onSave }) {
     setPendingDeletionElement(null);
   };
 
+  const handleIsMultiPart = () => {
+    setIsMultiPart((prev) => !prev);
+  };
+
+  const handleDeletePartition = (index) => {
+    setFormPartitions((prev) => {
+      if (prev.length === 1) {
+        showNotification("Cannot delete the last partition!");
+        return prev; // Prevent deleting the last partition
+      }
+      
+      const updatedPartitions = prev.filter((_, i) => i !== index); // Remove the selected partition
+  
+      // Adjust active partition index if necessary
+      setActivePartitionIndex((prevIndex) => {
+        if (index <= prevIndex && prevIndex > 0) {
+          return prevIndex - 1; // Move active index back if the deleted partition was before/at the active one
+        }
+        return prevIndex; // Keep index as is if the deleted partition was after
+      });
+  
+      showNotification("Partition Deleted!");
+      return updatedPartitions;
+    });
+  };
+  
+
   useEffect(() => {
     setJsonConfig((prev) =>{
       const data = formPartitions.map((partition, index) => ({
@@ -242,11 +278,8 @@ function App({ onSave }) {
         handleExpandToggle={handleExpandToggle}
         handleSave={handleSave}
         handleRenderer={handleRenderer}
-        handleAddPartition={handleAddPartition}
-        formPartitions={formPartitions}
-        activePartitionIndex={activePartitionIndex}
-        handleNavigatePartition={handleNavigatePartition}
-      />
+        handleIsMultiPart={handleIsMultiPart}
+        />
 
       <div className="flex flex-1 overflow-hidden">
         <DndContext
@@ -264,14 +297,14 @@ function App({ onSave }) {
               {activePartitionIndex > 0 &&
                 <LeftButtons handleNavigatePartition={handleNavigatePartition} />}
 
-              {/* Add "+" Button (visible only if there is no right navigation button) */}
-              {activePartitionIndex < formPartitions.length - 1 && <RightButtons handleNavigatePartition={handleNavigatePartition} />}
+      
+              { activePartitionIndex < formPartitions.length - 1 && <RightButtons handleNavigatePartition={handleNavigatePartition} />}
 
 
-               {formPartitions.length > 1 &&<Stepper formPartitions={formPartitions} activePartitionIndex={activePartitionIndex} setActivePartitionIndex={setActivePartitionIndex}/>}
+               {formPartitions.length > 1 &&<Stepper handleDeletePartition={handleDeletePartition} formPartitions={formPartitions} activePartitionIndex={activePartitionIndex} setActivePartitionIndex={setActivePartitionIndex}/>}
 
               {/* "+" Button */}
-              {activePartitionIndex === formPartitions.length - 1 &&
+              {isMultiPart && activePartitionIndex === formPartitions.length - 1 &&
                <AddButton handleAddPartition={handleAddPartition} />}
 
               <FormBuilder
@@ -285,6 +318,7 @@ function App({ onSave }) {
                     return updatedPartitions;
                   });
                 }}
+                handleDelete={handleDelete}
                 addTask={addTask}
                 getTaskPos={getTaskPos}
                 handleIsProperty={handleIsProperty}
@@ -303,6 +337,7 @@ function App({ onSave }) {
                 <PropertyBar
                   activeElement={activeElement}
                   setFormPartitions={setFormPartitions}
+                  setIsProperty={setIsProperty}
                   activePartitionIndex={activePartitionIndex}
                 />
               ) : (

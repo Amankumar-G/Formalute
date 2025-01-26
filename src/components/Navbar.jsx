@@ -1,7 +1,7 @@
 // Navbar.js
 import React from "react";
 
-const Navbar = ({handleExpandToggle,handleSave,handleRenderer,handleAddPartition,handleNavigatePartition,activePartitionIndex,formPartitions}) => {
+const Navbar = ({handleExpandToggle,handleSave,handleRenderer,handleIsMultiPart}) => {
   return (
     <div className="w-full z-10 bg-gray-700 text-white p-4 flex justify-between items-center shadow-md">
     {/* Navbar Title */}
@@ -26,6 +26,12 @@ const Navbar = ({handleExpandToggle,handleSave,handleRenderer,handleAddPartition
         className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
       >
         Preview
+      </button>
+      <button
+        onClick={()=>handleIsMultiPart()}
+        className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
+      >
+        Multi-Part Form
       </button>
     </div>
   </div>
