@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { LeftButtons, RightButtons, AddButton, Stepper } from "../LeftRightButtons";
+import { Stepper } from "../LeftRightButtons";
 import convertAttributesToCamelCase from "./RendererElements/camleCaseUtil";
 import InputField from "./RendererElements/InputField";
 import TextareaField from "./RendererElements/TextareaField";
@@ -9,9 +9,14 @@ import MultipleCheckbox from "./RendererElements/MultipleCheckbox";
 import MultipleRadio from "./RendererElements/MultipleRadio";
 import FileField from "./RendererElements/FileField";
 import HiddenField from "./RendererElements/HiddenField";
+import HTMLField from "./RendererElements/HTMLField"
+import ColorRenderer from "./RendererElements/ColorRenderer"
+import RangeRenderer from "./RendererElements/RangeRenderer";
+import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'; // Importing React Icons
 
 
 const FormRenderer = ({ jsonConfig }) => {
+
   // Parse the JSON configuration
   const parsedConfig = useMemo(() => {
     try {
@@ -45,7 +50,7 @@ const FormRenderer = ({ jsonConfig }) => {
           updatedValue = checked;
           break;
         case "file":
-          updatedValue = files;
+          updatedValue = files ? Array.from(files) : [];
           break;
         case "select-multiple":
           if (multiple && options) {
@@ -83,7 +88,6 @@ const FormRenderer = ({ jsonConfig }) => {
   const renderField = (field) => {
     const value = formData[field.name];
     const fieldProps = { field: convertAttributesToCamelCase(field), value, handleChange };
-
     switch (field.type) {
       case "text":
       case "email":
@@ -93,6 +97,8 @@ const FormRenderer = ({ jsonConfig }) => {
       case "number":
       case "date":
         return <InputField {...fieldProps} />;
+      case 'color':
+        return <ColorRenderer {...fieldProps} />
       case "textarea":
         return <TextareaField {...fieldProps} />;
       case "select":
@@ -107,79 +113,92 @@ const FormRenderer = ({ jsonConfig }) => {
         return <FileField {...fieldProps} />;
       case "hidden":
         return <HiddenField {...fieldProps} />;
+      case "html":
+        return <HTMLField {...fieldProps} />
+      case "range":
+        return <RangeRenderer {...fieldProps} />
+      case "divider":
+        return <hr></hr>
       default:
         console.warn(`Unsupported field type: ${field.type}`);
         return null;
     }
   };
 
-  return (<div className="relative">
-  {parsedConfig.length > 1 && <Stepper
-    formPartitions={parsedConfig}
-    activePartitionIndex={activePartitionIndex}
-    setActivePartitionIndex={setActivePartitionIndex}
-  />}
-  <form
-    onSubmit={handleSubmit}
-    className="max-w-xl mx-auto p-6 mt-16 bg-white rounded-lg shadow-md"
-  >
-    {parsedConfig.length > 0 && parsedConfig[activePartitionIndex] ? (
-      <>
-        {parsedConfig[activePartitionIndex].elements.map((field) => (
-          <div key={field.id} className="mb-4">
-            {renderField(field)}
-          </div>
-        ))}
-      </>
-    ) : (
-      <p>No fields to render</p>
-    )}
+  return (
+    <div className="relative bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      {parsedConfig.length > 1 && (
+        <Stepper
+          formPartitions={parsedConfig}
+          activePartitionIndex={activePartitionIndex}
+          setActivePartitionIndex={setActivePartitionIndex}
+        />
+      )}
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg shadow-indigo-500/20"
+      >
+        {parsedConfig.length > 0 && parsedConfig[activePartitionIndex] ? (
+          <>
+            <div className="space-y-8">
+              {parsedConfig[activePartitionIndex].elements.map((field) => (
+                <div key={field.id} className="space-y-4">
+                  {renderField(field)}
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <p className="text-gray-500 text-center">No fields to render</p>
+        )}
 
-{Array.isArray(parsedConfig) && parsedConfig.length > 1 ? (
-  <div className="w-full max-w-md mx-auto bg-indigo-100 border-2 border-indigo-600 rounded-md">
-    <div className="flex items-center justify-between gap-3 p-2 bg-white rounded">
-      {/* Back Button - Hide when on first partition */}
+
+
+{parsedConfig.length > 1 ? (
+  <div className="w-full max-w-md mx-auto mt-6 bg-indigo-100 border-2 border-indigo-600 rounded-md">
+    <div className="flex items-center justify-between gap-6 p-5 bg-white rounded-t-lg shadow-md">
+      {/* Back Button */}
       {activePartitionIndex > 0 && (
         <button
           type="button"
           onClick={() => setActivePartitionIndex(activePartitionIndex - 1)}
-          className="flex items-center gap-1.5 border-none text-base font-medium py-1.5 text-gray-700 transition-all duration-300 hover:text-indigo-600"
+          className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105"
         >
-          <svg className="rotate-180" xmlns="http://www.w3.org/2000/svg" width="22" height="23" viewBox="0 0 22 23" fill="none">
-            <path d="M8.25324 6.37646L13.7535 11.8767L8.25 17.3802" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          Back
+          <FiArrowLeft className="w-5 h-5" /> {/* React Icon for Back Arrow */}
+          <span className="text-sm font-medium">Back</span>
         </button>
       )}
 
-      {/* Dots for Progress - Ensure they are centered */}
-      <ul className="flex gap-1 items-center mx-auto">
+      {/* Progress Dots */}
+      <ul className="flex gap-3 items-center mx-auto">
         {parsedConfig.map((_, index) => (
           <li
             key={index}
-            className={`text-base font-normal w-2 h-2 rounded-full ${index <= activePartitionIndex ? 'bg-indigo-600' : 'bg-indigo-100'}`}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${index <= activePartitionIndex ? "bg-indigo-600" : "bg-indigo-200"
+              }`}
           />
         ))}
       </ul>
 
-      {/* Next or Submit Button - Show Submit on last step */}
+      {/* Next or Submit Button */}
       {activePartitionIndex < parsedConfig.length - 1 ? (
         <button
           type="button"
-          onClick={() => setActivePartitionIndex(activePartitionIndex + 1)}
-          className="flex items-center gap-1.5 border-none text-base font-medium py-1.5 text-gray-700 transition-all duration-300 hover:text-indigo-600"
+          onClick={(e) => {
+            e.preventDefault(); 
+            setActivePartitionIndex(activePartitionIndex + 1)}}
+          className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105"
         >
-          Next
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="23" viewBox="0 0 22 23" fill="none">
-            <path d="M8.25324 6.37646L13.7535 11.8767L8.25 17.3802" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <span className="text-sm font-medium">Next</span>
+          <FiArrowRight className="w-5 h-5" /> {/* React Icon for Next Arrow */}
         </button>
       ) : (
         <button
           type="submit"
-          className="flex items-center gap-1.5 border-none text-base font-medium py-1.5 text-gray-700 transition-all duration-300 hover:text-indigo-600"
+          className="flex items-center gap-3 text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none py-2 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
         >
-          Submit
+          <span className="text-sm font-medium">Submit</span>
+          <FiArrowRight className="w-5 h-5" /> {/* React Icon for Submit Arrow */}
         </button>
       )}
     </div>
@@ -187,15 +206,17 @@ const FormRenderer = ({ jsonConfig }) => {
 ) : (
   <button
     type="submit"
-    className="block w-full py-3 mt-4 bg-indigo-600 text-white rounded-md font-semibold text-lg hover:bg-indigo-700"
+    className="w-full py-3 mt-6 bg-indigo-600 text-white rounded-md font-semibold text-lg hover:bg-indigo-700 transition-all duration-300"
   >
     Submit
   </button>
 )}
 
-  </form>
-</div>)
 
+      </form>
+    </div>
+  )
 };
+
 
 export default FormRenderer;

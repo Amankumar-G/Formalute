@@ -10,6 +10,9 @@ import CheckboxProperties from "./PropertyElements/CheckboxProperties";
 import RadioButtonProperties from "./PropertyElements/RadioButtonProperties";
 import SingleCheckBox from "./PropertyElements/SingleCheckBox";
 import HtmlProperties from "./PropertyElements/HtmlProperties";
+import RangeProperties from "./PropertyElements/RangeProperties";
+import ColorProperties from "./PropertyElements/ColorProperties";
+
 
 function capitalize(str) {
   if (!str) return str;
@@ -130,6 +133,22 @@ const PropertyBar = ({ activeElement, setFormPartitions, setIsProperty,activePar
       case "radio":
         return (
           <RadioButtonProperties
+            activeElement={activeElement}
+            capitalize={capitalize}
+            handleDone={handleDone}
+          />
+        );
+      case "range":
+        return (
+          <RangeProperties
+            activeElement={activeElement}
+            capitalize={capitalize}
+            handleDone={handleDone}
+          />
+        );
+      case "color":
+        return (
+          <ColorProperties
             activeElement={activeElement}
             capitalize={capitalize}
             handleDone={handleDone}

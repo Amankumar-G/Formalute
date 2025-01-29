@@ -36,78 +36,80 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
   };
 
   return (
-    <div className="bg-gray-200 flex flex-col px-6 py-4 space-y-8">
-      <Header
-        title={`Type : ${capitalize(activeElement.type)}`}
-        buttonText="DONE"
-        onClick={() => handleDone(formDetails)}
-      />
+    <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
+  <Header
+    title={`Type : ${capitalize(activeElement.type)}`}
+    buttonText="DONE"
+    onClick={() => handleDone(formDetails)}
+    className="border-b pb-4 mb-6"
+  />
 
-      {/* General Properties */}
-      <div className="grid grid-cols-2 gap-6">
-        <InputField
-          id="label"
-          label="LABEL"
-          placeholder="Enter label"
-          value={formDetails.label}
-          onChange={handleFieldChange}
-        />
-        <InputField
-          id="name"
-          label="NAME"
-          placeholder="Enter name"
-          value={formDetails.name}
-          onChange={handleFieldChange}
-          />
-      </div>
+  {/* General Properties */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <InputField
+      id="label"
+      label="LABEL"
+      placeholder="Enter label"
+      value={formDetails.label}
+      onChange={handleFieldChange}
+    />
+    <InputField
+      id="name"
+      label="NAME"
+      placeholder="Enter name"
+      value={formDetails.name}
+      onChange={handleFieldChange}
+    />
+  </div>
 
-      {/* Text Formatting Properties */}
-      <div className="grid grid-cols-2 gap-6">
-        <InputField
-          id="value"
-          label="HTML TAG (e.g., h1, h2, p)"
-          placeholder="Enter HTML tag"
-          value={formDetails.value}
-          onChange={handleFieldChange}
-          />
-        <InputField
-          id="color"
-          label="COLOR"
-          placeholder="Enter text color (e.g., black, red)"
-          value={formDetails.color}
-          onChange={handleFieldChange}
-        />
-        <Toggle
-          id="italic"
-          label="ITALIC"
-          checked={formDetails.italic}
-          onChange={handleFieldChange}
-        />
-        <Toggle
-          id="bold"
-          label="BOLD"
-          checked={formDetails.bold}
-          onChange={handleFieldChange}
-        />
-      </div>
+  {/* Text Formatting Properties */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <InputField
+      id="value"
+      label="HTML TAG (e.g., h1, h2, p)"
+      placeholder="Enter HTML tag"
+      value={formDetails.value}
+      onChange={handleFieldChange}
+    />
+    <InputField
+      id="color"
+      label="COLOR"
+      placeholder="Enter text color (e.g., black, red)"
+      value={formDetails.color}
+      onChange={handleFieldChange}
+    />
+    <Toggle
+      id="italic"
+      label="ITALIC"
+      checked={formDetails.italic}
+      onChange={handleFieldChange}
+    />
+    <Toggle
+      id="bold"
+      label="BOLD"
+      checked={formDetails.bold}
+      onChange={handleFieldChange}
+    />
+  </div>
 
-      {/* Additional Properties */}
-      <div className="grid grid-cols-2 gap-6">
-        <InputField
-          id="description"
-          label="DESCRIPTION"
-          placeholder="Enter description"
-          value={formDetails.description}
-          onChange={handleFieldChange}
-        />
-        <Toggle
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
-          onChange={handleFieldChange}
-        />
-      </div>
-    </div>
+  {/* Additional Properties */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <InputField
+      id="description"
+      label="DESCRIPTION"
+      placeholder="Enter description"
+      value={formDetails.description}
+      onChange={handleFieldChange}
+    />
+    <Toggle
+      id="required"
+      label="REQUIRED FIELD"
+      checked={formDetails.required}
+      onChange={handleFieldChange}
+    />
+  </div>
+</div>
+
   );
 };
 

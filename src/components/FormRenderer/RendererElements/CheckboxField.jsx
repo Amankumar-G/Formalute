@@ -1,17 +1,23 @@
-import React from 'react'
+import React from "react";
 
 const CheckboxField = ({ field, value, handleChange }) => (
-    <div key={field.id} className="mb-4">
-      <label htmlFor={field.id} className="flex items-center">
-        <input
-          {...field}
-          checked={value || false}
-          onChange={handleChange}
-          className="mr-2"
-        />
-        <span>{field.label}</span>
-      </label>
-    </div>
-  );
+  <div key={field.id} className="mb-6">
+    {/* Label with styling */}
+    <label
+      htmlFor={field.id}
+      className="flex items-center space-x-3 text-sm font-medium text-gray-700"
+    >
+      {/* Input styling */}
+      <input
+        {...field}
+        checked={value || false}
+        onChange={handleChange}
+        className="w-4 h-4 border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all duration-300"
+      />
+      {/* Label text styling */}
+      <span className="text-gray-700">{field.label}</span>
+    </label>
+  </div>
+);
 
-export default CheckboxField
+export default CheckboxField;

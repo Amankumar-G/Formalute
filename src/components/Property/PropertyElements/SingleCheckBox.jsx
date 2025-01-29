@@ -30,41 +30,44 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
 
 
     return (
-        <div className=" bg-gray-200 flex flex-col px-6 py-4 space-y-8">
-            <Header
-                title={`Type : ${capitalize(activeElement.type)}`}
-                buttonText="DONE"
-                onClick={() => handleDone(formDetails)}
-            />
+      <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
+  <Header
+    title={`Type : ${capitalize(activeElement.type)}`}
+    buttonText="DONE"
+    onClick={() => handleDone(formDetails)}
+    className="border-b pb-4 mb-6"
+  />
 
-            {/* General Properties */}
-            <div className="flex items-center space-x-8">
-                <InputField
-                    id="name"
-                    label="NAME"
-                    placeholder="Enter name"
-                    value={formDetails.name}
-                    onChange={handleFieldChange}
-                />
-            </div>
-            <div className="flex items-center space-x-8">
-                <InputField
-                    id="label"
-                    label="LABEL"
-                    placeholder="Enter label"
-                    value={formDetails.label}
-                    onChange={handleFieldChange}
-                />
-                <Toggle
-                    id="required"
-                    label="REQUIRED FIELD"
-                    checked={formDetails.required}
-                    onChange={handleFieldChange}
-                />
+  {/* General Properties */}
+  <div className="space-y-6">
+    {/* Name Field */}
+    <InputField
+      id="name"
+      label="NAME"
+      placeholder="Enter name"
+      value={formDetails.name}
+      onChange={handleFieldChange}
+    />
 
-            </div>
+    {/* Label and Required Toggle */}
+    <div className="flex items-center space-x-8">
+      <InputField
+        id="label"
+        label="LABEL"
+        placeholder="Enter label"
+        value={formDetails.label}
+        onChange={handleFieldChange}
+      />
+      <Toggle
+        id="required"
+        label="REQUIRED FIELD"
+        checked={formDetails.required}
+        onChange={handleFieldChange}
+      />
+    </div>
+  </div>
+</div>
 
-        </div>
     );
 };
 

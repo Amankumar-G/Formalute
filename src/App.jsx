@@ -40,7 +40,7 @@ function App({ onSave }) {
     () => formPartitions[activePartitionIndex] || [],
     [formPartitions, activePartitionIndex]
   );
-  console.log("isMultiPart", isMultiPart);  
+ 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -76,6 +76,7 @@ function App({ onSave }) {
   };
   const handleExpandToggle = () => {
     setIsProperty(false);
+    setIsRendered(false);
     setIsExpanded((prev) => !prev);
   };
   const handleIsProperty = (element) => {
@@ -87,7 +88,7 @@ function App({ onSave }) {
   const handleDragStart = useCallback(
     (event) => {
       const originalPos = getTaskPos(event.active.id);
-      console.log("originalPos", originalPos);
+
       if (originalPos === -1) {
         // Add a new form element
         setFormPartitions((prev) => {
@@ -125,9 +126,6 @@ function App({ onSave }) {
 
       // Prevent redundant updates when active item is already over the same target
       if (active.id === over.id) return;
-
-      console.log("active", active.id);
-      console.log("over", over.id);
 
       // Update the partitions state without causing unnecessary fluctuation
       setFormPartitions((prevPartitions) => {
@@ -206,7 +204,9 @@ function App({ onSave }) {
   };
     
 
-  const handleRenderer = () => setIsRendered((prev) => !prev);
+  const handleRenderer = () =>{ 
+    setIsRendered((prev) => !prev)}
+    ;
 
   const showNotification = (message) => {
     setNotification(message);
@@ -226,6 +226,7 @@ function App({ onSave }) {
   };
 
   const handleIsMultiPart = () => {
+    setIsRendered(false)
     setIsMultiPart((prev) => !prev);
   };
 
@@ -301,7 +302,7 @@ function App({ onSave }) {
               { activePartitionIndex < formPartitions.length - 1 && <RightButtons handleNavigatePartition={handleNavigatePartition} />}
 
 
-               {formPartitions.length > 1 &&<Stepper handleDeletePartition={handleDeletePartition} formPartitions={formPartitions} activePartitionIndex={activePartitionIndex} setActivePartitionIndex={setActivePartitionIndex}/>}
+               {formPartitions.length > 1 &&<Stepper handleDeletePartition={handleDeletePartition} formPartitions={formPartitions} activePartitionIndex={activePartitionIndex} setActivePartitionIndex={setActivePartitionIndex} isRendered={isRendered}/>}
 
               {/* "+" Button */}
               {isMultiPart && activePartitionIndex === formPartitions.length - 1 &&

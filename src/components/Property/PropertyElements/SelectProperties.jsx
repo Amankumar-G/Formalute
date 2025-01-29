@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import InputField from "./InputField";
 import Toggle from './Toggle';
 import Header from "./Header";
+import { IoIosRemoveCircleOutline } from "react-icons/io";// Importing an icon from lucide-react
+
 
 const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
    const [formDetails, setFormDetails] = useState({
@@ -55,81 +57,90 @@ const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
   };
 
   return (
-    <div className=" bg-gray-200 flex flex-col px-6 py-4 space-y-8">
-      <Header
-        title={`Type : ${capitalize(activeElement.type)}`}
-        buttonText="DONE"
-        onClick={() => handleDone(formDetails)}
-      />
-      <InputField
-          id="name"
-          label="NAME"
-          placeholder="Enter name"
-          value={formDetails.name}
-          onChange={handleFieldChange}
-        />
-      {/* General Properties (label & required toggle) */}
-      <div className="flex items-center space-x-8">
+    <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
+  <Header
+    title={`Type : ${capitalize(activeElement.type)}`}
+    buttonText="DONE"
+    onClick={() => handleDone(formDetails)}
+    className="border-b pb-4 mb-6"
+  />
+
+  {/* Name Field */}
+  <InputField
+    id="name"
+    label="NAME"
+    placeholder="Enter name"
+    value={formDetails.name}
+    onChange={handleFieldChange}
+  />
+
+  {/* General Properties (Label & Required Toggle) */}
+  <div className="flex items-center space-x-8">
+    <InputField
+      id="label"
+      label="LABEL"
+      placeholder="Enter label"
+      value={formDetails.label}
+      onChange={handleFieldChange}
+    />
+    <Toggle
+      id="required"
+      label="REQUIRED FIELD"
+      checked={formDetails.required}
+      onChange={handleFieldChange}
+    />
+  </div>
+
+  {/* Basic Properties */}
+  <Toggle
+    id="multiple"
+    label="ALLOW MULTIPLE SELECTION"
+    checked={formDetails.multiple}
+    onChange={handleFieldChange}
+  />
+
+  {/* Options Section */}
+  <div className="space-y-4">
+    <h3 className="text-lg font-bold text-gray-700">Options</h3>
+    {formDetails.options.map((option, index) => (
+      <div
+        key={index}
+        className="grid grid-cols-1 sm:grid-cols-[40%_40%_20%] gap-4 items-center"
+      >
         <InputField
-          id="label"
-          label="LABEL"
-          placeholder="Enter label"
-          value={formDetails.label}
-          onChange={handleFieldChange}
+          id={`option-value-${index}`}
+          type="text"
+          label="Value"
+          placeholder="Enter option value"
+          value={option.value}
+          onChange={(field, value) => handleOptionChange(index, "value", value)}
         />
-        <Toggle
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
-          onChange={handleFieldChange}
+        <InputField
+          id={`option-text-${index}`}
+          type="text"
+          label="Text"
+          placeholder="Enter option text"
+          value={option.text}
+          onChange={(field, value) => handleOptionChange(index, "text", value)}
         />
-      </div>
-
-      {/* Basic Properties */}
-      <Toggle
-        id="multiple"
-        label="ALLOW MULTIPLE SELECTION"
-        checked={formDetails.multiple}
-        onChange={handleFieldChange}
-      />
-
-      {/* Options Section */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-bold text-gray-700">Options</h3>
-        {formDetails.options.map((option, index) => (
-          <div key={index} className="flex items-center space-x-4">
-            <InputField
-              id={`option-value-${index}`}
-              type="text"
-              label="Value"
-              placeholder="Enter option value"
-              value={option.value}
-              onChange={(field, value) => handleOptionChange(index, "value", value)}
-            />
-            <InputField
-              id={`option-text-${index}`}
-              type="text"
-              label="Text"
-              placeholder="Enter option text"
-              value={option.text}
-              onChange={(field, value) => handleOptionChange(index, "text", value)}
-            />
-            <button
-              className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
-              onClick={() => removeOption(index)}
-            >
-              Remove
-            </button>
-          </div>
-        ))}
         <button
-          className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
-          onClick={addOption}
+          onClick={() => removeOption(index)}
+          aria-label="Remove Option"
+          className="text-red-500 hover:text-red-600"
         >
-          Add Option
+          <IoIosRemoveCircleOutline className="w-6 h-6 mt-6 ml-7" />
         </button>
-      </div>   
-    </div>
+      </div>
+    ))}
+    <button
+      className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
+      onClick={addOption}
+    >
+      Add Option
+    </button>
+  </div>
+</div>
+  
   );
 };
 

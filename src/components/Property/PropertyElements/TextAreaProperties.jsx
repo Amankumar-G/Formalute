@@ -36,31 +36,33 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
   };
 
   return (
-    <div className="bg-gray-200 flex flex-col px-6 py-4 space-y-8">
-      <Header
-        title={`Type: Textarea`}
-        buttonText="DONE"
-        onClick={() => handleDone(formDetails)}
+    <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
+    <Header
+      title={`Type: Textarea`}
+      buttonText="DONE"
+      onClick={() => handleDone(formDetails)}
+
+    />
+    
+    {/* General Properties (label & required toggle) */}
+    <div className="flex items-center space-x-8">
+      <InputField
+        id="label"
+        label="LABEL"
+        placeholder="Enter label"
+        value={formDetails.label}
+        onChange={handleFieldChange}
       />
-      
-      {/* General Properties (label & required toggle) */}
-      <div className="flex items-center space-x-8">
-        <InputField
-          id="label"
-          label="LABEL"
-          placeholder="Enter label"
-          value={formDetails.label}
-          onChange={handleFieldChange}
-        />
-         <InputField
-          id="name"
-          label="NAME"
-          placeholder="Enter name"
-          value={formDetails.name}
-          onChange={handleFieldChange}
-        />
-      </div>
-      <div className="flex items-center space-x-8">
+      <InputField
+        id="name"
+        label="NAME"
+        placeholder="Enter name"
+        value={formDetails.name}
+        onChange={handleFieldChange}
+      />
+    </div>
+  
+    <div className="flex items-center space-x-8">
       {/* Basic Properties */}
       <InputField
         id="placeholder"
@@ -70,51 +72,53 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
         value={formDetails.placeholder}
         onChange={handleFieldChange}
       />
-       <Toggle   
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
+      <Toggle
+        id="required"
+        label="REQUIRED FIELD"
+        checked={formDetails.required}
+        onChange={handleFieldChange}
+      />
+    </div>
+  
+    {/* Toggle Button for Additional Properties */}
+    <button
+      className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400 shadow-none"
+      onClick={() => setShowAdditionalProperties((prev) => !prev)}
+    >
+      {showAdditionalProperties ? "Hide Additional Properties" : "Show Additional Properties"}
+    </button>
+  
+    {/* Additional Properties Section */}
+    {showAdditionalProperties && (
+      <div className="grid grid-cols-2 gap-6 mt-4">
+        <InputField
+          id="rows"
+          type="number"
+          label="ROWS"
+          placeholder="Enter number of rows"
+          value={formDetails.rows}
           onChange={handleFieldChange}
         />
-        </div>
-      {/* Toggle Button for Additional Properties */}
-      <button
-        className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
-        onClick={() => setShowAdditionalProperties((prev) => !prev)}
-      >
-        {showAdditionalProperties ? "Hide Additional Properties" : "Show Additional Properties"}
-      </button>
-
-      {/* Additional Properties Section */}
-      {showAdditionalProperties && (
-        <div className="grid grid-cols-2 gap-6 mt-4">
-          <InputField
-            id="rows"
-            type="number"
-            label="ROWS"
-            placeholder="Enter number of rows"
-            value={formDetails.rows}
-            onChange={handleFieldChange}
-          />
-          <InputField
-            id="cols"
-            type="number"
-            label="COLS"
-            placeholder="Enter number of columns"
-            value={formDetails.cols}
-            onChange={handleFieldChange}
-          />
-          <InputField
-            id="maxlength"
-            type="number"
-            label="MAX LENGTH"
-            placeholder="Enter maximum length"
-            value={formDetails.maxlength}
-            onChange={handleFieldChange}
-          />
-        </div>
-      )}
-    </div>
+        <InputField
+          id="cols"
+          type="number"
+          label="COLS"
+          placeholder="Enter number of columns"
+          value={formDetails.cols}
+          onChange={handleFieldChange}
+        />
+        <InputField
+          id="maxlength"
+          type="number"
+          label="MAX LENGTH"
+          placeholder="Enter maximum length"
+          value={formDetails.maxlength}
+          onChange={handleFieldChange}
+        />
+      </div>
+    )}
+  </div>
+  
   );
 };
 

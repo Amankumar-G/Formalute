@@ -36,85 +36,89 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
   };
 
   return (
-    <div className=" bg-gray-200 flex flex-col px-6 py-4 space-y-8">
-      <Header
-        title={`Type : ${capitalize(activeElement.type)}`}
-        buttonText="DONE"
-        onClick={() => handleDone(formDetails)}
-      />
+    <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
+  <Header
+    title={`Type : ${capitalize(activeElement.type)}`}
+    buttonText="DONE"
+    onClick={() => handleDone(formDetails)}
+    className="border-b pb-4 mb-6"
+  />
 
-      {/* General Properties (label & required toggle) */}
-      <div className="flex items-center space-x-8">
-        <InputField
-          id="label"
-          label="LABEL"
-          placeholder="Enter label"
-          value={formDetails.label}
-          onChange={handleFieldChange}
-        />
-        <InputField
-          id="name"
-          label="NAME"
-          placeholder="Enter name"
-          value={formDetails.name}
-          onChange={handleFieldChange}
-        />
-      </div>
-      <div className="flex items-center space-x-8">
-      {/* Basic Properties */}
+  {/* General Properties (label & required toggle) */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <InputField
+      id="label"
+      label="LABEL"
+      placeholder="Enter label"
+      value={formDetails.label}
+      onChange={handleFieldChange}
+    />
+    <InputField
+      id="name"
+      label="NAME"
+      placeholder="Enter name"
+      value={formDetails.name}
+      onChange={handleFieldChange}
+    />
+  </div>
+  
+  {/* Basic Properties (placeholder & required toggle) */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <InputField
+      id="placeholder"
+      type="text"
+      label="PLACEHOLDER"
+      placeholder="Enter placeholder"
+      value={formDetails.placeholder}
+      onChange={handleFieldChange}
+    />
+    <Toggle
+      id="required"
+      label="REQUIRED FIELD"
+      checked={formDetails.required}
+      onChange={handleFieldChange}
+    />
+  </div>
+
+  {/* Toggle Button for Additional Properties */}
+  <button
+    className="text-sm font-medium text-gray-800 bg-gray-200 py-2 px-5 rounded-md border border-gray-300 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-all duration-200 ease-in-out"
+    onClick={() => setShowAdditionalProperties((prev) => !prev)}
+  >
+    {showAdditionalProperties ? "Hide Additional Properties" : "Show Additional Properties"}
+  </button>
+
+  {/* Additional Properties Section */}
+  {showAdditionalProperties && (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
       <InputField
-        id="placeholder"
-        type="text"
-        label="PLACEHOLDER"
-        placeholder="Enter placeholder"
-        value={formDetails.placeholder}
+        id="min"
+        type="date"
+        label="MIN DATE"
+        placeholder="Enter minimum date"
+        value={formDetails.min}
         onChange={handleFieldChange}
       />
-      <Toggle   
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
-          onChange={handleFieldChange}
+      <InputField
+        id="max"
+        type="date"
+        label="MAX DATE"
+        placeholder="Enter maximum date"
+        value={formDetails.max}
+        onChange={handleFieldChange}
       />
-      </div>
-      {/* Toggle Button for Additional Properties */}
-      <button
-        className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
-        onClick={() => setShowAdditionalProperties((prev) => !prev)}
-      >
-        {showAdditionalProperties ? "Hide Additional Properties" : "Show Additional Properties"}
-      </button>
-
-      {/* Additional Properties Section */}
-      {showAdditionalProperties && (
-        <div className="grid grid-cols-2 gap-6 mt-4">
-          <InputField
-            id="min"
-            type="date"
-            label="MIN DATE"
-            placeholder="Enter minimum date"
-            value={formDetails.min}
-            onChange={handleFieldChange}
-          />
-          <InputField
-            id="max"
-            type="date"
-            label="MAX DATE"
-            placeholder="Enter maximum date"
-            value={formDetails.max}
-            onChange={handleFieldChange}
-          />
-          <InputField
-            id="step"
-            type="number"
-            label="STEP"
-            placeholder="Enter step value"
-            value={formDetails.step}
-            onChange={handleFieldChange}
-          />
-        </div>
-      )}
+      <InputField
+        id="step"
+        type="number"
+        label="STEP"
+        placeholder="Enter step value"
+        value={formDetails.step}
+        onChange={handleFieldChange}
+      />
     </div>
+  )}
+</div>
+
   );
 };
 

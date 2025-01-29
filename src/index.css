@@ -20,42 +20,14 @@ html {
 }
 
 .invalid-zone {
-  animation: shake 0.5s ease-in-out infinite, disco 1.5s linear infinite;
-  background-color: rgba(255, 0, 0, 0.2); /* Starting color */
+  background-color: rgba(255, 0, 0, 0.1); /* Subtle red background */
+  border: 2px solid rgba(255, 0, 0, 0.6); /* Solid red border for emphasis */
+  border-radius: 8px; /* Rounded corners for a cleaner look */
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); /* Subtle red glow */
 }
 
-@keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-}
 
-@keyframes disco {
-  0% {
-    background-color: rgba(255, 0, 0, 0.6); /* Red */
-  }
-  25% {
-    background-color: rgba(0, 255, 0, 0.6); /* Green */
-  }
-  50% {
-    background-color: rgba(0, 0, 255, 0.6); /* Blue */
-  }
-  75% {
-    background-color: rgba(255, 255, 0, 0.6); /* Yellow */
-  }
-  100% {
-    background-color: rgba(255, 0, 255, 0.6); /* Purple */
-  }
-}
+
 
 .modal {
     position: fixed;
@@ -110,5 +82,26 @@ html {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+  }
+  
+  @layer utilities {
+    @keyframes pop {
+      0% {
+        opacity: 0;
+        transform: scale(0.2);
+      }
+      25% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  
+    .animate-pop {
+      animation: pop 1s cubic-bezier(0.4, 0, 0.04, 1.08);
+    }
   }
   

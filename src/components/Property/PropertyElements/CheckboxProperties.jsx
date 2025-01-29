@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import InputField from "./InputField";
 import Toggle from './Toggle';
 import Header from "./Header";
+import { IoIosRemoveCircleOutline } from "react-icons/io";// Importing an icon from lucide-react
 
 const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
   const [showAdditionalProperties, setShowAdditionalProperties] = useState(false);
@@ -11,7 +12,7 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
     required: activeElement.required || false,
     defaultChecked: activeElement.defaultChecked || false,
     options: activeElement.options || [{ value: "", text: "" }],
-    name: activeElement.name || "", 
+    name: activeElement.name || "",
   });
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
       required: activeElement.required || false,
       defaultChecked: activeElement.defaultChecked || false,
       options: activeElement.options || [{ value: "", text: "" }],
-      name: activeElement.name || "", 
+      name: activeElement.name || "",
     });
   }, [activeElement]);
 
@@ -55,76 +56,80 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
   };
 
   return (
-    <div className=" bg-gray-200 flex flex-col px-6 py-4 space-y-8">
+    <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
       <Header
         title={`Type : ${capitalize(activeElement.type)}`}
         buttonText="DONE"
         onClick={() => handleDone(formDetails)}
+        className="border-b pb-4 mb-6"
       />
 
       {/* General Properties */}
-      <div className="flex items-center space-x-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <InputField
           id="label"
-          label="LABEL"
+          label="Label"
           placeholder="Enter label"
           value={formDetails.label}
           onChange={handleFieldChange}
         />
         <InputField
           id="name"
-          label="NAME"
+          label="Name"
           placeholder="Enter name"
           value={formDetails.name}
           onChange={handleFieldChange}
         />
       </div>
-      <div className="flex items-center space-x-8">
-      <Toggle
+
+      {/* Toggles */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <Toggle
           id="required"
-          label="REQUIRED FIELD"
+          label="Required Field"
           checked={formDetails.required}
           onChange={handleFieldChange}
         />
-      {/* Default Checked Property */}
-      <Toggle
-        id="defaultChecked"
-        label="DEFAULT CHECKED"
-        checked={formDetails.defaultChecked}
-        onChange={handleFieldChange}
-      />
-     </div>
+        <Toggle
+          id="defaultChecked"
+          label="Default Checked"
+          checked={formDetails.defaultChecked}
+          onChange={handleFieldChange}
+        />
+      </div>
+
       {/* Options Section */}
       <div className="space-y-4">
-        <h3 className="text-lg font-bold text-gray-700">Options</h3>
+        <h3 className="text-lg font-medium text-gray-800">Options</h3>
         {formDetails.options.map((option, index) => (
-          <div key={index} className="flex items-center space-x-4">
-            <InputField
-              id={`option-value-${index}`}
-              type="text"
-              label="Value"
-              placeholder="Enter option value"
-              value={option.value}
-              onChange={(field, value) => handleOptionChange(index, "value", value)}
-            />
-            <InputField
-              id={`option-text-${index}`}
-              type="text"
-              label="Text"
-              placeholder="Enter option text"
-              value={option.text}
-              onChange={(field, value) => handleOptionChange(index, "text", value)}
-            />
-            <button
-              className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
-              onClick={() => removeOption(index)}
-            >
-              Remove
-            </button>
-          </div>
+          <div key={index} className="grid grid-cols-1 sm:grid-cols-[40%_40%_20%] gap-4 items-center">
+          <InputField
+            id={`option-value-${index}`}
+            type="text"
+            label="Value"
+            placeholder="Enter option value"
+            value={option.value}
+            onChange={(field, value) => handleOptionChange(index, "value", value)}
+          />
+          <InputField
+            id={`option-text-${index}`}
+            type="text"
+            label="Text"
+            placeholder="Enter option text"
+            value={option.text}
+            onChange={(field, value) => handleOptionChange(index, "text", value)}
+          />
+          <button
+               onClick={() => removeOption(index)}
+            aria-label="Remove Option"
+          >
+            <IoIosRemoveCircleOutline className="w-6 h-6 mt-6 ml-7" color="red"  />
+          </button>
+        </div>
+        
         ))}
         <button
-          className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
+          className="text-sm font-medium text-gray-800 bg-gray-200 py-2 px-5 rounded-md border border-gray-300 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-all duration-200 ease-in-out"
           onClick={addOption}
         >
           Add Option
@@ -133,7 +138,7 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
 
       {/* Toggle Button for Additional Properties */}
       <button
-        className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
+        className="text-sm font-medium text-gray-800 bg-gray-200 py-2 px-5 rounded-md border border-gray-300 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-all duration-200 ease-in-out"
         onClick={() => setShowAdditionalProperties((prev) => !prev)}
       >
         {showAdditionalProperties ? "Hide Additional Properties" : "Show Additional Properties"}
@@ -141,11 +146,11 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
 
       {/* Additional Properties Section */}
       {showAdditionalProperties && (
-        <div className="grid grid-cols-2 gap-6 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
           <InputField
             id="description"
             type="text"
-            label="DESCRIPTION"
+            label="Description"
             placeholder="Enter checkbox description"
             value={formDetails.description || ""}
             onChange={handleFieldChange}

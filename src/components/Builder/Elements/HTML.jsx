@@ -1,34 +1,55 @@
-import React from 'react';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import React from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 const HTML = ({
   label,
   id,
   value,
-  color = 'black', // Default color
-  italic = false, // Default to not italic
-  bold = false, // Default to not bold
+  color = "black", // Default color
+  italic = false, // Default not italic
+  bold = false, // Default not bold
 }) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
 
-  const style = {
-    opacity: isDragging ? 0.5 : undefined,
+  const baseStyle = {
     transform: CSS.Transform.toString(transform),
     transition,
-    color, // Dynamically set text color
-    fontStyle: italic ? 'italic' : 'normal', // Dynamically set italic
-    fontWeight: bold ? 'bold' : 'normal', // Dynamically set bold
+    cursor: "grab",
+    color, // Dynamic color
+    fontStyle: italic ? "italic" : "normal", // Dynamic italic
+    fontWeight: bold ? "bold" : "normal", // Dynamic bold
+    opacity: isDragging ? 0.5 : 1, // Reduce opacity while dragging
   };
-  console.log(value);
+
+  const textClass =
+    value === "h1"
+      ? "text-2xl font-bold"
+      : value === "h2"
+      ? "text-xl font-semibold"
+      : value === "h3"
+      ? "text-lg font-medium"
+      : "text-base"; // Default for 'p' or other tags
+
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="sortable-item">
-      {/* Dynamically render content based on the 'value' */}
-      {value === 'h1' && <h1 style={style} className="text-xl">{label}</h1>}
-      {value === 'h2' && <h2 style={style} className="text-lg">{label}</h2>}
-      {value === 'h3' && <h3 style={style} className="text-md">{label}</h3>}
-      {value === 'p' && <p style={style} className="text-base">{label}</p>}
-      {/* Add more cases for other 'value' types if needed */}
+    <div
+      ref={setNodeRef}
+      style={baseStyle}
+      {...attributes}
+      {...listeners}
+      className="sortable-item mb-2"
+    >
+      {value === "h1" && <h1 style={baseStyle} className={textClass}>{label}</h1>}
+      {value === "h2" && <h2 style={baseStyle} className={textClass}>{label}</h2>}
+      {value === "h3" && <h3 style={baseStyle} className={textClass}>{label}</h3>}
+      {value === "p" && <p style={baseStyle} className={textClass}>{label}</p>}
     </div>
   );
 };

@@ -31,67 +31,72 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
   };
 
   return (
-    <div className=" bg-gray-200 flex flex-col px-6 py-4 space-y-8">
-      <Header
-        title={`Type: File Upload`}
-        buttonText="DONE"
-        onClick={() => handleDone(formDetails)}
-      />
-      <InputField
-        id="name"
-        label="NAME"
-        placeholder="Enter name"
-        value={formDetails.name}
-        onChange={handleFieldChange}
-      />
-      {/* General Properties (label & required toggle) */}
-      <div className="flex items-center space-x-8">
-        <InputField
-          id="label"
-          label="LABEL"
-          placeholder="Enter label"
-          value={formDetails.label}
-          onChange={handleFieldChange}
-        />
-        <Toggle
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
-          onChange={handleFieldChange}
-        />
-      </div>
+    <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
+  <Header
+    title="Type: File Upload"
+    buttonText="DONE"
+    onClick={() => handleDone(formDetails)}
+    className="border-b pb-4 mb-6"
+  />
 
-      {/* Basic Properties */}
-      <InputField
-        id="accept"
-        type="text"
-        label="ACCEPT (File types)"
-        placeholder="Enter accepted file types (e.g., .jpg,.png,.pdf)"
-        value={formDetails.accept}
-        onChange={handleFieldChange}
-      />
+  {/* General Properties (name & label with required toggle) */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <InputField
+      id="name"
+      label="NAME"
+      placeholder="Enter name"
+      value={formDetails.name}
+      onChange={handleFieldChange}
+    />
+    <InputField
+      id="label"
+      label="LABEL"
+      placeholder="Enter label"
+      value={formDetails.label}
+      onChange={handleFieldChange}
+    />
+  </div>
 
-      {/* Toggle for multiple file selection */}
-      <div className="flex items-center space-x-8">
-        <label className="font-medium">Allow Multiple Files</label>
-        <Toggle
-          id="multiple"
-          checked={formDetails.multiple}
-          onChange={handleFieldChange}
-        />
-      </div>
+  <div className="flex items-center space-x-6">
+    <Toggle
+      id="required"
+      label="REQUIRED FIELD"
+      checked={formDetails.required}
+      onChange={handleFieldChange}
+    />
+  </div>
 
-      {/* File Size Limit */}
-      <InputField
-        id="sizeLimit"
-        type="number"
-        label="SIZE LIMIT (MB)"
-        placeholder="Enter size limit in MB"
-        value={formDetails.sizeLimit}
-        onChange={handleFieldChange}
-      />
+  {/* Basic Properties (accept file types & size limit) */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <InputField
+      id="accept"
+      type="text"
+      label="ACCEPT (File types)"
+      placeholder="Enter accepted file types (e.g., .jpg,.png,.pdf)"
+      value={formDetails.accept}
+      onChange={handleFieldChange}
+    />
+    <InputField
+      id="sizeLimit"
+      type="number"
+      label="SIZE LIMIT (MB)"
+      placeholder="Enter size limit in MB"
+      value={formDetails.sizeLimit}
+      onChange={handleFieldChange}
+    />
+  </div>
 
-    </div>
+  {/* Toggle for multiple file selection */}
+  <div className="flex items-center space-x-6">
+    <label className="font-medium">Allow Multiple Files</label>
+    <Toggle
+      id="multiple"
+      checked={formDetails.multiple}
+      onChange={handleFieldChange}
+    />
+  </div>
+</div>
+
   );
 };
 

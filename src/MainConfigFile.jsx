@@ -6,7 +6,7 @@ const config = [
         label: "Text Field",
         placeholder: "Enter text",
         required: false,
-        pattern: "^[A-Za-z0-9_]+$", // Alphanumeric with underscores
+        pattern: "", // Alphanumeric with underscores
         autocomplete: "text",
     },
     {
@@ -220,6 +220,11 @@ const config = [
         type: "divider",
         name: "divider",
     },  
+    {
+        type : "button",
+        name : "button",
+        
+    }
 ];
 
 export default config;

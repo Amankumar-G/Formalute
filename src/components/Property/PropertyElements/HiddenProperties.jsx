@@ -26,43 +26,45 @@ const HiddenProperties = ({ activeElement, capitalize, handleDone }) => {
   };
 
   return (
-    <div className=" bg-gray-200 flex flex-col px-6 py-4 space-y-8">
-      {/* Header with Done Button */}
-      <Header
-        title={`Type : ${capitalize(activeElement.type)}`}
-        buttonText="DONE"
-        onClick={() => handleDone(formDetails)}
-      />
+    <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
+  {/* Header with Done Button */}
+  <Header
+    title={`Type : ${capitalize(activeElement.type)}`}
+    buttonText="DONE"
+    onClick={() => handleDone(formDetails)}
+    className="border-b pb-4 mb-6"
+  />
 
-      {/* Editable Properties for Hidden Field */}
-      <div className="space-y-6">
-        {/* Name Property */}
-        <InputField
-          id="name"
-          label="NAME"
-          placeholder="Enter name"
-          value={formDetails.name}
-          onChange={handleFieldChange}
-        />
+  {/* Editable Properties for Hidden Field */}
+  <div className="space-y-6">
+    {/* Name Property */}
+    <InputField
+      id="name"
+      label="NAME"
+      placeholder="Enter name"
+      value={formDetails.name}
+      onChange={handleFieldChange}
+    />
 
-        {/* Value Property */}
-        <InputField
-          id="value"
-          label="VALUE"
-          placeholder="Enter value"
-          value={formDetails.value}
-          onChange={handleFieldChange}
-        />
+    {/* Value Property */}
+    <InputField
+      id="value"
+      label="VALUE"
+      placeholder="Enter value"
+      value={formDetails.value}
+      onChange={handleFieldChange}
+    />
 
-        {/* Required Toggle */}
-        <Toggle
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
-          onChange={handleFieldChange}
-        />
-      </div>
-    </div>
+    {/* Required Toggle */}
+    <Toggle
+      id="required"
+      label="REQUIRED FIELD"
+      checked={formDetails.required}
+      onChange={handleFieldChange}
+    />
+  </div>
+</div>
+
   );
 };
 

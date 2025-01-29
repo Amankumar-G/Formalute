@@ -1,3 +1,11 @@
+import {  AiOutlineMail, AiOutlineNumber, AiOutlineComment, AiOutlineLock, AiOutlineUpload, AiOutlinePhone, AiOutlineEyeInvisible } from "react-icons/ai";
+import { FaCalendarAlt, FaGlobe, FaCheckSquare, FaDotCircle, FaPalette, FaSlidersH } from "react-icons/fa";
+import { BiHide, BiText, BiCheckboxSquare,BiSelectMultiple } from "react-icons/bi";
+import { MdRadioButtonChecked,MdTextFields,MdLinearScale ,MdHtml  } from "react-icons/md";
+import { RiCheckboxMultipleFill } from "react-icons/ri";
+import { CiSliderHorizontal } from "react-icons/ci";
+import { VscHorizontalRule } from "react-icons/vsc";
+
 const FormElementsData = [
   {
     heading: "Personal Information",
@@ -5,28 +13,28 @@ const FormElementsData = [
       {
         type: "text",
         label: "Text Field",
-        image: "https://example.com/images/username.png",
+        image: <MdTextFields size={24}/>,
       },
       {
         type: "email",
         label: "Email Address",
-        image: "https://example.com/images/email.png",
+        image: <AiOutlineMail size={24} />,
       },
       {
         type: "date",
         label: "Date of Birth",
-        image: "https://example.com/images/date.png",
+        image: <FaCalendarAlt size={24} />,
       },
       {
         type: "number",
         label: "Number",
-        image: "https://example.com/images/age.png",
+        image: <AiOutlineNumber size={24} />,
       },
       {
         type: "textarea",
         label: "Textarea",
-        image: "https://example.com/images/comments.png",
-      }
+        image: <AiOutlineComment size={24} />,
+      },
     ],
   },
   {
@@ -35,23 +43,23 @@ const FormElementsData = [
       {
         type: "password",
         label: "Password",
-        image: "https://example.com/images/password.png",
+        image: <AiOutlineLock size={24} />,
       },
       {
         type: "file",
         label: "Upload File",
-        image: "https://example.com/images/upload.png",
+        image: <AiOutlineUpload size={24} />,
       },
       {
         type: "tel",
-        label: "Telephone Number",
-        image: "https://example.com/images/phone.png",
+        label: "Telephone",
+        image: <AiOutlinePhone size={24} />,
       },
       {
         type: "hidden",
         label: "Hidden Field",
-        image: "https://example.com/images/hidden.png",
-      }
+        image: <BiHide size={24} />,
+      },
     ],
   },
   {
@@ -60,33 +68,33 @@ const FormElementsData = [
       {
         type: "select",
         label: "Select Box",
-        image: "https://example.com/images/country.png",
+        image: <RiCheckboxMultipleFill size={24} />,
       },
       {
         type: "checkbox",
-        label: "Single Checkbox",
-        image: "https://example.com/images/checkbox.png",
-      },  
+        label: "Single Check",
+        image: <FaCheckSquare size={24} />,
+      },
       {
         type: "multiple-checkbox",
-        label: "Multiple-CheckBox",
-        image: "https://example.com/images/checkbox.png",
+        label: "Multi - Check",
+        image: < BiSelectMultiple  size={24} />,
       },
       {
         type: "radio",
-        label: "Multiple - Radio Buttons",
-        image: "https://example.com/images/gender.png",
+        label: "Multi - Radio",
+        image: <MdRadioButtonChecked size={24} />,
       },
       {
         type: "url",
         label: "URL",
-        image: "https://example.com/images/website.png",
+        image: <FaGlobe size={24} />,
       },
       {
         type: "range",
         label: "Range",
-        image: "https://example.com/images/range.png",
-      }
+        image: <CiSliderHorizontal  size={24} />,
+      },
     ],
   },
   {
@@ -95,18 +103,18 @@ const FormElementsData = [
       {
         type: "html",
         label: "HTML Content",
-        image: "https://example.com/images/country.png",
-      }, 
+        image: <MdHtml  size={24} />,
+      },
       {
         type: "color",
         label: "Color Picker",
-        image: "https://example.com/images/checkbox.png",
+        image: <FaPalette size={24} />,
       },
       {
         type: "divider",
-        label : "Divider",
-        image: "https://example.com/images/range.png",
-      }
+        label: "Divider",
+        image: <VscHorizontalRule  size={24} />,
+      },
     ],
   },
 ];

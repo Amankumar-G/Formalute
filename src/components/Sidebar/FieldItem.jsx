@@ -29,10 +29,10 @@ const FieldItem = ({ field, onAddTask }) => {
       style={style}
       {...attributes}
       {...listeners}
-      className="bg-fontBlack text-white font-light text-xs flex justify-start items-center h-10 rounded cursor-pointer"
-      onClick={handleClick} // Add the click event here
+      className="bg-gray-800 break-words truncate text-wrap text-white font-medium text-sm flex justify-start items-center h-12 rounded-md cursor-pointer shadow-md  hover:bg-gray-700 transition-colors duration-300 p-3"
+      onClick={handleClick}
     >
-      <span className="flex justify-center items-center mx-3"></span>
+      <span className="break-words text-wrap flex flex-wrap justify-center items-center mx-3">{field.image}</span>
       {field.label}
     </div>
   );
