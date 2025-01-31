@@ -10,44 +10,124 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   
   <!-- UMD Build of Ninja Form Builder -->
-  <script src="dist/ninja-formbuilder.umd.js"></script>
+  <script src="dist/DragFormX.umd.js"></script>
 
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      /* overflow: hidden; */
+    }
+
+    
+    .sidebar {
+      width: 220px;
+      background: #2c3e50;
+      color: white;
+      display: flex;
+      flex-direction: column;
       padding: 20px;
     }
-    #root {
-      border: 1px solid #ddd;
-      padding: 10px;
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+      font-size: 18px;
+      text-align: center;
     }
+
+    .sidebar button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 10px;
+      margin: 5px 0;
+      text-align: left;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .sidebar button:hover {
+      background: #34495e;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .active {
+      display: block;
+    }
+
+    
   </style>
 </head>
 <body>
-  <!-- Mounting Point -->
-  <div id="root"></div>
+
+  <!-- Sidebar Navigation -->
+  <div class="sidebar">
+    <h2>DragFormX Forms</h2>
+    <button onclick="showSection('form-builder')">Form Builder</button>
+    <button onclick="showSection('form-renderer')">Form Renderer</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+
+    <!-- Form Builder Section -->
+    <div id="form-builder" class="section active">
+      <div id="form-builder-root"></div>
+    </div>
+
+    <!-- Form Renderer Section -->
+    <div id="form-renderer" class="section">
+      <div id="form-renderer-root"></div>
+    </div>
+  </div>
 
   <script>
+    // Show the selected section
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(sectionId).classList.add('active');
+    }
+
     // Access the UMD global directly
-    const NinjaFormBuilder = window.NinjaFormBuilder.NinjaFormBuilder;
+    const { DragFormXRenderer, DragFormXBuilder } = window.DragFormX;
   
-    // Create a root and render the React component
-    const rootElement = document.getElementById('root');
-    const root = ReactDOM.createRoot(rootElement);
-  
+    const formBuilderRoot = ReactDOM.createRoot(document.getElementById('form-builder-root'));
+    const DragFormXRendererRoot = ReactDOM.createRoot(document.getElementById('form-renderer-root'));
+
+    let savedFormConfig = {}; // Store form config to render later
+
     // Define the onSave callback function
     const handleSave = (jsonConfig) => {
       console.log("Saved JSON Configuration:", jsonConfig);
-      // You can handle the jsonConfig however you like, for example, displaying it, sending it to an API, etc.
+      savedFormConfig = jsonConfig;
+
+      // Re-render the DragFormXRenderer with the saved config
+      DragFormXRendererRoot.render(
+        React.createElement(DragFormXRenderer, { jsonConfig: savedFormConfig })
+      );
     };
   
-    root.render(
-      React.createElement(NinjaFormBuilder, {
-        // Pass the onSave prop to the component
-        title: "Sample Form",
+    // Render the Form Builder
+    formBuilderRoot.render(
+      React.createElement(DragFormXBuilder, {
+        title: "Build Your Form",
         theme: "light",
-        onSave: handleSave, // Here is the onSave prop being passed
+        onSave: handleSave,
       })
     );
   </script>

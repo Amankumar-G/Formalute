@@ -2,7 +2,7 @@ import React from "react";
 import '../index.css'
 const Notification = ({ notification }) => {
   return (
-    <div className="fixed top-4 left-[15%]  transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center gap-3 animate-pop">
+    <div className="top-4 bg-gray-800 text-white w-fit px-3 sm:px-7 mx-auto mt-2 py-2 rounded-lg shadow-lg z-50 flex flex-row items-center gap-3 animate-pop">
       {/* Optional Icon */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ const Notification = ({ notification }) => {
       </svg>
 
       {/* Notification Message */}
-      <span className="text-sm font-medium">{notification}</span>
+      <span className="sm:text-sm text-xs font-medium">{notification}</span>
     </div>
   );
 };

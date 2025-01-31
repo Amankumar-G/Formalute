@@ -266,7 +266,7 @@ function App({ onSave }) {
 
   return (
     <div className="flex h-screen overflow-x-hidden flex-col">
-      {notification && <Notification notification={notification} />}
+      
 
       {isDeleteWarningVisible && (
         <Modal
@@ -280,6 +280,7 @@ function App({ onSave }) {
         handleSave={handleSave}
         handleRenderer={handleRenderer}
         handleIsMultiPart={handleIsMultiPart}
+        notification={notification}
         />
 
       <div className="flex flex-1 overflow-hidden">
@@ -307,7 +308,8 @@ function App({ onSave }) {
               {/* "+" Button */}
               {isMultiPart && activePartitionIndex === formPartitions.length - 1 &&
                <AddButton handleAddPartition={handleAddPartition} />}
-
+              {/* <div className=""> */}
+              {notification && <Notification notification={notification} />}
               <FormBuilder
                 isExpanded={isExpanded}
                 formElements={currentPartitionElements}

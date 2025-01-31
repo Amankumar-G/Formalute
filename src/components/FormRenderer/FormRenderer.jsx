@@ -15,7 +15,7 @@ import RangeRenderer from "./RendererElements/RangeRenderer";
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'; // Importing React Icons
 
 
-const FormRenderer = ({ jsonConfig }) => {
+const FormRenderer = ({ jsonConfig, onSubmit, action = "#", method = "POST" }) => {
 
   // Parse the JSON configuration
   const parsedConfig = useMemo(() => {
@@ -80,7 +80,11 @@ const FormRenderer = ({ jsonConfig }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form data submitted:", formData);
+    if (onSubmit) {
+      onSubmit(formData);
+    } else {
+      alert(`Form submitted: ${JSON.stringify(formData, null, 2)}`);
+    }
   };
 
 
@@ -126,17 +130,17 @@ const FormRenderer = ({ jsonConfig }) => {
   };
 
   return (
-    <div className="relative bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div className="relative bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8 DragFormX-container">
       {parsedConfig.length > 1 && (
         <Stepper
           formPartitions={parsedConfig}
           activePartitionIndex={activePartitionIndex}
           setActivePartitionIndex={setActivePartitionIndex}
-        />
+        />  
       )}
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg shadow-indigo-500/20"
+      <form 
+        action={action} method={method} onSubmit={handleSubmit} 
+        className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg shadow-indigo-500/20 overflow-y-scroll DragFormX-form"
       >
         {parsedConfig.length > 0 && parsedConfig[activePartitionIndex] ? (
           <>
@@ -154,63 +158,64 @@ const FormRenderer = ({ jsonConfig }) => {
 
 
 
-{parsedConfig.length > 1 ? (
-  <div className="w-full max-w-md mx-auto mt-6 bg-indigo-100 border-2 border-indigo-600 rounded-md">
-    <div className="flex items-center justify-between gap-6 p-5 bg-white rounded-t-lg shadow-md">
-      {/* Back Button */}
-      {activePartitionIndex > 0 && (
-        <button
-          type="button"
-          onClick={() => setActivePartitionIndex(activePartitionIndex - 1)}
-          className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105"
-        >
-          <FiArrowLeft className="w-5 h-5" /> {/* React Icon for Back Arrow */}
-          <span className="text-sm font-medium">Back</span>
-        </button>
-      )}
+        {parsedConfig.length > 1 ? (
+          <div className="w-full max-w-md mx-auto mt-6 bg-indigo-100 ">
+            <div className="flex items-center justify-between gap-6 p-5 bg-white">
+              {/* Back Button */}
+              {activePartitionIndex > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setActivePartitionIndex(activePartitionIndex - 1)}
+                  className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105 text-sm font-medium"
+                >
+                  <FiArrowLeft className="w-5 h-5" /> {/* React Icon for Back Arrow */}
+                  <span>Back</span>
+                </button>
+              )}
 
-      {/* Progress Dots */}
-      <ul className="flex gap-3 items-center mx-auto">
-        {parsedConfig.map((_, index) => (
-          <li
-            key={index}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${index <= activePartitionIndex ? "bg-indigo-600" : "bg-indigo-200"
-              }`}
-          />
-        ))}
-      </ul>
+              {/* Progress Dots */}
+              <ul className="flex gap-3 items-center mx-auto">
+                {parsedConfig.map((_, index) => (
+                  <li
+                    key={index}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${index <= activePartitionIndex ? "bg-indigo-600" : "bg-indigo-200"
+                      }`}
+                  />
+                ))}
+              </ul>
 
-      {/* Next or Submit Button */}
-      {activePartitionIndex < parsedConfig.length - 1 ? (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault(); 
-            setActivePartitionIndex(activePartitionIndex + 1)}}
-          className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105"
-        >
-          <span className="text-sm font-medium">Next</span>
-          <FiArrowRight className="w-5 h-5" /> {/* React Icon for Next Arrow */}
-        </button>
-      ) : (
-        <button
-          type="submit"
-          className="flex items-center gap-3 text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none py-2 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
-        >
-          <span className="text-sm font-medium">Submit</span>
-          <FiArrowRight className="w-5 h-5" /> {/* React Icon for Submit Arrow */}
-        </button>
-      )}
-    </div>
-  </div>
-) : (
-  <button
-    type="submit"
-    className="w-full py-3 mt-6 bg-indigo-600 text-white rounded-md font-semibold text-lg hover:bg-indigo-700 transition-all duration-300"
-  >
-    Submit
-  </button>
-)}
+              {/* Next or Submit Button */}
+              {activePartitionIndex < parsedConfig.length - 1 ? (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActivePartitionIndex(activePartitionIndex + 1)
+                  }}
+                  className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105"
+                >
+                  <span className="text-sm font-medium">Next</span>
+                  <FiArrowRight className="w-5 h-5" /> {/* React Icon for Next Arrow */}
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="flex items-center gap-3 text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none py-2 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
+                >
+                  <span className="text-sm font-medium">Submit</span>
+                  <FiArrowRight className="w-5 h-5" /> {/* React Icon for Submit Arrow */}
+                </button>
+              )}
+            </div>
+          </div>
+        ) : (
+          <button
+            type="submit"
+            className="w-full py-3 mt-6 bg-indigo-600 text-white rounded-md font-semibold text-lg hover:bg-indigo-700 transition-all duration-300"
+          >
+            Submit
+          </button>
+        )}
 
 
       </form>

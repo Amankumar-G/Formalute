@@ -25,16 +25,17 @@ const FieldItem = ({ field, onAddTask }) => {
 
   return (
     <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className="bg-gray-800 break-words truncate text-wrap text-white font-medium text-sm flex justify-start items-center h-12 rounded-md cursor-pointer shadow-md  hover:bg-gray-700 transition-colors duration-300 p-3"
-      onClick={handleClick}
-    >
-      <span className="break-words text-wrap flex flex-wrap justify-center items-center mx-3">{field.image}</span>
-      {field.label}
-    </div>
+  ref={setNodeRef}
+  style={style}
+  {...attributes}
+  {...listeners}
+  className="bg-gray-800 text-white font-medium text-xs flex justify-center sm:justify-start items-center h-10 rounded-md cursor-pointer shadow-md hover:bg-gray-700 transition-colors duration-300 p-2 sm:w-auto sm:h-12 sm:p-3"
+  onClick={handleClick}
+>
+  <span className="flex justify-start items-start">{field.image}</span>
+  <span className="hidden sm:flex sm:ml-2">{field.label}</span>
+</div>
+
   );
 };
 

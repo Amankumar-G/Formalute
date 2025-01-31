@@ -22,9 +22,9 @@ export default {
       sourcemap: true, 
     },
     {
-      file: 'dist/ninja-formbuilder.umd.js', // Add UMD output
+      file: 'dist/DragFormX.umd.js', // Add UMD output
       format: 'umd',
-      name: 'NinjaFormBuilder', // Global variable name
+      name: 'DragFormX', // Global variable name
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',
