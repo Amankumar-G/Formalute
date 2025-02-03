@@ -67,6 +67,362 @@
     .active {
       display: block;
     }
+    /* General container styles */
+.DragFormX-container {
+  position: relative;
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Form styles */
+.DragFormX-form {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(67, 56, 60, 0.1), 0 1px 3px rgba(67, 56, 60, 0.08);
+  overflow-y: scroll;
+}
+
+/* Field styles */
+.DragFormX-fields {
+  margin-bottom: 2rem;
+}
+
+.DragFormX-field {
+  margin-bottom: 1rem;
+}
+
+/* Empty state */
+.DragFormX-empty {
+  color: #6b7280;
+  text-align: center;
+}
+
+/* Pagination controls */
+.DragFormX-pagination {
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+  margin-top: 1.5rem;
+  background-color: #eef2f7;
+}
+
+.DragFormX-pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem;
+  background-color: #ffffff;
+}
+
+/* Back Button */
+.DragFormX-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4f46e5;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+.DragFormX-back-btn:hover {
+  color: #4338ca;
+  transform: scale(1.05);
+}
+
+/* Progress Dots */
+.DragFormX-progress-dots {
+  display: flex;
+  gap: 0.75rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.DragFormX-progress-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+
+.DragFormX-progress-dot.bg-indigo-600 {
+  background-color: #6366f1;
+}
+
+.DragFormX-progress-dot.bg-indigo-200 {
+  background-color: #e0e7ff;
+}
+
+/* Next Button */
+.DragFormX-next-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4f46e5;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+.DragFormX-next-btn:hover {
+  color: #4338ca;
+  transform: scale(1.05);
+}
+
+/* Submit Button */
+.DragFormX-submit-btn,
+.DragFormX-submit-full {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #ffffff;
+  background-color: #4f46e5;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.DragFormX-submit-btn:hover,
+.DragFormX-submit-full:hover {
+  background-color: #4338ca;
+  transform: scale(1.05);
+}
+
+.DragFormX-submit-full {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.125rem;
+}
+.DragFormX-Label{
+  color : red
+}
+/* Input, Textarea, Select, and Checkbox styles */
+.DragFormX-input,
+.DragFormX-textarea,
+.DragFormX-select,
+.DragFormX-checkbox,
+.DragFormX-radio {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+  margin-top: 0.5rem;
+}
+
+.DragFormX-input:focus,
+.DragFormX-textarea:focus,
+.DragFormX-select:focus,
+.DragFormX-checkbox:focus,
+.DragFormX-radio:focus {
+  border-color: #6366f1;
+  outline: none;
+}
+/* Checkbox Section */
+.DragFormX-Checkbox-Container {
+  margin-bottom: 1.5rem;
+}
+
+/* Label Styling */
+.DragFormX-Label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+/* Checkbox Option Container */
+.DragFormX-Checkbox-Option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+/* Checkbox Input */
+.DragFormX-Checkbox-Input {
+  margin-right: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.DragFormX-Checkbox-Input:checked {
+  background-color: #6366f1;
+  border-color: #6366f1;
+}
+
+.DragFormX-Checkbox-Input:focus {
+  border-color: #6366f1;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4);
+}
+
+/* Checkbox Text */
+.DragFormX-Checkbox-Text {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+/* Checkbox Description */
+.DragFormX-Checkbox-Description {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+/* Radio Section */
+.DragFormX-Radio-Container {
+  margin-bottom: 1.5rem;
+}
+
+/* Label Styling */
+.DragFormX-Label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+/* Radio Option Container */
+.DragFormX-Radio-Option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+/* Radio Input */
+.DragFormX-Radio-Input {
+  margin-right: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.DragFormX-Radio-Input:checked {
+  background-color: #6366f1;
+  border-color: #6366f1;
+}
+
+.DragFormX-Radio-Input:focus {
+  border-color: #6366f1;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4);
+}
+
+/* Radio Text */
+.DragFormX-Radio-Text {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+/* Radio Description */
+.DragFormX-Radio-Description {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+/* Range Section */
+.DragFormX-Range-Container {
+  margin-bottom: 1.5rem;
+}
+
+/* Label Styling */
+.DragFormX-Range-Label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+/* Range Input Styling */
+.DragFormX-Range-Input {
+  width: 100%;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  background-color: #e0e7ff; /* Light Indigo Background */
+  border-radius: 0.375rem; /* Rounded Corners */
+  transition: all 0.3s ease;
+}
+
+.DragFormX-Range-Input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4);
+  border-color: #6366f1; /* Indigo Border on Focus */
+}
+
+/* Range Value Styling */
+.DragFormX-Range-Value {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Min, Max, and Value Text */
+.DragFormX-Range-Text {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+
+/* Divider */
+.DragFormX-divider {
+  margin: 2rem 0;
+  border-top: 1px solid #e0e7ff;
+}
+
+/* Custom field rendering */
+.DragFormX-range {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Color Picker */
+.DragFormX-color {
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 0.375rem;
+}
+
+/* File Input */
+.DragFormX-file {
+  margin-top: 0.5rem;
+}
+
+/* HTML fields */
+.DragFormX-html {
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+.DragFormX-Label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #000000;
+    margin-bottom: 0.5rem;
+}
 
     
   </style>

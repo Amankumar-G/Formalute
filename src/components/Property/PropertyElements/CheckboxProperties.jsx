@@ -13,6 +13,8 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
     defaultChecked: activeElement.defaultChecked || false,
     options: activeElement.options || [{ value: "", text: "" }],
     name: activeElement.name || "",
+    className: activeElement.className || "",
+    errorMessage: activeElement.errorMessage || "",
   });
 
   useEffect(() => {
@@ -22,6 +24,8 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
       defaultChecked: activeElement.defaultChecked || false,
       options: activeElement.options || [{ value: "", text: "" }],
       name: activeElement.name || "",
+      className: activeElement.className || "",
+      errorMessage: activeElement.errorMessage || "",
     });
   }, [activeElement]);
 
@@ -65,7 +69,7 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
       />
 
       {/* General Properties */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <InputField
           id="label"
           label="Label"
@@ -80,14 +84,12 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
           value={formDetails.name}
           onChange={handleFieldChange}
         />
-      </div>
-
-      {/* Toggles */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <Toggle
-          id="required"
-          label="Required Field"
-          checked={formDetails.required}
+         <InputField
+          id="className"
+          type="text"
+          label="Class Name"
+          placeholder="Enter Class"
+          value={formDetails.className}
           onChange={handleFieldChange}
         />
         <Toggle
@@ -98,11 +100,31 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
         />
       </div>
 
+      {/* Toggles */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Toggle
+          id="required"
+          label="Required Field"
+          checked={formDetails.required}
+          onChange={handleFieldChange}
+        />
+         {formDetails.required && (
+          <InputField
+            id="errorMessage"
+            type="text"
+            label="Error Message for Required Field"
+            placeholder="Default: This field is required"
+            value={formDetails.errorMessage}
+            onChange={handleFieldChange}
+          />
+        )}
+      </div>
+
       {/* Options Section */}
       <div className="space-y-4">
         <h3 className="text-lg font-medium text-gray-800">Options</h3>
         {formDetails.options.map((option, index) => (
-          <div key={index} className="grid grid-cols-1 sm:grid-cols-[40%_40%_20%] gap-4 items-center">
+          <div key={index} className="grid grid-cols-1 md:grid-cols-[40%_40%_20%] gap-4 items-center">
           <InputField
             id={`option-value-${index}`}
             type="text"
@@ -146,7 +168,7 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
 
       {/* Additional Properties Section */}
       {showAdditionalProperties && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
           <InputField
             id="description"
             type="text"

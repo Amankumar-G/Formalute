@@ -8,15 +8,14 @@ const HTMLField = ({ field }) => {
       fontWeight: field.bold ? "bold" : "normal", // Dynamic bold// Reduce opacity while dragging
     };
 
-    
   const textClass =
   field.value === "h1"
-    ? "text-2xl font-bold"
+    ? `text-2xl font-bold ${field.className}`
     : field.value === "h2"
-    ? "text-xl font-semibold"
+    ? `text-xl font-semibold ${field.className}`
     : field.value === "h3"
-    ? "text-lg font-medium"
-    : "text-base";
+    ? `text-lg font-medium ${field.className}`
+    : `text-base ${field.className}`;
     return (
       <div
       style={baseStyle}

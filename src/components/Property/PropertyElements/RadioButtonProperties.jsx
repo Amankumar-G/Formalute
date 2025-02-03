@@ -14,6 +14,7 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
     defaultSelected: activeElement.defaultSelected || "",
     options: activeElement.options || [{ value: "", text: "" }],
     name: activeElement.name || "", 
+    className: activeElement.className || "",
   });
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
       defaultSelected: activeElement.defaultSelected || "",
       options: activeElement.options || [{ value: "", text: "" }],
       name: activeElement.name || "",   
+      className: activeElement.className || "",
     });
   }, [activeElement]);
 
@@ -64,7 +66,7 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
     onClick={() => handleDone(formDetails)}
     className="border-b pb-4 mb-6"
   />
-
+   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
   {/* Name Property */}
   <InputField
     id="name"
@@ -73,9 +75,20 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
     value={formDetails.name}
     onChange={handleFieldChange}
   />
+    <InputField
+      id="className"
+      type="text"
+      label="Class Name"
+      placeholder="Enter Class"
+      value={formDetails.className}
+      onChange={handleFieldChange}
+    />
+    </div>
+
+   
 
   {/* General Properties (label & required toggle) */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     <InputField
       id="label"
       label="LABEL"
@@ -83,6 +96,8 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
       value={formDetails.label}
       onChange={handleFieldChange}
     />
+    
+
     <Toggle
       id="required"
       label="REQUIRED FIELD"
@@ -104,7 +119,7 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
   <div className="space-y-4">
     <h3 className="text-lg font-bold text-gray-700">Options</h3>
     {formDetails.options.map((option, index) => (
-          <div key={index} className="grid grid-cols-1 sm:grid-cols-[40%_40%_20%] gap-4 items-center">
+          <div key={index} className="grid grid-cols-1 md:grid-cols-[40%_40%_20%] gap-4 items-center">
           <InputField
             id={`option-value-${index}`}
             type="text"
@@ -148,7 +163,7 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
 
   {/* Additional Properties Section */}
   {showAdditionalProperties && (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
       <InputField
         id="description"
         type="text"

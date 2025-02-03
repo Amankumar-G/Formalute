@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { FaPlus, FaSave, FaEye, FaClipboardList } from "react-icons/fa"; // Importing icons
-import Notification from "./Notification"; // Importing Notification component
 
-const Navbar = ({ handleExpandToggle, handleSave, handleRenderer, handleIsMultiPart ,notification}) => {
+const Navbar = ({ handleExpandToggle, handleSave, handleRenderer, handleIsMultiPart }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Function to close menu when an item is clicked
@@ -15,13 +14,12 @@ const Navbar = ({ handleExpandToggle, handleSave, handleRenderer, handleIsMultiP
     <div className="w-full z-10 bg-white relative shadow-lg text-gray-800 p-3 flex justify-between items-center rounded-lg border-b-2 border-gray-200">
       {/* Navbar Title */}
       <div className="flex items-center justify-between w-auto">
-      <div className="text-lg md:text-2xl font-semibold tracking-wide text-gray-900">
+        <div className="text-lg md:text-2xl font-semibold tracking-wide text-gray-900">
           DragFormX
           <span className="text-blue-600">-JS</span>
+        </div>
       </div>
-      {/* {notification && <Notification notification={notification} />} */}
-      
-      </div>
+
       {/* Navbar Menu - Desktop */}
       <div className="hidden lg:flex space-x-4">
         <button
@@ -75,8 +73,8 @@ const Navbar = ({ handleExpandToggle, handleSave, handleRenderer, handleIsMultiP
 
       {/* Dropdown Menu for Mobile */}
       <div
-        className={`md:hidden absolute top-16 right-2 w-48 bg-white shadow-lg rounded-lg p-2 transition-all duration-300 transform ${
-          isMenuOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+        className={`lg:hidden absolute top-16 right-2 w-48 bg-white shadow-lg rounded-lg p-2 transition-all duration-200 ${
+          isMenuOpen ? "block" : "hidden"
         }`}
       >
         <button

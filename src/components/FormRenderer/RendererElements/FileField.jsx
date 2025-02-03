@@ -1,11 +1,11 @@
 import React from "react";
 
-const FileField = ({ field, value, handleChange }) => {
+const FileField = ({ field, value, handleChange,error }) => {
   // Ensure multiple is a boolean
   const isMultiple = field.multiple === true;
-
+  console.log(field)
   return (
-    <div key={field.id} className="mb-6"> {/* Updated margin for spacing */}
+    <div key={field.id} className={`mb-6 ${field.className}`}> {/* Updated margin for spacing */}
     {field.label && (
       <label
         htmlFor={field.id}
@@ -20,7 +20,9 @@ const FileField = ({ field, value, handleChange }) => {
       multiple={isMultiple}
       onChange={handleChange}
       type="file"
-      className="w-full p-3 border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
+      className={`w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 DragFormX-input ${
+        error ? "border-red-500" : ""
+      }`}
     />
     
     {value && value.length > 0 && (
@@ -33,6 +35,9 @@ const FileField = ({ field, value, handleChange }) => {
         </ul>
       </div>
     )}
+
+    {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+  
   </div>
   
   );

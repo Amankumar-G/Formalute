@@ -13,6 +13,7 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
     bold: activeElement.bold || false,
     required: activeElement.required || false,
     description: activeElement.description || "",
+    className: activeElement.className || "",
   });
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
       bold: activeElement.bold || false,
       required: activeElement.required || false,
       description: activeElement.description || "",
+      className: activeElement.className || "",
     });
   }, [activeElement]);
 
@@ -36,7 +38,7 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
   };
 
   return (
-    <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
+  <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
   <Header
     title={`Type : ${capitalize(activeElement.type)}`}
     buttonText="DONE"
@@ -78,6 +80,8 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
       value={formDetails.color}
       onChange={handleFieldChange}
     />
+    </div>
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
     <Toggle
       id="italic"
       label="ITALIC"
@@ -88,6 +92,12 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
       id="bold"
       label="BOLD"
       checked={formDetails.bold}
+      onChange={handleFieldChange}
+    />
+    <Toggle
+      id="required"
+      label="REQUIRED FIELD"
+      checked={formDetails.required}
       onChange={handleFieldChange}
     />
   </div>
@@ -101,10 +111,12 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
       value={formDetails.description}
       onChange={handleFieldChange}
     />
-    <Toggle
-      id="required"
-      label="REQUIRED FIELD"
-      checked={formDetails.required}
+    <InputField
+      id="className"
+      type="text"
+      label="Class Name"
+      placeholder="Enter Class"
+      value={formDetails.className}
       onChange={handleFieldChange}
     />
   </div>

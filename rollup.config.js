@@ -29,7 +29,7 @@ export default {
         react: 'React',
         'react-dom': 'ReactDOM',
       },
-      sourcemap: true,
+      sourcemap: false,
     },
   ],
   plugins: [

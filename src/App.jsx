@@ -23,7 +23,7 @@ import { LeftButtons, RightButtons, AddButton,Stepper } from "./components/LeftR
 
 function App({ onSave }) {
   // State variables
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
   const [jsonConfig, setJsonConfig] = useState(null);
   const [isProperty, setIsProperty] = useState(false);

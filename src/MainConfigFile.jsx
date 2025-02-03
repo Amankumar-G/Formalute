@@ -8,6 +8,7 @@ const config = [
         required: false,
         pattern: "", // Alphanumeric with underscores
         autocomplete: "text",
+        className: "text",
     },
     {
         type: "email",
@@ -17,6 +18,7 @@ const config = [
         placeholder: "Enter email",
         required: false,
         autocomplete: "email",
+        className: "email",
     },
     {
         type: "password",
@@ -28,6 +30,7 @@ const config = [
         minlength: 8,
         pattern: "", // Minimum 8 characters, at least one letter and one number
         autocomplete: "new-password",
+        className: "password",
     },
     {
         type: "number",
@@ -39,6 +42,7 @@ const config = [
         min: 0,
         max: 100,
         step: 1,
+        className: "number",
     },
     {
         type: "date",
@@ -49,6 +53,7 @@ const config = [
         required: false,
         min: "1900-01-01",
         max: "2023-12-31",
+        className: "date",
     },
     {
         type: "tel",
@@ -59,6 +64,7 @@ const config = [
         required: false,
         pattern: "\\d{10}", // 10-digit number
         autocomplete: "tel",
+        className: "tel",
     },
     {
         type: "url",
@@ -69,6 +75,7 @@ const config = [
         required: false,
         pattern: "https?://.*", // Must start with http:// or https://
         autocomplete: "url",
+        className: "url",
     },
     {
         type: "file",
@@ -80,6 +87,7 @@ const config = [
         sizeLimit: 10, // File size limit in MB
         accept: "image/*", // Accept only image files
         multiple: false,
+        className: "file",
     },
     {
         type: "checkbox",
@@ -87,6 +95,7 @@ const config = [
         label: "Checkbox Label",
         placeholder: "",
         required: false,
+        className: "checkbox",
     },
     {
         type: "radio",
@@ -97,7 +106,8 @@ const config = [
         options: [
             { value: "option1", text: "Option 1" },
             { value: "option2", text: "Option 2" }
-        ]
+        ],
+        className: "radio",
     },
     {
         type: "range",
@@ -109,6 +119,7 @@ const config = [
         min: 0,
         max: 100,
         step: 1,
+        className: "range",
     },
     {
         type: "textarea",
@@ -120,6 +131,7 @@ const config = [
         maxlength: 500,
         rows: 5,
         cols: 30,
+        className: "textarea",
     },
     {
         type: "color",
@@ -128,6 +140,7 @@ const config = [
         label: "Color Picker",
         placeholder: "",
         required: false,
+        className: "color",
     },
     {
         type: "search",
@@ -136,6 +149,7 @@ const config = [
         label: "Search",
         placeholder: "Search here",
         required: false,
+        className: "search",
     },
     {
         type: "hidden",
@@ -144,6 +158,7 @@ const config = [
         label: "Hidden Field",
         placeholder: "",
         required: false,
+        className: "hidden",
     },
     {
         type: "datetime-local",
@@ -154,6 +169,7 @@ const config = [
         required: false,
         min: "2023-01-01T00:00",
         max: "2024-12-31T23:59",
+        className: "datetime",
     },
     {
         type: "month",
@@ -162,6 +178,7 @@ const config = [
         label: "Month Selector",
         placeholder: "",
         required: false,
+        className: "month",
     },
     {
         type: "week",
@@ -170,6 +187,7 @@ const config = [
         label: "Week Selector",
         placeholder: "",
         required: false,
+        className: "week",
     },
     {
         type: "time",
@@ -178,6 +196,7 @@ const config = [
         label: "Time Selector",
         placeholder: "",
         required: false,
+        className: "time",
     },
     {
         type: "select",
@@ -191,6 +210,7 @@ const config = [
             { text: "Option 2", value: "option2" },
             { text: "Option 3", value: "option3" }
         ],
+        className: "select",
     },
     {
         type: "multiple-checkbox", // Type of element
@@ -204,6 +224,7 @@ const config = [
         ],
         value: [],
         description: "Description of the checkbox group.", // Optional description
+        className: "multipleCheckbox",
     },
     {
         type : "html",
@@ -215,15 +236,17 @@ const config = [
         label : "HTML Content",
         required : false,
         description : "HTML content description",
+        className: "html",
     },
     {
         type: "divider",
         name: "divider",
-    },  
+        className: "divider",
+    },
     {
         type : "button",
         name : "button",
-        
+        className: "button",
     }
 ];
 

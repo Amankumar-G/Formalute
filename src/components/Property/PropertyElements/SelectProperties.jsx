@@ -13,6 +13,8 @@ const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
     size: activeElement.size || "",
     options: activeElement.options || [{ value: "", text: "" }],
     name: activeElement.name || "",
+    className: activeElement.className || "",
+    errorMessage: activeElement.errorMessage || "",
   });
 
   useEffect(() => {
@@ -23,6 +25,8 @@ const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
       size: activeElement.size || "",
       options: activeElement.options || [{ value: "", text: "" }],
       name: activeElement.name || "",
+      className: activeElement.className || "",
+      errorMessage: activeElement.errorMessage || "",
     });
   }, [activeElement]);
 
@@ -64,7 +68,7 @@ const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
     onClick={() => handleDone(formDetails)}
     className="border-b pb-4 mb-6"
   />
-
+<div className="flex items-center space-x-8">
   {/* Name Field */}
   <InputField
     id="name"
@@ -73,7 +77,15 @@ const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
     value={formDetails.name}
     onChange={handleFieldChange}
   />
-
+    <InputField
+      id="className"
+      type="text"
+      label="Class Name"
+      placeholder="Enter Class"
+      value={formDetails.className}
+      onChange={handleFieldChange}
+    />
+</div>
   {/* General Properties (Label & Required Toggle) */}
   <div className="flex items-center space-x-8">
     <InputField
@@ -83,21 +95,32 @@ const SelectProperties = ({ activeElement, capitalize, handleDone }) => {
       value={formDetails.label}
       onChange={handleFieldChange}
     />
-    <Toggle
-      id="required"
-      label="REQUIRED FIELD"
-      checked={formDetails.required}
-      onChange={handleFieldChange}
-    />
-  </div>
-
-  {/* Basic Properties */}
+      {/* Basic Properties */}
   <Toggle
     id="multiple"
     label="ALLOW MULTIPLE SELECTION"
     checked={formDetails.multiple}
     onChange={handleFieldChange}
   />
+  </div>
+  <div className="flex">
+    <Toggle
+      id="required"
+      label="REQUIRED FIELD"
+      checked={formDetails.required}
+      onChange={handleFieldChange}
+    />
+    {formDetails.required && (
+          <InputField
+            id="errorMessage"
+            type="text"
+            label="Error Message for Required Field"
+            placeholder="Default: This field is required"
+            value={formDetails.errorMessage}
+            onChange={handleFieldChange}
+          />
+      )}
+</div>
 
   {/* Options Section */}
   <div className="space-y-4">

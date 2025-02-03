@@ -14,6 +14,7 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
     step: activeElement.step || "",
     value: activeElement.value || "",
     name: activeElement.name || "",
+    className: activeElement.className || "",
   });
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
       step: activeElement.step || "",
       value: activeElement.value || "",
       name: activeElement.name || "",
+      className: activeElement.className || "",
     });
   }, [activeElement]);
 
@@ -62,6 +64,14 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
       </div>
       <div className="flex items-center space-x-8">
         {/* Required Field */}
+      <InputField
+      id="className"
+      type="text"
+      label="Class Name"
+      placeholder="Enter Class"
+      value={formDetails.className}
+      onChange={handleFieldChange}
+       />
         <Toggle
           id="required"
           label="REQUIRED FIELD"

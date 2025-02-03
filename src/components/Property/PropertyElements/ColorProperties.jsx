@@ -9,6 +9,7 @@ const ColorProperties = ({ activeElement, capitalize, handleDone }) => {
     required: activeElement.required || false,
     value: activeElement.value || "#000000",
     name: activeElement.name || "",
+    className: activeElement.className || "",
   });
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const ColorProperties = ({ activeElement, capitalize, handleDone }) => {
       required: activeElement.required || false,
       value: activeElement.value || "#000000",
       name: activeElement.name || "",
+      className: activeElement.className || "",
     });
   }, [activeElement]);
 
@@ -59,6 +61,14 @@ const ColorProperties = ({ activeElement, capitalize, handleDone }) => {
           checked={formDetails.required}
           onChange={handleFieldChange}
         />
+            <InputField
+      id="className"
+      type="text"
+      label="Class Name"
+      placeholder="Enter Class"
+      value={formDetails.className}
+      onChange={handleFieldChange}
+    />
       </div>
 
 

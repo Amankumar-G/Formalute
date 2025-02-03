@@ -14,6 +14,7 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
     max: activeElement.max || "",
     step: activeElement.step || "",
     name: activeElement.name || "",
+    className: activeElement.className || "",
   });
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
       max: activeElement.max || "",
       step: activeElement.step || "",
       name: activeElement.name || "",
+      className: activeElement.className || "",
     });
   }, [activeElement]);
 
@@ -45,7 +47,7 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
   />
 
   {/* General Properties (label & required toggle) */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     <InputField
       id="label"
       label="LABEL"
@@ -63,13 +65,21 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
   </div>
   
   {/* Basic Properties (placeholder & required toggle) */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     <InputField
       id="placeholder"
       type="text"
       label="PLACEHOLDER"
       placeholder="Enter placeholder"
       value={formDetails.placeholder}
+      onChange={handleFieldChange}
+    />
+      <InputField
+      id="className"
+      type="text"
+      label="Class Name"
+      placeholder="Enter Class"
+      value={formDetails.className}
       onChange={handleFieldChange}
     />
     <Toggle
@@ -90,7 +100,7 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
 
   {/* Additional Properties Section */}
   {showAdditionalProperties && (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
       <InputField
         id="min"
         type="date"

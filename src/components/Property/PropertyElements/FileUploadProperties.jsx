@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from 'react';
-import InputField from "./InputField";  // Assuming you have this InputField component
-import Toggle from './Toggle';          // Assuming you have this Toggle component
-import Header from "./Header";         // Assuming you have this Header component
+import React, { useState, useEffect } from "react";
+import InputField from "./InputField";
+import Toggle from "./Toggle";
+import Header from "./Header";
 
 const FileUploadProperties = ({ activeElement, handleDone }) => {
   const [formDetails, setFormDetails] = useState({
@@ -10,7 +10,10 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
     accept: activeElement.accept || ".jpg,.jpeg,.png,.pdf",
     multiple: activeElement.multiple || false,
     sizeLimit: activeElement.sizeLimit || 10,
-    name: activeElement.name || "",  // in MB
+    name: activeElement.name || "",
+    className: activeElement.className || "",
+    errorMessage: activeElement.errorMessage || "",
+    errorMessageSizeLimit: activeElement.errorMessageSizeLimit || "",
   });
 
   useEffect(() => {
@@ -21,8 +24,12 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
       multiple: activeElement.multiple || false,
       sizeLimit: activeElement.sizeLimit || 10,
       name: activeElement.name || "",
+      className: activeElement.className || "",
+      errorMessage: activeElement.errorMessage || "",
+      errorMessageSizeLimit: activeElement.errorMessageSizeLimit || "",
     });
   }, [activeElement]);
+
   const handleFieldChange = (field, value) => {
     setFormDetails((prevDetails) => ({
       ...prevDetails,
@@ -32,71 +39,100 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
 
   return (
     <div className="bg-gray-100 flex flex-col px-6 py-6 space-y-6 rounded-lg shadow-md">
-  <Header
-    title="Type: File Upload"
-    buttonText="DONE"
-    onClick={() => handleDone(formDetails)}
-    className="border-b pb-4 mb-6"
-  />
+      <Header
+        title="Type: File Upload"
+        buttonText="DONE"
+        onClick={() => handleDone(formDetails)}
+        className="border-b pb-4 mb-6"
+      />
 
-  {/* General Properties (name & label with required toggle) */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    <InputField
-      id="name"
-      label="NAME"
-      placeholder="Enter name"
-      value={formDetails.name}
-      onChange={handleFieldChange}
-    />
-    <InputField
-      id="label"
-      label="LABEL"
-      placeholder="Enter label"
-      value={formDetails.label}
-      onChange={handleFieldChange}
-    />
-  </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <InputField
+          id="name"
+          label="NAME"
+          placeholder="Enter name"
+          value={formDetails.name}
+          onChange={handleFieldChange}
+        />
+        <InputField
+          id="label"
+          label="LABEL"
+          placeholder="Enter label"
+          value={formDetails.label}
+          onChange={handleFieldChange}
+        />
+        <InputField
+          id="className"
+          type="text"
+          label="Class Name"
+          placeholder="Enter Class"
+          value={formDetails.className}
+          onChange={handleFieldChange}
+        />
+      </div>
 
-  <div className="flex items-center space-x-6">
-    <Toggle
-      id="required"
-      label="REQUIRED FIELD"
-      checked={formDetails.required}
-      onChange={handleFieldChange}
-    />
-  </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">ACCEPT (File Types)</label>
+          <select
+            id="accept"
+            value={formDetails.accept}
+            onChange={(e) => handleFieldChange("accept", e.target.value)}
+            className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          >
+            <option value=".jpg,.jpeg,.png,.pdf">Images</option>
+            <option value=".pdf">PDFs</option>
+            <option value=".doc,.docx,.pdf">Documents</option>
+            <option value=".csv,.xlsx,.xls">Spreadsheets</option>
+            <option value="*">All File Types</option>
+          </select>
+        </div>
+        <InputField
+          id="sizeLimit"
+          type="number"
+          label="SIZE LIMIT (MB)"
+          placeholder="Enter size limit in MB"
+          value={formDetails.sizeLimit}
+          onChange={handleFieldChange}
+        />
+      </div>
 
-  {/* Basic Properties (accept file types & size limit) */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    <InputField
-      id="accept"
-      type="text"
-      label="ACCEPT (File types)"
-      placeholder="Enter accepted file types (e.g., .jpg,.png,.pdf)"
-      value={formDetails.accept}
-      onChange={handleFieldChange}
-    />
-    <InputField
-      id="sizeLimit"
-      type="number"
-      label="SIZE LIMIT (MB)"
-      placeholder="Enter size limit in MB"
-      value={formDetails.sizeLimit}
-      onChange={handleFieldChange}
-    />
-  </div>
+      <div className="flex items-center space-x-6">
+        <Toggle
+          id="required"
+          label="REQUIRED FIELD"
+          checked={formDetails.required}
+          onChange={handleFieldChange}
+        />
+        <Toggle
+          id="multiple"
+          label="Allow Multiple Files"
+          checked={formDetails.multiple}
+          onChange={handleFieldChange}
+        />
+      </div>
 
-  {/* Toggle for multiple file selection */}
-  <div className="flex items-center space-x-6">
-    <label className="font-medium">Allow Multiple Files</label>
-    <Toggle
-      id="multiple"
-      checked={formDetails.multiple}
-      onChange={handleFieldChange}
-    />
-  </div>
-</div>
-
+      {formDetails.required && (
+        <InputField
+          id="errorMessage"
+          type="text"
+          label="Error Message for Required Field"
+          placeholder="Default: This field is required"
+          value={formDetails.errorMessage}
+          onChange={handleFieldChange}
+        />
+      )}
+      {formDetails.sizeLimit && (
+        <InputField
+          id="errorMessageSizeLimit"
+          type="text"
+          label="Error Message for Size Limit"
+          placeholder="Default: File exceeds allowed size"
+          value={formDetails.errorMessageSizeLimit}
+          onChange={handleFieldChange}
+        />
+      )}
+    </div>
   );
 };
 

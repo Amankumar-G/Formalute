@@ -2,215 +2,245 @@
 
 const FormData =[
   {
-    "type": "text",
-    "name": "text",
-    "value": "",
-    "label": "UserName",
-    "placeholder": "Enter your userName",
-    "required": true,
-    "pattern": "^[A-Za-z0-9_]+$",
-    "autocomplete": "text",
-    "id": "b746a6fc-8b5d-4932-9abb-c2556e566db5",
-    "maxlength": "3",
-    "minlength": "-7",
-    "spellcheck": "true",
-    "size": ""
-  },
-  {
-    "type": "email",
-    "name": "email",
-    "value": "",
-    "label": "Email Address",
-    "placeholder": "Enter your email address",
-    "required": true,
-    "autocomplete": "email",
-    "id": "979c29ac-38be-47da-a66d-e6f4f6e9daf6",
-    "pattern": "",
-    "maxlength": "",
-    "minlength": "",
-    "spellcheck": "",
-    "size": ""
-  },
-  {
-    "type": "date",
-    "name": "birthdate",
-    "value": "",
-    "label": "Date of Birth",
-    "placeholder": "Select your birthdate",
-    "required": true,
-    "min": "1900-01-01",
-    "max": "2023-12-31",
-    "id": "baa715ce-3edf-473c-8a13-0a024b9b50bb",
-    "step": ""
-  },
-  {
-    "type": "number",
-    "name": "age",
-    "value": "",
-    "label": "Age",
-    "placeholder": "Enter your age",
-    "required": true,
-    "min": "18",
-    "max": 120,
-    "step": 1,
-    "id": "dcc48b2a-5f67-437c-a5d0-d692131df846",
-    "maxlength": ""
-  },
-  {
-    "type": "textarea",
-    "name": "comments",
-    "value": "",
-    "label": "Comments",
-    "placeholder": "Enter your toughts here",
-    "required": false,
-    "maxlength": 500,
-    "rows": 5,
-    "cols": 30,
-    "id": "c9e47d05-69e7-4633-95f4-80d8e2082250"
-  },
-  {
-    "type": "password",
-    "name": "password",
-    "value": "",
-    "label": "Password",
-    "placeholder": "Enter your password keep it safe",
-    "required": false,
-    "minlength": 8,
-    "pattern": "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}",
-    "autocomplete": "new-password",
-    "id": "5fd63276-bd0b-40cd-ad11-b7507c81b99a",
-    "maxlength": "",
-    "spellcheck": "",
-    "size": ""
-  },
-  {
-    "type": "file",
-    "name": "fileUpload",
-    "value": "",
-    "label": "Upload File",
-    "placeholder": "",
-    "required": false,
-    "accept": "image/*",
-    "multiple": true,
-    "id": "19804789-da29-4622-a54e-41d34103fc69",
-    "sizeLimit": "1"
-  },
-  {
-    "type": "tel",
-    "name": "phone",
-    "value": "",
-    "label": "Phone Number",
-    "placeholder": "Enter your phone number",
-    "required": true,
-    "pattern": "\\d{10}",
-    "autocomplete": "tel",
-    "id": "e69af394-5f77-4db1-bfdf-5c9f53adab6b",
-    "maxlength": "",
-    "minlength": "",
-    "spellcheck": "",
-    "size": ""
-  },
-  {
-    "type": "hidden",
-    "name": "userID",
-    "value": "Help",
-    "label": "Hidden Field",
-    "placeholder": "",
-    "required": false,
-    "id": "abd7db64-9a12-4972-acec-a0fbb783ffef"
-  },
-  {
-    "type": "select",
-    "name": "country",
-    "value": "",
-    "label": "Country",
-    "placeholder": "",
-    "required": false,
-    "options": [
+    "partitionIndex": 1,
+    "elements": [
       {
-        "text": "United States",
-        "value": "us"
+        "type": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text Field",
+        "placeholder": "Enter text",
+        "required": false,
+        "pattern": "",
+        "autocomplete": "text",
+        "className": "text",
+        "id": "605ed791-f13c-4fde-ad22-076c80a40bce"
       },
       {
-        "text": "Canada",
-        "value": "ca"
+        "type": "email",
+        "name": "email",
+        "value": "",
+        "label": "Email",
+        "placeholder": "Enter email",
+        "required": false,
+        "autocomplete": "email",
+        "className": "email",
+        "id": "21af0a13-432d-40df-9a9f-84e617bb077c"
       },
       {
-        "text": "United Kingdom",
-        "value": "uk"
+        "type": "date",
+        "name": "date",
+        "value": "",
+        "label": "Date",
+        "placeholder": "Select a date",
+        "required": false,
+        "min": "1900-01-01",
+        "max": "2023-12-31",
+        "className": "date",
+        "id": "3aba1cf0-c0b6-4239-ae95-0ec017d912f3"
       },
       {
-        "text": "India",
-        "value": "in"
+        "type": "number",
+        "name": "number",
+        "value": "",
+        "label": "Number",
+        "placeholder": "Enter a number",
+        "required": false,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "className": "number",
+        "id": "3b16ee13-ee8d-420d-9b0f-f84a494f5785"
       },
       {
-        "text": "Australia",
-        "value": "au"
+        "type": "textarea",
+        "name": "textarea",
+        "value": "",
+        "label": "Textarea",
+        "placeholder": "Enter text here",
+        "required": false,
+        "maxlength": 500,
+        "rows": 5,
+        "cols": 30,
+        "className": "textarea",
+        "id": "1b263a59-d19b-45aa-9693-576df61558f1"
       },
       {
-        "value": "india",
-        "text": "Gujarat"
+        "type": "password",
+        "name": "password",
+        "value": "",
+        "label": "Password",
+        "placeholder": "Enter password",
+        "required": false,
+        "minlength": 8,
+        "pattern": "",
+        "autocomplete": "new-password",
+        "className": "password",
+        "id": "75e38e0f-724f-4807-9113-8b27d4238208"
+      },
+      {
+        "type": "file",
+        "name": "file",
+        "value": "",
+        "label": "File Upload",
+        "placeholder": "",
+        "required": false,
+        "sizeLimit": 10,
+        "accept": "image/*",
+        "multiple": false,
+        "className": "file",
+        "id": "19e00c0b-8fa9-42c7-babd-d11948bea786"
+      },
+      {
+        "type": "tel",
+        "name": "tel",
+        "value": "",
+        "label": "Phone",
+        "placeholder": "Enter phone number",
+        "required": false,
+        "pattern": "\\d{10}",
+        "autocomplete": "tel",
+        "className": "tel",
+        "id": "d3054faf-def8-483b-82be-97be52bf9e1d"
+      },
+      {
+        "type": "hidden",
+        "name": "hidden",
+        "value": "12345",
+        "label": "Hidden Field",
+        "placeholder": "",
+        "required": false,
+        "className": "hidden",
+        "id": "88860646-2b7e-476c-aaf8-8048e66e7307"
+      },
+      {
+        "type": "select",
+        "name": "select",
+        "value": "",
+        "label": "Dropdown",
+        "placeholder": "",
+        "required": false,
+        "options": [
+          {
+            "text": "Option 1",
+            "value": "option1"
+          },
+          {
+            "text": "Option 2",
+            "value": "option2"
+          },
+          {
+            "text": "Option 3",
+            "value": "option3"
+          }
+        ],
+        "className": "select",
+        "id": "1b367016-4597-4cb1-be37-97bf88613f8f"
+      },
+      {
+        "type": "checkbox",
+        "name": "checkbox",
+        "label": "Checkbox Label",
+        "placeholder": "",
+        "required": false,
+        "className": "checkbox",
+        "id": "a125a129-4ec4-4890-b401-ca1bcd3ef1d8"
+      },
+      {
+        "type": "multiple-checkbox",
+        "name": "multipleCheckbox",
+        "label": "Multiple Checkbox Group",
+        "required": false,
+        "defaultChecked": false,
+        "options": [
+          {
+            "value": "option1",
+            "text": "Option 1"
+          },
+          {
+            "value": "option2",
+            "text": "Option 2"
+          }
+        ],
+        "value": [],
+        "description": "Description of the checkbox group.",
+        "className": "multipleCheckbox",
+        "id": "8af00ae4-d195-404b-bc26-2e6f939af4c9"
+      },
+      {
+        "type": "radio",
+        "name": "radio",
+        "label": "Radio Group",
+        "required": false,
+        "defaultSelected": "option1",
+        "options": [
+          {
+            "value": "option1",
+            "text": "Option 1"
+          },
+          {
+            "value": "option2",
+            "text": "Option 2"
+          }
+        ],
+        "className": "radio",
+        "id": "2f3273ce-6cc4-4449-8073-d2582c8b537b"
+      },
+      {
+        "type": "url",
+        "name": "url",
+        "value": "",
+        "label": "URL",
+        "placeholder": "Enter a URL",
+        "required": false,
+        "pattern": "https?://.*",
+        "autocomplete": "url",
+        "className": "url",
+        "id": "9108462a-93b7-47a4-9eb2-db91fde21aef"
+      },
+      {
+        "type": "range",
+        "name": "range",
+        "value": "50",
+        "label": "Range Selector",
+        "placeholder": "",
+        "required": false,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "className": "range",
+        "id": "a2c2a78d-5d90-48b3-bafa-4b5e4dba5693"
+      },
+      {
+        "type": "html",
+        "name": "html",
+        "value": "h1",
+        "color": "black",
+        "italic": false,
+        "bold": false,
+        "label": "HTML Content",
+        "required": false,
+        "description": "HTML content description",
+        "className": "html",
+        "id": "3c8fb8b8-2748-4fc2-8c5e-59d0d95c765e"
+      },
+      {
+        "type": "color",
+        "name": "color",
+        "value": "#000000",
+        "label": "Color Picker",
+        "placeholder": "",
+        "required": false,
+        "className": "color",
+        "id": "66b10c01-09a6-4658-a8c8-4edaafd62d5e"
+      },
+      {
+        "type": "divider",
+        "name": "divider",
+        "className": "divider",
+        "id": "7b5aaf06-3fae-4427-b338-5134a5e57d02"
       }
-    ],
-    "id": "3acf2529-0847-47f6-91ff-ca095d370140",
-    "multiple": false,
-    "size": ""
-  },
-  {
-    "type": "checkbox",
-    "name": "acceptTerms",
-    "value": "yes",
-    "label": "I accept the terms and conditions",
-    "placeholder": "",
-    "required": false,
-    "checked": false,
-    "id": "6d724799-9db8-4bb9-aeb7-9dd5d558e9dc"
-  },
-  {
-    "type": "multiple-checkbox",
-    "label": "Subscribe to Newsletter",
-    "required": true,
-    "defaultChecked": false,
-    "options": [
-      {
-        "value": "yes",
-        "text": "Yes, I want to receive newsletters"
-      },
-      {
-        "value": "no",
-        "text": "No, I do not want to receive newsletters"
-      }
-    ],
-    "description": "This checkbox allows the user to subscribe or unsubscribe from the newsletter.",
-    "id": "472a1680-01ca-4623-b5ad-75a43a59e50e"
-  },
-  {
-    "type": "radio",
-    "label": "Select your favorite option",
-    "required": true,
-    "defaultSelected": "option1",
-    "options": [
-      {
-        "value": "option1",
-        "text": "Option 1"
-      },
-      {
-        "value": "option2",
-        "text": "Option 2"
-      }
-    ],
-    "id": "3e4dce67-7706-44d2-98b7-29aa4bf37bff"
-  },
-  {
-    "type": "url",
-    "name": "website",
-    "value": "",
-    "label": "Website",
-    "placeholder": "Enter your website URL",
-    "required": false,
-    "pattern": "https?://.*",
-    "autocomplete": "url",
-    "id": "8cdfdc0e-4520-4b55-8bef-8d31e2a908df"
+    ]
   }
 ]
 export default FormData;

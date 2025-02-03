@@ -10,6 +10,7 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
         required: activeElement.required || false,
         name: activeElement.name || "",
         value: activeElement.value || "",
+        className: activeElement.className || "",
     });
 
     useEffect(() => {
@@ -18,6 +19,7 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
             required: activeElement.required || false,
             name: activeElement.name || "",
             value: activeElement.value || "",
+            className: activeElement.className || "",
         });
     }, [activeElement]);
 
@@ -41,6 +43,7 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
   {/* General Properties */}
   <div className="space-y-6">
     {/* Name Field */}
+    <div className="flex items-center space-x-8">
     <InputField
       id="name"
       label="NAME"
@@ -48,7 +51,15 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
       value={formDetails.name}
       onChange={handleFieldChange}
     />
-
+     <InputField
+      id="className"
+      type="text"
+      label="Class Name"
+      placeholder="Enter Class"
+      value={formDetails.className}
+      onChange={handleFieldChange}
+    />
+    </div>
     {/* Label and Required Toggle */}
     <div className="flex items-center space-x-8">
       <InputField
@@ -65,6 +76,7 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
         onChange={handleFieldChange}
       />
     </div>
+   
   </div>
 </div>
 

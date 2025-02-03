@@ -14,6 +14,7 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
     cols: activeElement.cols || 50,
     maxlength: activeElement.maxlength || 500,
     name: activeElement.name || "",
+    className: activeElement.className || "", 
   });
 
    useEffect(() => {
@@ -24,7 +25,9 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
         rows: activeElement.rows || 4,
         cols: activeElement.cols || 50,
         maxlength: activeElement.maxlength || 500,
-        name: activeElement.name || "",// Initialize name field
+        name: activeElement.name || "",
+        className: activeElement.className || "", 
+
       });
     }, [activeElement]);
 
@@ -72,6 +75,14 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
         value={formDetails.placeholder}
         onChange={handleFieldChange}
       />
+      <InputField
+      id="className"
+      type="text"
+      label="Class Name"
+      placeholder="Enter Class"
+      value={formDetails.className}
+      onChange={handleFieldChange}
+    />
       <Toggle
         id="required"
         label="REQUIRED FIELD"
