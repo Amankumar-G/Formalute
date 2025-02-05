@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaPlus, FaSave, FaEye, FaClipboardList } from "react-icons/fa"; // Importing icons
+import { FaPlus, FaSave, FaEye, FaClipboardList, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = ({ handleExpandToggle, handleSave, handleRenderer, handleIsMultiPart }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,96 +11,90 @@ const Navbar = ({ handleExpandToggle, handleSave, handleRenderer, handleIsMultiP
   };
 
   return (
-    <div className="w-full z-10 bg-white relative shadow-lg text-gray-800 p-3 flex justify-between items-center rounded-lg border-b-2 border-gray-200">
+    <div className="w-full z-50 bg-white shadow-lg text-gray-800 p-3 flex justify-between items-center rounded-lg border-b border-gray-200">
       {/* Navbar Title */}
-      <div className="flex items-center justify-between w-auto">
-        <div className="text-lg md:text-2xl font-semibold tracking-wide text-gray-900">
-          DragFormX
-          <span className="text-blue-600">-JS</span>
-        </div>
+      <div className="text-lg md:text-2xl font-semibold tracking-wide text-gray-900">
+        DragFormX<span className="text-blue-600">-JS</span>
       </div>
 
-      {/* Navbar Menu - Desktop */}
+      {/* Desktop Menu */}
       <div className="hidden lg:flex space-x-4">
         <button
           onClick={() => handleMenuClick(handleExpandToggle)}
-          className="flex items-center gap-2 text-gray-800 bg-transparent border border-green-500 px-4 py-1 sm:px-6 sm:py-2 rounded-lg hover:bg-green-100 transition duration-300"
+          className="flex items-center gap-2 text-gray-800 bg-white border border-green-500 px-4 py-2 rounded-lg hover:bg-green-100 transition"
         >
-          <FaPlus className="text-sm sm:text-base" /> <span className="hidden sm:inline">Add Element</span>
+          <FaPlus /> <span className="hidden sm:inline">Add Element</span>
         </button>
         <button
           onClick={() => handleMenuClick(handleIsMultiPart)}
-          className="flex items-center gap-2 text-gray-800 bg-transparent border border-yellow-500 px-4 py-1 sm:px-6 sm:py-2 rounded-lg hover:bg-yellow-100 transition duration-300"
+          className="flex items-center gap-2 text-gray-800 bg-white border border-yellow-500 px-4 py-2 rounded-lg hover:bg-yellow-100 transition"
         >
-          <FaClipboardList className="text-sm sm:text-base" /> <span className="hidden sm:inline">Multi-Part Form</span>
+          <FaClipboardList /> <span className="hidden sm:inline">Multi-Part Form</span>
         </button>
         <button
           onClick={() => handleMenuClick(handleRenderer)}
-          className="flex items-center gap-2 text-gray-800 bg-transparent border border-teal-500 px-4 py-1 sm:px-6 sm:py-2 rounded-lg hover:bg-teal-100 transition duration-300"
+          className="flex items-center gap-2 text-gray-800 bg-white border border-teal-500 px-4 py-2 rounded-lg hover:bg-teal-100 transition"
         >
-          <FaEye className="text-sm sm:text-base" /> <span className="hidden sm:inline">Preview</span>
+          <FaEye /> <span className="hidden sm:inline">Preview</span>
         </button>
         <button
           onClick={() => handleMenuClick(handleSave)}
-          className="flex items-center gap-2 text-gray-800 bg-transparent border border-blue-500 px-4 py-1 sm:px-6 sm:py-2 rounded-lg hover:bg-blue-100 transition duration-300"
+          className="flex items-center gap-2 text-gray-800 bg-white border border-blue-500 px-4 py-2 rounded-lg hover:bg-blue-100 transition"
         >
-          <FaSave className="text-sm sm:text-base" /> <span className="hidden sm:inline">Save</span>
+          <FaSave /> <span className="hidden sm:inline">Publish</span>
         </button>
       </div>
 
-      {/* Hamburger Menu Button - Mobile */}
-      <div className="lg:hidden flex items-center">
+      {/* Mobile Menu Button */}
+      <div className="lg:hidden">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="text-gray-800 bg-transparent p-2 rounded-lg hover:bg-gray-100 focus:outline-none"
+          className="text-gray-800 bg-transparent p-2 rounded-lg hover:bg-gray-200 focus:outline-none transition"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-            />
-          </svg>
+          {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
       </div>
 
-      {/* Dropdown Menu for Mobile */}
+      {/* Mobile Dropdown Menu */}
       <div
-        className={`lg:hidden absolute top-16 right-2 w-48 bg-white shadow-lg rounded-lg p-2 transition-all duration-200 ${
-          isMenuOpen ? "block" : "hidden"
+        className={`lg:hidden fixed top-0 right-0 h-full w-3/4 max-w-xs bg-white bg-opacity-30 backdrop-blur-lg shadow-xl transition-transform duration-500 ease-in-out ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        style={{ backdropFilter: "blur(12px)" }}
       >
-        <button
-          onClick={() => handleMenuClick(handleExpandToggle)}
-          className="flex items-center gap-2 text-gray-800 bg-transparent border border-green-500 px-4 py-2 rounded-lg w-full hover:bg-green-100 transition duration-300"
-        >
-          <FaPlus /> Add Element
-        </button>
-        <button
-          onClick={() => handleMenuClick(handleIsMultiPart)}
-          className="flex items-center gap-2 text-gray-800 bg-transparent border border-yellow-500 px-4 py-2 rounded-lg w-full hover:bg-yellow-100 transition duration-300"
-        >
-          <FaClipboardList /> Multi-Part Form
-        </button>
-        <button
-          onClick={() => handleMenuClick(handleRenderer)}
-          className="flex items-center gap-2 text-gray-800 bg-transparent border border-teal-500 px-4 py-2 rounded-lg w-full hover:bg-teal-100 transition duration-300"
-        >
-          <FaEye /> Preview
-        </button>
-        <button
-          onClick={() => handleMenuClick(handleSave)}
-          className="flex items-center gap-2 text-gray-800 bg-transparent border border-blue-500 px-4 py-2 rounded-lg w-full hover:bg-blue-100 transition duration-300"
-        >
-          <FaSave /> Save
-        </button>
+        <div className="flex justify-between items-center p-4 border-b border-gray-300">
+          <div className="text-lg font-semibold text-gray-900">Menu</div>
+          <button onClick={() => setIsMenuOpen(false)} className="text-gray-800">
+            <FaTimes size={24} />
+          </button>
+        </div>
+
+        <div className="flex flex-col items-center mt-6 space-y-4">
+          <button
+            onClick={() => handleMenuClick(handleExpandToggle)}
+            className="flex items-center gap-2 text-gray-800 bg-white border border-green-500 px-6 py-3 rounded-lg w-3/4 text-center hover:bg-green-100 transition"
+          >
+            <FaPlus /> Add Element
+          </button>
+          <button
+            onClick={() => handleMenuClick(handleIsMultiPart)}
+            className="flex items-center gap-2 text-gray-800 bg-white border border-yellow-500 px-6 py-3 rounded-lg w-3/4 text-center hover:bg-yellow-100 transition"
+          >
+            <FaClipboardList /> Multi-Part Form
+          </button>
+          <button
+            onClick={() => handleMenuClick(handleRenderer)}
+            className="flex items-center gap-2 text-gray-800 bg-white border border-teal-500 px-6 py-3 rounded-lg w-3/4 text-center hover:bg-teal-100 transition"
+          >
+            <FaEye /> Preview
+          </button>
+          <button
+            onClick={() => handleMenuClick(handleSave)}
+            className="flex items-center gap-2 text-gray-800 bg-white border border-blue-500 px-6 py-3 rounded-lg w-3/4 text-center hover:bg-blue-100 transition"
+          >
+            <FaSave /> Publish
+          </button>
+        </div>
       </div>
     </div>
   );
