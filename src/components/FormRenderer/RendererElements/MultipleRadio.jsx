@@ -16,8 +16,7 @@ const MultipleRadio = ({ field, value, handleChange,error }) => (
           checked={value === option.value || false}
           onChange={handleChange}
           data-type="multiple-radio"
-          className={`mr-2 h-4 w-4 text-indigo-600 border-gray-300 rounded-full focus:ring-indigo-500 DragFormX-Radio-Input"
-           ${error ? "border-red-500" : ""
+          className={`mr-2 h-4 w-4 text-indigo-600 border-gray-300 rounded-full focus:ring-indigo-500 DragFormX-Radio-Input ${error ? "border-red-500" : ""
         }`}
           required={field.required}
         />
@@ -33,7 +32,7 @@ const MultipleRadio = ({ field, value, handleChange,error }) => (
         {field.description}
       </p>
     )}
-    {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+    {error && <div className="text-red-500 text-sm mt-1 DragFormX-Error">{error}</div>}
 
   </div>
 );

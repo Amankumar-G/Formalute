@@ -6,7 +6,7 @@ const RangeRenderer = ({ field, value, handleChange ,error}) => {
       {field.label && (
         <label
           htmlFor={field.id}
-          className="block text-sm font-medium text-gray-700 mb-2 DragFormX-Range-Label"
+          className="block text-sm font-medium text-gray-700 mb-2 DragFormX-Label"
         >
           {field.label}
         </label>
@@ -28,7 +28,7 @@ const RangeRenderer = ({ field, value, handleChange ,error}) => {
         <span className="DragFormX-Range-Text">Max: {field.max || 100}</span>
       </div>
 
-      {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+      {error && <div className="text-red-500 text-sm mt-1 DragFormX-Error">{error}</div>}
     </div>
   );
 };

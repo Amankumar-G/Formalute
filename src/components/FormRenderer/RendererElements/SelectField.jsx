@@ -22,7 +22,7 @@ const SelectField = ({ field, value, handleChange,error }) => {
           </option>
         ))}
       </select>
-      {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+      {error && <div className="text-red-500 text-sm mt-1 DragFormX-Error">{error}</div>}
  
     </div>
   );

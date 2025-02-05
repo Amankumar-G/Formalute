@@ -12,10 +12,9 @@ const TextareaField = ({ field, value, handleChange,error }) => {
         {...field}
         value={value || ''}
         onChange={handleChange}
-        className={`w-full p-3 mt-1 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none DragFormX-textarea
-        ${error ? "border-red-500" : ""}`}
+        className={`w-full p-3 mt-1 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none DragFormX-textarea ${error ? "border-red-500" : ""}`}
       />
-      {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+      {error && <div className="text-red-500 text-sm mt-1 DragFormX-Error">{error}</div>}
 
     </div>
   );

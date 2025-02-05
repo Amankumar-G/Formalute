@@ -16,17 +16,17 @@ import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'; // Importing React I
 // import rawJson from "./ConfigFormWithPartitions (20).json?raw";
 
 
-const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) => {
+  const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) => {
 
-  const [errors, setErrors] = useState({});
-  const parsedConfig = useMemo(() => {
-    try {
-      return jsonConfig ? JSON.parse(jsonConfig) : [];
-    } catch (err) {
-      console.error("Invalid JSON Config:", err);
-      return [];
-    }
-  }, [jsonConfig]);
+    const [errors, setErrors] = useState({});
+    const parsedConfig = useMemo(() => {
+      try {
+        return jsonConfig ? JSON.parse(jsonConfig) : [];
+      } catch (err) {
+        console.error("Invalid JSON Config:", err);
+        return [];
+      }
+    }, [jsonConfig]);
   
   const [formData, setFormData] = useState(() =>
     parsedConfig.reduce((acc, partition) => {
@@ -152,6 +152,7 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
         return null;
     }
   };
+
   const validateField = (field, value) => {
     const errors = [];
   
@@ -165,7 +166,7 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
         errors.push(field.errorMessage || 'This field is required.');
       }
     }
-  
+    
     // ✅ Validate number, range, and date fields
     if (['number', 'range', 'date'].includes(field.type)) {
       const numValue = Number(value);
@@ -334,7 +335,7 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
         ) : (
           <button
             type="submit"
-            className="w-full py-3 mt-6 bg-indigo-600 text-white rounded-md font-semibold text-lg hover:bg-indigo-700 transition-all duration-300 DragFormX-submit-full"
+            className="w-full py-3 mt-6 bg-indigo-600 text-white rounded-md font-semibold text-lg hover:bg-indigo-700 transition-all duration-300 DragFormX-submit"
           >
             Submit
           </button>

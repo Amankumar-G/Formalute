@@ -19,7 +19,7 @@ const CheckboxField = ({ field, value, handleChange ,error}) => (
       {/* Label text styling */}
       <span className="text-gray-700">{field.label}</span>
     </label>
-    {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+    {error && <div className="text-red-500 text-sm mt-1 DragFormX-Error">{error}</div>}
   </div>
 );
 
