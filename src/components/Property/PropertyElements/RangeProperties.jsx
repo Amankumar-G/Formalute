@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import InputField from "./InputField";
-import Toggle from './Toggle';
+import Toggle from "./Toggle";
 import Header from "./Header";
 
 const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
@@ -15,6 +15,9 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
     value: activeElement.value || "",
     name: activeElement.name || "",
     className: activeElement.className || "",
+    errorMessageMax: activeElement.errorMessageMax || "",
+    errorMessageMin: activeElement.errorMessageMin || "",
+    errorMessage: activeElement.errorMessage || "",
   });
 
   useEffect(() => {
@@ -27,6 +30,9 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
       value: activeElement.value || "",
       name: activeElement.name || "",
       className: activeElement.className || "",
+      errorMessageMax: activeElement.errorMessageMax || "",
+      errorMessageMin: activeElement.errorMessageMin || "",
+      errorMessage: activeElement.errorMessage || "",
     });
   }, [activeElement]);
 
@@ -45,8 +51,7 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
         onClick={() => handleDone(formDetails)}
       />
 
-      {/* General Properties (label, name, & required toggle) */}
-      <div className="flex items-center space-x-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <InputField
           id="label"
           label="LABEL"
@@ -62,25 +67,34 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
           onChange={handleFieldChange}
         />
       </div>
-      <div className="flex items-center space-x-8">
-        {/* Required Field */}
-      <InputField
-      id="className"
-      type="text"
-      label="Class Name"
-      placeholder="Enter Class"
-      value={formDetails.className}
-      onChange={handleFieldChange}
-       />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <InputField
+          id="className"
+          type="text"
+          label="Class Name"
+          placeholder="Enter Class"
+          value={formDetails.className}
+          onChange={handleFieldChange}
+        />
         <Toggle
           id="required"
           label="REQUIRED FIELD"
           checked={formDetails.required}
           onChange={handleFieldChange}
         />
+        {formDetails.required && (
+          <InputField
+            id="errorMessage"
+            type="text"
+            label="Error Message for Required Field"
+            placeholder="Default: This field is required"
+            value={formDetails.errorMessage}
+            onChange={handleFieldChange}
+          />
+        )}
       </div>
 
-      {/* Toggle Button for Additional Properties */}
       <button
         className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
         onClick={() => setShowAdditionalProperties((prev) => !prev)}
@@ -88,7 +102,6 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
         {showAdditionalProperties ? "Hide Additional Properties" : "Show Additional Properties"}
       </button>
 
-      {/* Additional Properties Section */}
       {showAdditionalProperties && (
         <div className="grid grid-cols-2 gap-6 mt-4">
           <InputField
@@ -99,6 +112,16 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
             value={formDetails.min}
             onChange={handleFieldChange}
           />
+          {formDetails.min && (
+            <InputField
+              id="errorMessageMin"
+              type="text"
+              label="Error Message for Min Value"
+              placeholder="Default: Value too low"
+              value={formDetails.errorMessageMin}
+              onChange={handleFieldChange}
+            />
+          )}
           <InputField
             id="max"
             type="number"
@@ -107,6 +130,16 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
             value={formDetails.max}
             onChange={handleFieldChange}
           />
+          {formDetails.max && (
+            <InputField
+              id="errorMessageMax"
+              type="text"
+              label="Error Message for Max Value"
+              placeholder="Default: Value too high"
+              value={formDetails.errorMessageMax}
+              onChange={handleFieldChange}
+            />
+          )}
           <InputField
             id="step"
             type="number"

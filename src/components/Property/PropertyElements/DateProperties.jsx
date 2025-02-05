@@ -15,6 +15,7 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
     step: activeElement.step || "",
     name: activeElement.name || "",
     className: activeElement.className || "",
+    errorMessage: activeElement.errorMessage || "",
   });
 
   useEffect(() => {
@@ -27,6 +28,7 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
       step: activeElement.step || "",
       name: activeElement.name || "",
       className: activeElement.className || "",
+      errorMessage: activeElement.errorMessage || "",
     });
   }, [activeElement]);
 
@@ -88,6 +90,16 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
       checked={formDetails.required}
       onChange={handleFieldChange}
     />
+    {formDetails.required && (
+          <InputField
+            id="errorMessage"
+            type="text"
+            label="Error Message for Required Field"
+            placeholder="Default: This field is required"
+            value={formDetails.errorMessage}
+            onChange={handleFieldChange}
+          />
+        )}
   </div>
 
   {/* Toggle Button for Additional Properties */}

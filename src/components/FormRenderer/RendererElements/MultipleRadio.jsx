@@ -1,6 +1,6 @@
 import React from "react";
 
-const MultipleRadio = ({ field, value, handleChange }) => (
+const MultipleRadio = ({ field, value, handleChange,error }) => (
   <div key={field.id}  className={`mb-6 DragFormX-Radio-Container ${field.className}`}>
     <label className="block text-sm font-medium text-gray-700 mb-2 DragFormX-Label">
       {field.label}
@@ -16,7 +16,9 @@ const MultipleRadio = ({ field, value, handleChange }) => (
           checked={value === option.value || false}
           onChange={handleChange}
           data-type="multiple-radio"
-          className="mr-2 h-4 w-4 text-indigo-600 border-gray-300 rounded-full focus:ring-indigo-500 DragFormX-Radio-Input"
+          className={`mr-2 h-4 w-4 text-indigo-600 border-gray-300 rounded-full focus:ring-indigo-500 DragFormX-Radio-Input"
+           ${error ? "border-red-500" : ""
+        }`}
           required={field.required}
         />
 
@@ -31,6 +33,8 @@ const MultipleRadio = ({ field, value, handleChange }) => (
         {field.description}
       </p>
     )}
+    {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+
   </div>
 );
 

@@ -15,8 +15,9 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
     maxlength: activeElement.maxlength || 500,
     name: activeElement.name || "",
     className: activeElement.className || "", 
+    errorMessage: activeElement.errorMessage || "",
   });
-
+  console.log(formDetails.errorMessage)
    useEffect(() => {
       setFormDetails({
         label: activeElement.label || "",
@@ -27,7 +28,7 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
         maxlength: activeElement.maxlength || 500,
         name: activeElement.name || "",
         className: activeElement.className || "", 
-
+        errorMessage: activeElement.errorMessage || "",
       });
     }, [activeElement]);
 
@@ -48,7 +49,7 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
     />
     
     {/* General Properties (label & required toggle) */}
-    <div className="flex items-center space-x-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <InputField
         id="label"
         label="LABEL"
@@ -65,7 +66,7 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
       />
     </div>
   
-    <div className="flex items-center space-x-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Basic Properties */}
       <InputField
         id="placeholder"
@@ -83,14 +84,26 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
       value={formDetails.className}
       onChange={handleFieldChange}
     />
+ </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
       <Toggle
         id="required"
         label="REQUIRED FIELD"
         checked={formDetails.required}
         onChange={handleFieldChange}
       />
+     {formDetails.required && (
+          <InputField
+            id="errorMessage"
+            type="text"
+            label="Error Message for Required Field"
+            placeholder="Default: This field is required"
+            value={formDetails.errorMessage}
+            onChange={handleFieldChange}
+          />
+        )}
     </div>
-  
     {/* Toggle Button for Additional Properties */}
     <button
       className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400 shadow-none"

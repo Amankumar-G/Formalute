@@ -6,12 +6,10 @@ import Header from "./Header";
 const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
   const [formDetails, setFormDetails] = useState({
     label: activeElement.label || "",
-    name: activeElement.name || "",
-    value: activeElement.value || "h1",
+    tag: activeElement.tag || "h1",
     color: activeElement.color || "black",
     italic: activeElement.italic || false,
     bold: activeElement.bold || false,
-    required: activeElement.required || false,
     description: activeElement.description || "",
     className: activeElement.className || "",
   });
@@ -19,12 +17,10 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
   useEffect(() => {
     setFormDetails({
       label: activeElement.label || "",
-      name: activeElement.name || "",
-      value: activeElement.value || "h1",
+      tag: activeElement.tag || "h1",
       color: activeElement.color || "black",
       italic: activeElement.italic || false,
       bold: activeElement.bold || false,
-      required: activeElement.required || false,
       description: activeElement.description || "",
       className: activeElement.className || "",
     });
@@ -55,22 +51,11 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
       value={formDetails.label}
       onChange={handleFieldChange}
     />
-    <InputField
-      id="name"
-      label="NAME"
-      placeholder="Enter name"
-      value={formDetails.name}
-      onChange={handleFieldChange}
-    />
-  </div>
-
-  {/* Text Formatting Properties */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    <InputField
+        <InputField
       id="value"
       label="HTML TAG (e.g., h1, h2, p)"
       placeholder="Enter HTML tag"
-      value={formDetails.value}
+      value={formDetails.tag}
       onChange={handleFieldChange}
     />
     <InputField
@@ -92,12 +77,6 @@ const HtmlProperties = ({ activeElement, capitalize, handleDone }) => {
       id="bold"
       label="BOLD"
       checked={formDetails.bold}
-      onChange={handleFieldChange}
-    />
-    <Toggle
-      id="required"
-      label="REQUIRED FIELD"
-      checked={formDetails.required}
       onChange={handleFieldChange}
     />
   </div>

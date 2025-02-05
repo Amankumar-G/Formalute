@@ -27,20 +27,24 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
       return [];
     }
   }, [jsonConfig]);
-
+  
   const [formData, setFormData] = useState(() =>
     parsedConfig.reduce((acc, partition) => {
       partition.elements.forEach((field) => {
-        acc[field.name] = field.value || "";
+        if (field.name) {
+          acc[field.name] = field.value || "";
+        }
       });
       return acc;
     }, {})
   );
-
+  
+  
   const [activePartitionIndex, setActivePartitionIndex] = useState(0);
 
   const handleChange = (e) => {
     const { name, value, type, checked, files, options, multiple, dataset } = e.target;
+    if (!name) return; 
     setFormData((prev) => {
       let updatedValue;
       const inputType = dataset.type || type;
@@ -110,6 +114,7 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
   const renderField = (field) => {
     const value = formData[field.name];
     const error = errors[field.name];
+
     const fieldProps = { field: convertAttributesToCamelCase(field), value, handleChange, error };
     switch (field.type) {
       case "text":
@@ -149,10 +154,19 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
   };
   const validateField = (field, value) => {
     const errors = [];
-    if (field.required && !value) {
-      errors.push(field.errorMessage || 'This field is required.');
+  
+    // ✅ Check required fields
+    if (field.required) {
+      if (field.type === 'multiple-checkbox') {
+        if (!value || value.length === 0) {
+          errors.push(field.errorMessage || 'At least one option must be selected.');
+        }
+      } else if (!value) {
+        errors.push(field.errorMessage || 'This field is required.');
+      }
     }
   
+    // ✅ Validate number, range, and date fields
     if (['number', 'range', 'date'].includes(field.type)) {
       const numValue = Number(value);
       if (field.min != null && numValue < field.min) {
@@ -163,6 +177,7 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
       }
     }
   
+    // ✅ Validate text-based fields (min/max length)
     if (['text', 'textarea', 'password', 'email', 'tel', 'url'].includes(field.type)) {
       const length = value ? value.length : 0;
       if (field.minLength && length < field.minLength) {
@@ -173,6 +188,7 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
       }
     }
   
+    // ✅ Validate regex pattern
     if (field.pattern && value) {
       const regex = new RegExp(field.pattern);
       if (!regex.test(value)) {
@@ -180,6 +196,7 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
       }
     }
   
+    // ✅ Validate file inputs
     if (field.type === 'file' && value.length > 0) {
       if (field.accept) {
         const acceptedTypes = field.accept.split(',').map(t => t.trim());
@@ -203,6 +220,7 @@ const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) =
   
     return errors.length ? errors.join(' ') : null;
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();

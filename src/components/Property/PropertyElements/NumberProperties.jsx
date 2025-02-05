@@ -4,7 +4,8 @@ import Toggle from "./Toggle";
 import Header from "./Header";
 
 const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
-  const [showAdditionalProperties, setShowAdditionalProperties] = useState(false);
+  const [showAdditionalProperties, setShowAdditionalProperties] =
+    useState(false);
 
   const [formDetails, setFormDetails] = useState({
     label: activeElement.label || "",
@@ -49,20 +50,19 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
         title={`Type : ${capitalize(activeElement.type)}`}
         buttonText="DONE"
         onClick={() => handleDone(formDetails)}
-        className="border-b pb-4 mb-6"
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <InputField
           id="label"
-          label="LABEL"
+          label="Label"
           placeholder="Enter label"
           value={formDetails.label}
           onChange={handleFieldChange}
         />
         <InputField
           id="name"
-          label="NAME"
+          label="Name"
           placeholder="Enter name"
           value={formDetails.name}
           onChange={handleFieldChange}
@@ -73,7 +73,7 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
         <InputField
           id="placeholder"
           type="text"
-          label="PLACEHOLDER"
+          label="Placeholder"
           placeholder="Enter placeholder"
           value={formDetails.placeholder}
           onChange={handleFieldChange}
@@ -88,7 +88,7 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
         />
         <Toggle
           id="required"
-          label="REQUIRED FIELD"
+          label="Required Field"
           checked={formDetails.required}
           onChange={handleFieldChange}
         />
@@ -108,7 +108,9 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
         className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400 transition-all duration-200 ease-in-out"
         onClick={() => setShowAdditionalProperties((prev) => !prev)}
       >
-        {showAdditionalProperties ? "Hide Additional Properties" : "Show Additional Properties"}
+        {showAdditionalProperties
+          ? "Hide Additional Properties"
+          : "Show Additional Properties"}
       </button>
 
       {showAdditionalProperties && (
@@ -116,39 +118,43 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
           <InputField
             id="min"
             type="number"
-            label="MIN VALUE"
+            label="Min Value"
             placeholder="Enter minimum value"
             value={formDetails.min}
             onChange={handleFieldChange}
           />
-          <InputField
-            id="errorMessageMin"
-            type="text"
-            label="Error Message for Min Value"
-            placeholder="Default: Value too low"
-            value={formDetails.errorMessageMin}
-            onChange={handleFieldChange}
-          />
+          {formDetails.min && (
+            <InputField
+              id="errorMessageMin"
+              type="text"
+              label="Error Message for Min Value"
+              placeholder="Default: Value too low"
+              value={formDetails.errorMessageMin}
+              onChange={handleFieldChange}
+            />
+          )}
           <InputField
             id="max"
             type="number"
-            label="MAX VALUE"
+            label="Max Value"
             placeholder="Enter maximum value"
             value={formDetails.max}
             onChange={handleFieldChange}
           />
-          <InputField
-            id="errorMessageMax"
-            type="text"
-            label="Error Message for Max Value"
-            placeholder="Default: Value too high"
-            value={formDetails.errorMessageMax}
-            onChange={handleFieldChange}
-          />
+          {formDetails.max && (
+            <InputField
+              id="errorMessageMax"
+              type="text"
+              label="Error Message for Max Value"
+              placeholder="Default: Value too high"
+              value={formDetails.errorMessageMax}
+              onChange={handleFieldChange}
+            />
+          )}
           <InputField
             id="step"
             type="number"
-            label="STEP"
+            label="Step"
             placeholder="Enter step value"
             value={formDetails.step}
             onChange={handleFieldChange}

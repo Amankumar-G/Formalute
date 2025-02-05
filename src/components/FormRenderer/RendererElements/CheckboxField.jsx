@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckboxField = ({ field, value, handleChange }) => (
+const CheckboxField = ({ field, value, handleChange ,error}) => (
   <div key={field.id} className={`mb-6 ${field.className}`}>
     {/* Label with styling */}
     <label
@@ -12,11 +12,14 @@ const CheckboxField = ({ field, value, handleChange }) => (
         {...field}
         checked={value || false}
         onChange={handleChange}
-        className="w-4 h-4 border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all duration-300  DragFormX-checkbox"
+        className={`w-4 h-4 border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all duration-300  DragFormX-checkbox" ${
+          error ? "border-red-500" : ""
+        }`}
       />
       {/* Label text styling */}
       <span className="text-gray-700">{field.label}</span>
     </label>
+    {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
   </div>
 );
 

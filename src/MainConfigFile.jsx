@@ -1,14 +1,20 @@
 const config = [
     {
+        
         type: "text",
         name: "text",
         value: "",
         label: "Text Field",
         placeholder: "Enter text",
         required: false,
-        pattern: "", // Alphanumeric with underscores
-        autocomplete: "text",
+        pattern: "", 
+        autoComplete: false,
+        spellCheck : false,
         className: "text",
+        errorMessagePattern: "Invalid format.",
+        errorMessageMaxLength: "Value too long.",
+        errorMessageMinLength: "Value too short.",
+        errorMessage: "This field is required"
     },
     {
         type: "email",
@@ -17,8 +23,13 @@ const config = [
         label: "Email",
         placeholder: "Enter email",
         required: false,
-        autocomplete: "email",
+        autoComplete: false,
+        spellCheck : false,
         className: "email",
+        errorMessagePattern: "Invalid format.",
+        errorMessageMaxLength: "Value too long.",
+        errorMessageMinLength: "Value too short.",
+        errorMessage: "This field is required"
     },
     {
         type: "password",
@@ -27,10 +38,15 @@ const config = [
         label: "Password",
         placeholder: "Enter password",
         required: false,
-        minlength: 8,
-        pattern: "", // Minimum 8 characters, at least one letter and one number
-        autocomplete: "new-password",
+        minLength: 8,
+        pattern: "", 
+        autoComplete: false,
+        spellCheck : false,
         className: "password",
+        errorMessagePattern: "Invalid format.",
+        errorMessageMaxLength: "Value too long.",
+        errorMessageMinLength: "Value too short",
+        errorMessage: "This field is required"
     },
     {
         type: "number",
@@ -40,9 +56,12 @@ const config = [
         placeholder: "Enter a number",
         required: false,
         min: 0,
-        max: 100,
+        max: 0,
         step: 1,
         className: "number",
+        errorMessageMax: "Value too high",
+        errorMessageMin: "Value too low",
+        errorMessage: "This field is required",
     },
     {
         type: "date",
@@ -52,8 +71,9 @@ const config = [
         placeholder: "Select a date",
         required: false,
         min: "1900-01-01",
-        max: "2023-12-31",
+        max: new Date().toISOString().split('T')[0],
         className: "date",
+        errorMessage: "This field is required"
     },
     {
         type: "tel",
@@ -62,9 +82,14 @@ const config = [
         label: "Phone",
         placeholder: "Enter phone number",
         required: false,
-        pattern: "\\d{10}", // 10-digit number
-        autocomplete: "tel",
+        pattern: "\\d{10}",
+        autoComplete: false,
+        spellCheck : false,
         className: "tel",
+        errorMessagePattern: "Invalid format.",
+        errorMessageMaxLength: "Value too long.",
+        errorMessageMinLength: "Value too short",
+        errorMessage: "This field is required"
     },
     {
         type: "url",
@@ -72,10 +97,14 @@ const config = [
         value: "",
         label: "URL",
         placeholder: "Enter a URL",
-        required: false,
-        pattern: "https?://.*", // Must start with http:// or https://
-        autocomplete: "url",
+        autoComplete: false,
+        spellCheck : false,
+        pattern: "https?://.*",
         className: "url",
+        errorMessagePattern: "Invalid format.",
+        errorMessageMaxLength: "Value too long.",
+        errorMessageMinLength: "Value too short",
+        errorMessage: "This field is required"
     },
     {
         type: "file",
@@ -88,6 +117,8 @@ const config = [
         accept: "image/*", // Accept only image files
         multiple: false,
         className: "file",
+        errorMessage : "This field is required",
+        errorMessageSizeLimit : "File exceeds allowed size"
     },
     {
         type: "checkbox",
@@ -96,18 +127,19 @@ const config = [
         placeholder: "",
         required: false,
         className: "checkbox",
+        errorMessage :"This field is required"
     },
     {
         type: "radio",
         name: "radio",
         label: "Radio Group",
         required: false,
-        defaultSelected: "option1", // Indicates which option is selected by default
         options: [
             { value: "option1", text: "Option 1" },
             { value: "option2", text: "Option 2" }
         ],
         className: "radio",
+        errorMessage: "This field is required"
     },
     {
         type: "range",
@@ -120,6 +152,10 @@ const config = [
         max: 100,
         step: 1,
         className: "range",
+        errorMessageMax:  "Value too high",
+        errorMessageMin:  "Value too low",
+        errorMessage: "This field is required",
+    
     },
     {
         type: "textarea",
@@ -132,6 +168,8 @@ const config = [
         rows: 5,
         cols: 30,
         className: "textarea",
+        errorMessage: "This field is required",
+
     },
     {
         type: "color",
@@ -143,60 +181,12 @@ const config = [
         className: "color",
     },
     {
-        type: "search",
-        name: "search",
-        value: "",
-        label: "Search",
-        placeholder: "Search here",
-        required: false,
-        className: "search",
-    },
-    {
         type: "hidden",
         name: "hidden",
         value: "12345",
         label: "Hidden Field",
-        placeholder: "",
         required: false,
         className: "hidden",
-    },
-    {
-        type: "datetime-local",
-        name: "datetime",
-        value: "",
-        label: "Date & Time",
-        placeholder: "",
-        required: false,
-        min: "2023-01-01T00:00",
-        max: "2024-12-31T23:59",
-        className: "datetime",
-    },
-    {
-        type: "month",
-        name: "month",
-        value: "",
-        label: "Month Selector",
-        placeholder: "",
-        required: false,
-        className: "month",
-    },
-    {
-        type: "week",
-        name: "week",
-        value: "",
-        label: "Week Selector",
-        placeholder: "",
-        required: false,
-        className: "week",
-    },
-    {
-        type: "time",
-        name: "time",
-        value: "",
-        label: "Time Selector",
-        placeholder: "",
-        required: false,
-        className: "time",
     },
     {
         type: "select",
@@ -211,6 +201,7 @@ const config = [
             { text: "Option 3", value: "option3" }
         ],
         className: "select",
+        errorMessage: "This field is required",
     },
     {
         type: "multiple-checkbox", // Type of element
@@ -225,11 +216,11 @@ const config = [
         value: [],
         description: "Description of the checkbox group.", // Optional description
         className: "multipleCheckbox",
+        errorMessage: "This field is required",
     },
     {
         type : "html",
-        name : "html",
-        value : "h1",
+        tag : "h1",
         color : "black",
         italic : false,
         bold : false,
@@ -240,7 +231,6 @@ const config = [
     },
     {
         type: "divider",
-        name: "divider",
         className: "divider",
     },
     {

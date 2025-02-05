@@ -9,11 +9,11 @@ const HTMLField = ({ field }) => {
     };
 
   const textClass =
-  field.value === "h1"
+  field.tag === "h1"
     ? `text-2xl font-bold ${field.className}`
-    : field.value === "h2"
+    : field.tag === "h2"
     ? `text-xl font-semibold ${field.className}`
-    : field.value === "h3"
+    : field.tag === "h3"
     ? `text-lg font-medium ${field.className}`
     : `text-base ${field.className}`;
     return (
@@ -21,10 +21,10 @@ const HTMLField = ({ field }) => {
       style={baseStyle}
       className="mb-4"
     >
-      {field.value === "h1" && <h1 style={baseStyle} className={textClass}>{field.label}</h1>}
-      {field.value === "h2" && <h2 style={baseStyle} className={textClass}>{field.label}</h2>}
-      {field.value === "h3" && <h3 style={baseStyle} className={textClass}>{field.label}</h3>}
-      {field.value === "p" && <p style={baseStyle} className={textClass}>{field.label}</p>}
+      {field.tag === "h1" && <h1 style={baseStyle} className={textClass}>{field.label}</h1>}
+      {field.tag === "h2" && <h2 style={baseStyle} className={textClass}>{field.label}</h2>}
+      {field.tag === "h3" && <h3 style={baseStyle} className={textClass}>{field.label}</h3>}
+      {field.tag === "p" && <p style={baseStyle} className={textClass}>{field.label}</p>}
     </div>
     );
   }

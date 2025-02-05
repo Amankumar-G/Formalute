@@ -26,7 +26,6 @@ const InputField = ({ field, value, handleChange, error }) => {
           error ? "border-red-500" : ""
         }`}
       />
-
       {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
     </div>
   );

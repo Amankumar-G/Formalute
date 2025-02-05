@@ -10,6 +10,7 @@ const ColorProperties = ({ activeElement, capitalize, handleDone }) => {
     value: activeElement.value || "#000000",
     name: activeElement.name || "",
     className: activeElement.className || "",
+    errorMessage: activeElement.errorMessage || "",
   });
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const ColorProperties = ({ activeElement, capitalize, handleDone }) => {
       value: activeElement.value || "#000000",
       name: activeElement.name || "",
       className: activeElement.className || "",
+      errorMessage: activeElement.errorMessage || "",
     });
   }, [activeElement]);
 
@@ -54,21 +56,15 @@ const ColorProperties = ({ activeElement, capitalize, handleDone }) => {
         />
       </div>
 
-      <div className="flex items-center space-x-8">
-        <Toggle
-          id="required"
-          label="REQUIRED FIELD"
-          checked={formDetails.required}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <InputField
+          id="className"
+          type="text"
+          label="Class Name"
+          placeholder="Enter Class"
+          value={formDetails.className}
           onChange={handleFieldChange}
         />
-            <InputField
-      id="className"
-      type="text"
-      label="Class Name"
-      placeholder="Enter Class"
-      value={formDetails.className}
-      onChange={handleFieldChange}
-    />
       </div>
 
 

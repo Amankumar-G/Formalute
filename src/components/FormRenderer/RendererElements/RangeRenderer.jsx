@@ -1,6 +1,6 @@
 import React from "react";
 
-const RangeRenderer = ({ field, value, handleChange }) => {
+const RangeRenderer = ({ field, value, handleChange ,error}) => {
   return (
     <div key={field.id}  className={`mb-6 DragFormX-Range-Container ${field.className}`}>
       {field.label && (
@@ -17,7 +17,9 @@ const RangeRenderer = ({ field, value, handleChange }) => {
         type="range"
         value={value || field.min || 0}
         onChange={handleChange}
-        className="w-full mt-2 cursor-pointer bg-indigo-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 DragFormX-Range-Input"
+        className={`w-full mt-2 cursor-pointer bg-indigo-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 DragFormX-Range-Input
+         ${error ? "border-red-500" : ""
+         }`}
       />
 
       <div className="text-sm text-gray-700 mt-2 flex justify-between DragFormX-Range-Value">
@@ -25,6 +27,8 @@ const RangeRenderer = ({ field, value, handleChange }) => {
         <span className="DragFormX-Range-Text">Value: {value}</span>
         <span className="DragFormX-Range-Text">Max: {field.max || 100}</span>
       </div>
+
+      {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
     </div>
   );
 };

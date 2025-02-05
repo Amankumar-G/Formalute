@@ -5,7 +5,7 @@ import { CSS } from "@dnd-kit/utilities";
 const HTML = ({
   label,
   id,
-  value,
+  tag,
   color = "black", // Default color
   italic = false, // Default not italic
   bold = false, // Default not bold
@@ -30,11 +30,11 @@ const HTML = ({
   };
 
   const textClass =
-    value === "h1"
+    tag === "h1"
       ? "text-2xl font-bold"
-      : value === "h2"
+      : tag === "h2"
       ? "text-xl font-semibold"
-      : value === "h3"
+      : tag === "h3"
       ? "text-lg font-medium"
       : "text-base"; // Default for 'p' or other tags
 
@@ -46,10 +46,10 @@ const HTML = ({
       {...listeners}
       className="sortable-item mb-2"
     >
-      {value === "h1" && <h1 style={baseStyle} className={textClass}>{label}</h1>}
-      {value === "h2" && <h2 style={baseStyle} className={textClass}>{label}</h2>}
-      {value === "h3" && <h3 style={baseStyle} className={textClass}>{label}</h3>}
-      {value === "p" && <p style={baseStyle} className={textClass}>{label}</p>}
+      {tag === "h1" && <h1 style={baseStyle} className={textClass}>{label}</h1>}
+      {tag === "h2" && <h2 style={baseStyle} className={textClass}>{label}</h2>}
+      {tag === "h3" && <h3 style={baseStyle} className={textClass}>{label}</h3>}
+      {tag === "p" && <p style={baseStyle} className={textClass}>{label}</p>}
     </div>
   );
 };

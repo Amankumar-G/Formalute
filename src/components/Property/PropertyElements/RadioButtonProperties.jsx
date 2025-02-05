@@ -11,20 +11,20 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
   const [formDetails, setFormDetails] = useState({
     label: activeElement.label || "",
     required: activeElement.required || false,
-    defaultSelected: activeElement.defaultSelected || "",
     options: activeElement.options || [{ value: "", text: "" }],
     name: activeElement.name || "", 
     className: activeElement.className || "",
+    errorMessage: activeElement.errorMessage || "",
   });
 
   useEffect(() => {
     setFormDetails({
       label: activeElement.label || "",
       required: activeElement.required || false,
-      defaultSelected: activeElement.defaultSelected || "",
       options: activeElement.options || [{ value: "", text: "" }],
       name: activeElement.name || "",   
       className: activeElement.className || "",
+      errorMessage: activeElement.errorMessage || "",
     });
   }, [activeElement]);
 
@@ -104,16 +104,18 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
       checked={formDetails.required}
       onChange={handleFieldChange}
     />
+    {formDetails.required && (
+          <InputField
+            id="errorMessage"
+            type="text"
+            label="Error Message for Required Field"
+            placeholder="Default: This field is required"
+            value={formDetails.errorMessage}
+            onChange={handleFieldChange}
+          />
+        )}
   </div>
 
-  {/* Default Selected Property */}
-  <InputField
-    id="defaultSelected"
-    label="DEFAULT SELECTED VALUE"
-    placeholder="Enter default selected value"
-    value={formDetails.defaultSelected}
-    onChange={handleFieldChange}
-  />
 
   {/* Options Section */}
   <div className="space-y-4">

@@ -11,6 +11,7 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
         name: activeElement.name || "",
         value: activeElement.value || "",
         className: activeElement.className || "",
+        errorMessage: activeElement.errorMessage || "",
     });
 
     useEffect(() => {
@@ -20,6 +21,7 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
             name: activeElement.name || "",
             value: activeElement.value || "",
             className: activeElement.className || "",
+            errorMessage: activeElement.errorMessage || "",
         });
     }, [activeElement]);
 
@@ -43,7 +45,7 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
   {/* General Properties */}
   <div className="space-y-6">
     {/* Name Field */}
-    <div className="flex items-center space-x-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     <InputField
       id="name"
       label="NAME"
@@ -61,7 +63,7 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
     />
     </div>
     {/* Label and Required Toggle */}
-    <div className="flex items-center space-x-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <InputField
         id="label"
         label="LABEL"
@@ -75,6 +77,16 @@ const SingleCheckBox = ({ activeElement, capitalize, handleDone }) => {
         checked={formDetails.required}
         onChange={handleFieldChange}
       />
+      {formDetails.required && (
+          <InputField
+            id="errorMessage"
+            type="text"
+            label="Error Message for Required Field"
+            placeholder="Default: This field is required"
+            value={formDetails.errorMessage}
+            onChange={handleFieldChange}
+          />
+        )}
     </div>
    
   </div>

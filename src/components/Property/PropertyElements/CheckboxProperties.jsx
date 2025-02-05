@@ -10,7 +10,6 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
   const [formDetails, setFormDetails] = useState({
     label: activeElement.label || "",
     required: activeElement.required || false,
-    defaultChecked: activeElement.defaultChecked || false,
     options: activeElement.options || [{ value: "", text: "" }],
     name: activeElement.name || "",
     className: activeElement.className || "",
@@ -21,7 +20,6 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
     setFormDetails({
       label: activeElement.label || "",
       required: activeElement.required || false,
-      defaultChecked: activeElement.defaultChecked || false,
       options: activeElement.options || [{ value: "", text: "" }],
       name: activeElement.name || "",
       className: activeElement.className || "",
@@ -90,12 +88,6 @@ const CheckboxProperties = ({ activeElement, capitalize, handleDone }) => {
           label="Class Name"
           placeholder="Enter Class"
           value={formDetails.className}
-          onChange={handleFieldChange}
-        />
-        <Toggle
-          id="defaultChecked"
-          label="Default Checked"
-          checked={formDetails.defaultChecked}
           onChange={handleFieldChange}
         />
       </div>
