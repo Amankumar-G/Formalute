@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ninja Form Builder</title>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- React and ReactDOM CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- UMD Build of DragFormX -->
+  <script src="../../dist/DragFormX.umd.js"></script>
+  <link rel="stylesheet" href="Style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 250px;
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      position: fixed;
+      left: -250px;
+      top: 0;
+      height: 100vh;
+      transition: 0.3s;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+    }
+    
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sidebar button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      cursor: pointer;
+      text-align: left;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    .sidebar button:hover {
+      background: #34495e;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      background: #2c3e50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      z-index: 1100;
+      transition: 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: #34495e;
+    }
+
+    /* Content Area */
+    .content {
+      flex: 1;
+      margin-left: 0;
+      width: 100%;
+      transition: 0.3s;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .content.shifted {
+      margin-left: 250px;
+    }
+
+    /* Sections */
+    .section {
+      display: none;
+      height: calc(100vh - 40px);
+      overflow-y: auto;
+      background: #ecf0f1;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+  <div class="sidebar">
+    <h2>DragFormX Forms</h2>
+    <button onclick="showSection('form-builder')">Form Builder</button>
+    <button onclick="showSection('form-renderer')">Form Renderer</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <div id="form-builder" class="section active"></div>
+    <div id="form-renderer" class="section"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    function toggleSidebar() {
+      $('.sidebar').toggleClass('open');
+      $('.content').toggleClass('shifted');
+    }
+  
+    function showSection(sectionId) {
+      $('.section').removeClass('active');
+      $('#' + sectionId).addClass('active');
+    }
+  
+    let savedFormConfig = {}; 
+  
+    // Load JSON Config
+    fetch('ConfigFormWithPartitions (24).json')
+      .then((response) => response.json())
+      .then((json) => {
+        console.log("Loaded JSON Config:", json);
+        savedFormConfig = JSON.stringify(json); // Keep as an object, not a string
+        
+        $('#form-renderer').dragFormX({
+          type: "renderer",
+          jsonConfig: savedFormConfig,
+          onSubmit: function(data) {
+            handleFormSubmit(data);
+          }
+        });
+      })
+      .catch((error) => console.error("Error loading JSON:", error));
+  
+    // Initialize Form Builder
+    $('#form-builder').dragFormX({
+      type: "builder",
+      title: "Build Your Form",
+      theme: "light",
+      onSave: function (jsonConfig) {
+        savedFormConfig = jsonConfig; // Keep JSON as an object
+        console.log("Saved Config:", savedFormConfig);
+  
+        $('#form-renderer').dragFormX({
+          type: "renderer",
+          jsonConfig: savedFormConfig,
+          onSubmit: function(data) {
+            handleFormSubmit(data);
+          }
+        });
+      }
+    });
+  
+    // Handle Form Submission
+    function handleFormSubmit(formData) {
+      console.log("Form Submitted:", formData);
+  
+      // Example: Send form data to the backend
+      fetch("/submit-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => console.log("Server Response:", data))
+      .catch(error => console.error("Error submitting form:", error));
+    }
+  </script>
+  
+  
+</body>
+</html>

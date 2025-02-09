@@ -7,6 +7,7 @@ import usePartitions from "./hooks/usePartitions";
 import useDragHandlers from "./hooks/useDragHandlers";
 import useNotification from "./hooks/useNotification";
 import FormRenderer from "./components/FormRenderer/FormRenderer"
+import "./index.css";
 
 
 

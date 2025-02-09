@@ -1,0 +1,160 @@
+
+  /* DragFormX Plugin Styling */
+  .DragFormX-container {
+    padding: 20px;
+    background: #2c2c2c;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .DragFormX-form {
+    padding: 20px;
+  }
+  
+  .DragFormX-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .DragFormX-field {
+    padding: 15px;
+    /* background: #333; */
+    border-radius: 5px;
+    border: 1px solid #444;
+  }
+  
+  .DragFormX-empty {
+    text-align: center;
+    color: #888;
+    padding: 20px;
+    border: 2px dashed #555;
+  }
+  
+  .DragFormX-pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    
+  }
+  
+  .DragFormX-back-btn,
+  .DragFormX-next-btn {
+    background: #1abc9c;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .DragFormX-next-btn:hover,
+  .DragFormX-back-btn:hover {
+    background: #16a085;
+  }
+  
+  .DragFormX-submit {
+    text-align: center;
+  }
+  .DragFormX-submit:active {
+    
+    transform: scale(0.95,0.95);
+  }
+  
+  
+  .DragFormX-submit-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .DragFormX-submit-btn:hover {
+    background: #c0392b;
+  }
+  
+  .DragFormX-Label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .DragFormX-input,
+  .DragFormX-select,
+  .DragFormX-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #222;
+    color: #f1f1f1;
+  }
+  
+  .DragFormX-Error {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .DragFormX-color {
+    width: 50px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #444;
+  }
+  
+  .DragFormX-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .DragFormX-Checkbox-Container,
+  .DragFormX-Radio-Container,
+  .DragFormX-Range-Container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background: #333;
+    border-radius: 5px;
+    border: 1px solid #444;
+  }
+  
+  .DragFormX-Checkbox-Input,
+  .DragFormX-Radio-Input,
+  .DragFormX-Range-Input {
+    transform: scale(1.2);
+  }
+  
+  .DragFormX-Checkbox-Text,
+  .DragFormX-Radio-Text,
+  .DragFormX-Range-Text {
+    font-size: 14px;
+  }
+  
+  .DragFormX-progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  .DragFormX-progress-dot {
+    width: 10px;
+    height: 10px;
+    background: #444;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+  
+  .DragFormX-progress-dot.active {
+    background: #1abc9c;
+  }
+  
