@@ -1,7 +1,7 @@
 import React from "react";
 
 const MultipleRadio = ({ field, value, handleChange,error }) => (
-  <div key={field.id}  className={`mb-6 DragFormX-Radio-Container ${field.className}`}>
+  <div key={field.id}  className={`mb-6 DragFormX-Radio-Container ${field.classname}`}>
     <label className="block text-sm font-medium text-gray-700 mb-2 DragFormX-Label">
       {field.label}
     </label>

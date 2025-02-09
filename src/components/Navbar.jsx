@@ -57,12 +57,12 @@ const Navbar = ({ handleExpandToggle, handleSave, handleRenderer, handleIsMultiP
 
       {/* Mobile Dropdown Menu */}
       <div
-        className={`lg:hidden fixed top-0 right-0 h-full w-3/4 max-w-xs bg-white bg-opacity-30 backdrop-blur-lg shadow-xl transition-transform duration-500 ease-in-out ${
+        className={`lg:hidden absolute top-0 right-0 h-full w-3/4 max-w-xs bg-white bg-opacity-30 backdrop-blur-lg shadow-xl transition-transform duration-500 ease-in-out ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ backdropFilter: "blur(12px)" }}
       >
-        <div className="flex justify-between items-center p-4 border-b border-gray-300">
+        <div className="flex justify-between items-center p-[1.1rem] border-b border-gray-300">
           <div className="text-lg font-semibold text-gray-900">Menu</div>
           <button onClick={() => setIsMenuOpen(false)} className="text-gray-800">
             <FaTimes size={24} />

@@ -20,8 +20,6 @@ const TextProperties = ({ activeElement, capitalize, handleDone }) => {
     errormessageminlength: activeElement?.errormessageminlength || "",
     maxlength: activeElement?.maxlength || "",
     errormessagemaxlength: activeElement?.errormessagemaxlength || "",
-    autocomplete: activeElement?.autocomplete || false,
-    spellcheck: activeElement?.spellcheck || false,
   });
 
   useEffect(() => {
@@ -38,8 +36,6 @@ const TextProperties = ({ activeElement, capitalize, handleDone }) => {
       errormessageminlength: activeElement?.errormessageminlength || "",
       maxlength: activeElement?.maxlength || "",
       errormessagemaxlength: activeElement?.errormessagemaxlength || "",
-      autocomplete: activeElement?.autocomplete || false,
-      spellcheck: activeElement?.spellcheck || false,
     });
   }, [activeElement]);
 
@@ -128,23 +124,7 @@ const TextProperties = ({ activeElement, capitalize, handleDone }) => {
       {/* Additional Properties */}
       {showAdditionalProperties && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Toggle
-              id="autocomplete"
-              label="Auto Complete"
-              checked={formDetails.autocomplete}
-              onChange={handleFieldChange}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Toggle
-              id="spellcheck"
-              label="Spell Check"
-              checked={formDetails.spellcheck}
-              onChange={handleFieldChange}
-            />
-          </div>
+         
 
           <div className="space-y-2">
             <InputField

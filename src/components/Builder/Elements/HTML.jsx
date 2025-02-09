@@ -6,9 +6,12 @@ const HTML = ({
   label,
   id,
   tag,
-  color = "black", // Default color
-  italic = false, // Default not italic
-  bold = false, // Default not bold
+  color = "black",
+  italic = false,
+  bold = false,
+  fontSize = "16",
+  textAlign = "left",
+  description = "",
 }) => {
   const {
     attributes,
@@ -23,12 +26,15 @@ const HTML = ({
     transform: CSS.Transform.toString(transform),
     transition,
     cursor: "grab",
-    color, // Dynamic color
-    fontStyle: italic ? "italic" : "normal", // Dynamic italic
-    fontWeight: bold ? "bold" : "normal", // Dynamic bold
-    opacity: isDragging ? 0.5 : 1, // Reduce opacity while dragging
+    color,
+    fontStyle: italic ? "italic" : "normal",
+    fontWeight: bold ? "bold" : "normal",
+    opacity: isDragging ? 0.5 : 1,
+    fontSize: `${fontSize}px`,
+    textAlign,
   };
 
+  // Determine a text class based on the tag
   const textClass =
     tag === "h1"
       ? "text-2xl font-bold"
@@ -36,7 +42,26 @@ const HTML = ({
       ? "text-xl font-semibold"
       : tag === "h3"
       ? "text-lg font-medium"
-      : "text-base"; // Default for 'p' or other tags
+      : "text-base";
+
+  let renderedElement;
+  // Render the proper HTML tag based on the selection
+  switch (tag) {
+    case "h1":
+      renderedElement = <h1 style={baseStyle} className={textClass}>{label}</h1>;
+      break;
+    case "h2":
+      renderedElement = <h2 style={baseStyle} className={textClass}>{label}</h2>;
+      break;
+    case "h3":
+      renderedElement = <h3 style={baseStyle} className={textClass}>{label}</h3>;
+      break;
+    case "p":
+      renderedElement = <p style={baseStyle} className={textClass}>{label}</p>;
+      break;
+    default:
+      renderedElement = <div style={baseStyle} className={textClass}>{label}</div>;
+  }
 
   return (
     <div
@@ -44,12 +69,12 @@ const HTML = ({
       style={baseStyle}
       {...attributes}
       {...listeners}
-      className="sortable-item mb-2"
+      className={`sortable-item mb-2`}
     >
-      {tag === "h1" && <h1 style={baseStyle} className={textClass}>{label}</h1>}
-      {tag === "h2" && <h2 style={baseStyle} className={textClass}>{label}</h2>}
-      {tag === "h3" && <h3 style={baseStyle} className={textClass}>{label}</h3>}
-      {tag === "p" && <p style={baseStyle} className={textClass}>{label}</p>}
+      {renderedElement}
+      {description && (
+        <p className="text-sm text-gray-500 mt-1">{description}</p>
+      )}
     </div>
   );
 };

@@ -12,14 +12,14 @@ import SingleCheckBox from "./PropertyElements/SingleCheckBox";
 import HtmlProperties from "./PropertyElements/HtmlProperties";
 import RangeProperties from "./PropertyElements/RangeProperties";
 import ColorProperties from "./PropertyElements/ColorProperties";
-
+import PasswordProperties from "./PropertyElements/PasswordProperties"
 
 function capitalize(str) {
   if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const PropertyBar = ({ activeElement, setFormPartitions, setIsProperty,activePartitionIndex }) => {
+const PropertyBar = ({ activeElement, setFormPartitions,showNotification, setIsProperty,activePartitionIndex }) => {
   const handleDone = (formDetails) => {
     setFormPartitions((prevPartitions) => {
       const updatedPartitions = [...prevPartitions];
@@ -29,33 +29,30 @@ const PropertyBar = ({ activeElement, setFormPartitions, setIsProperty,activePar
             ? { ...element, ...formDetails }
             : element
       );
+      showNotification(`${formDetails.label} Updated!`,"yellow")
       setIsProperty(false);
-      console.log(updatedPartitions);
       return updatedPartitions;
     });
   };
-  // setFormPartitions((prevPartitions) => {
-  //   const updatedPartitions = [...prevPartitions];
-  //   updatedPartitions[activePartitionIndex] = prevPartitions[activePartitionIndex].filter(
-  //     (element) =>
-  //       element.id === activeElement.id
-  // ? { ...element, ...formDetails }
-  // : element
-  //   );
-  //   return updatedPartitions;
-  // });
   const renderPropertyComponent = () => {
     switch (activeElement.type) {
       case "text":
       case "email":
-      case "password":
       case "tel":
       case "url":
+            return (
+              <TextProperties
+              activeElement={activeElement}
+              capitalize={capitalize}
+              handleDone={handleDone}
+              />
+            );
+      case "password":
         return (
-          <TextProperties
-            activeElement={activeElement}
-            capitalize={capitalize}
-            handleDone={handleDone}
+          <PasswordProperties
+          activeElement={activeElement}
+          capitalize={capitalize}
+          handleDone={handleDone}
           />
         );
       case "multiple-checkbox":

@@ -1,33 +1,65 @@
 import React from "react";
 
 const HTMLField = ({ field }) => {
-  console.log(field)
-   const baseStyle = {
-      color : field.color, // Dynamic color
-      fontStyle: field.italic ? "italic" : "normal", // Dynamic italic
-      fontWeight: field.bold ? "bold" : "normal", // Dynamic bold// Reduce opacity while dragging
-    };
+  if (!field) return null;
+
+  const {
+    color,
+    italic,
+    bold,
+    fontSize,
+    textAlign,
+    classname,
+    label,
+    tag,
+    description,
+  } = field;
+
+  const baseStyle = {
+    color: color || "inherit",
+    fontStyle: italic ? "italic" : "normal",
+    fontWeight: bold ? "bold" : "normal",
+    fontSize: fontSize ? `${fontSize}px` : "inherit",
+    textAlign: textAlign || "left",
+  };
 
   const textClass =
-  field.tag === "h1"
-    ? `text-2xl font-bold ${field.className}`
-    : field.tag === "h2"
-    ? `text-xl font-semibold ${field.className}`
-    : field.tag === "h3"
-    ? `text-lg font-medium ${field.className}`
-    : `text-base ${field.className}`;
-    return (
-      <div
-      style={baseStyle}
-      className="mb-4"
-    >
-      {field.tag === "h1" && <h1 style={baseStyle} className={textClass}>{field.label}</h1>}
-      {field.tag === "h2" && <h2 style={baseStyle} className={textClass}>{field.label}</h2>}
-      {field.tag === "h3" && <h3 style={baseStyle} className={textClass}>{field.label}</h3>}
-      {field.tag === "p" && <p style={baseStyle} className={textClass}>{field.label}</p>}
-    </div>
-    );
+    tag === "h1"
+      ? "text-2xl font-bold"
+      : tag === "h2"
+      ? "text-xl font-semibold"
+      : tag === "h3"
+      ? "text-lg font-medium"
+      : "text-base";
+
+  let renderedElement;
+  // Render the proper HTML tag based on the selection
+  switch (tag) {
+    case "h1":
+      renderedElement = <h1 style={baseStyle} className={textClass}>{label}</h1>;
+      break;
+    case "h2":
+      renderedElement = <h2 style={baseStyle} className={textClass}>{label}</h2>;
+      break;
+    case "h3":
+      renderedElement = <h3 style={baseStyle} className={textClass}>{label}</h3>;
+      break;
+    case "p":
+      renderedElement = <p style={baseStyle} className={textClass}>{label}</p>;
+      break;
+    default:
+      renderedElement = <div style={baseStyle} className={textClass}>{label}</div>;
   }
 
+
+  return (
+    <div style={baseStyle} className={`mb-4 ${classname}`}>
+     {renderedElement}
+     {description && (
+       <p className="text-sm text-gray-500 mt-1">{description}</p>
+      )} 
+      </div>
+  );
+};
 
 export default HTMLField;

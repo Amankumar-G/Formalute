@@ -13,8 +13,8 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
     required: activeElement.required || false,
     options: activeElement.options || [{ value: "", text: "" }],
     name: activeElement.name || "", 
-    className: activeElement.className || "",
-    errorMessage: activeElement.errorMessage || "",
+    classname: activeElement.classname || "",
+    errormessage: activeElement.errormessage || "",
   });
 
   useEffect(() => {
@@ -23,8 +23,8 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
       required: activeElement.required || false,
       options: activeElement.options || [{ value: "", text: "" }],
       name: activeElement.name || "",   
-      className: activeElement.className || "",
-      errorMessage: activeElement.errorMessage || "",
+      classname: activeElement.classname || "",
+      errormessage: activeElement.errormessage || "",
     });
   }, [activeElement]);
 
@@ -76,11 +76,11 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
     onChange={handleFieldChange}
   />
     <InputField
-      id="className"
+      id="classname"
       type="text"
       label="Class Name"
       placeholder="Enter Class"
-      value={formDetails.className}
+      value={formDetails.classname}
       onChange={handleFieldChange}
     />
     </div>
@@ -106,11 +106,11 @@ const RadioButtonProperties = ({ activeElement, capitalize, handleDone }) => {
     />
     {formDetails.required && (
           <InputField
-            id="errorMessage"
+            id="errormessage"
             type="text"
             label="Error Message for Required Field"
             placeholder="Default: This field is required"
-            value={formDetails.errorMessage}
+            value={formDetails.errormessage}
             onChange={handleFieldChange}
           />
         )}

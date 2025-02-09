@@ -9,8 +9,8 @@ const ColorProperties = ({ activeElement, capitalize, handleDone }) => {
     required: activeElement.required || false,
     value: activeElement.value || "#000000",
     name: activeElement.name || "",
-    className: activeElement.className || "",
-    errorMessage: activeElement.errorMessage || "",
+    classname: activeElement.classname || "",
+    errormessage: activeElement.errormessage || "",
   });
 
   useEffect(() => {
@@ -19,8 +19,8 @@ const ColorProperties = ({ activeElement, capitalize, handleDone }) => {
       required: activeElement.required || false,
       value: activeElement.value || "#000000",
       name: activeElement.name || "",
-      className: activeElement.className || "",
-      errorMessage: activeElement.errorMessage || "",
+      classname: activeElement.classname || "",
+      errormessage: activeElement.errormessage || "",
     });
   }, [activeElement]);
 
@@ -58,11 +58,11 @@ const ColorProperties = ({ activeElement, capitalize, handleDone }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <InputField
-          id="className"
+          id="classname"
           type="text"
           label="Class Name"
           placeholder="Enter Class"
-          value={formDetails.className}
+          value={formDetails.classname}
           onChange={handleFieldChange}
         />
       </div>

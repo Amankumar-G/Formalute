@@ -14,10 +14,9 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
     cols: activeElement.cols || 50,
     maxlength: activeElement.maxlength || 500,
     name: activeElement.name || "",
-    className: activeElement.className || "", 
-    errorMessage: activeElement.errorMessage || "",
+    classname: activeElement.classname || "", 
+    errormessage: activeElement.errormessage || "",
   });
-  console.log(formDetails.errorMessage)
    useEffect(() => {
       setFormDetails({
         label: activeElement.label || "",
@@ -27,8 +26,8 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
         cols: activeElement.cols || 50,
         maxlength: activeElement.maxlength || 500,
         name: activeElement.name || "",
-        className: activeElement.className || "", 
-        errorMessage: activeElement.errorMessage || "",
+        classname: activeElement.classname || "", 
+        errormessage: activeElement.errormessage || "",
       });
     }, [activeElement]);
 
@@ -77,11 +76,11 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
         onChange={handleFieldChange}
       />
       <InputField
-      id="className"
+      id="classname"
       type="text"
       label="Class Name"
       placeholder="Enter Class"
-      value={formDetails.className}
+      value={formDetails.classname}
       onChange={handleFieldChange}
     />
  </div>
@@ -95,11 +94,11 @@ const TextAreaProperties = ({ activeElement, handleDone }) => {
       />
      {formDetails.required && (
           <InputField
-            id="errorMessage"
+            id="errormessage"
             type="text"
             label="Error Message for Required Field"
             placeholder="Default: This field is required"
-            value={formDetails.errorMessage}
+            value={formDetails.errormessage}
             onChange={handleFieldChange}
           />
         )}

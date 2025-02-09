@@ -59,7 +59,7 @@ function FormBuilder(props) {
 
     return (
         <div
-            className={`py-6 mx-auto transition-all duration-500 ${props.isExpanded ? 'w-1/2' : 'w-1/3'} overflow-y-auto`} // Parent allows scrolling if content overflows
+            className={`py-6 mx-auto mt-7 transition-all duration-500 ${props.isExpanded ? 'w-1/2' : 'w-1/3'} overflow-y-auto`} // Parent allows scrolling if content overflows
         >
             <div className={`flex flex-col gap-4 ${props.stepper ? 'max-h-[70vh]' : 'max-h-[80vh]'} overflow-y-auto`}>
                 <SortableContext items={props.formElements} strategy={() => { }}>

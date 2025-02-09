@@ -1,8 +1,15 @@
 import React from "react";
 
 const RangeRenderer = ({ field, value, handleChange ,error}) => {
+  const excludedKeys = new Set(["autocomplete", "spellcheck" ,"minlength" , "maxlength","classname"]); 
+  const filteredField = Object.fromEntries(
+    Object.entries(field).filter(
+      ([key, val]) => val !== "" && val !== null && val !== undefined &&
+      !excludedKeys.has(key)
+    )
+  );  
   return (
-    <div key={field.id}  className={`mb-6 DragFormX-Range-Container ${field.className}`}>
+    <div key={field.id}  className={`mb-6 DragFormX-Range-Container ${field.classname}`}>
       {field.label && (
         <label
           htmlFor={field.id}
@@ -13,7 +20,7 @@ const RangeRenderer = ({ field, value, handleChange ,error}) => {
       )}
 
       <input
-        {...field}
+        {...filteredField}
         type="range"
         value={value || field.min || 0}
         onChange={handleChange}

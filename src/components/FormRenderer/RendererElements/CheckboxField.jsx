@@ -1,7 +1,18 @@
 import React from "react";
 
-const CheckboxField = ({ field, value, handleChange ,error}) => (
-  <div key={field.id} className={`mb-6 ${field.className}`}>
+const CheckboxField = ({ field, value, handleChange ,error}) => {
+  
+  const excludedKeys = new Set(["autocomplete", "spellcheck" ,"minlength" , "maxlength","classname"]); 
+  const filteredField = Object.fromEntries(
+    Object.entries(field).filter(
+      ([key, val]) => val !== "" && val !== null && val !== undefined &&
+      !excludedKeys.has(key)
+    )
+  );
+
+  return (
+  
+  <div key={field.id} className={`mb-6 ${field.classname}`}>
     {/* Label with styling */}
     <label
       htmlFor={field.id}
@@ -9,7 +20,7 @@ const CheckboxField = ({ field, value, handleChange ,error}) => (
     >
       {/* Input styling */}
       <input
-        {...field}
+        {...filteredField}
         checked={value || false}
         onChange={handleChange}
         className={`w-4 h-4 border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all duration-300  DragFormX-checkbox" ${
@@ -21,6 +32,6 @@ const CheckboxField = ({ field, value, handleChange ,error}) => (
     </label>
     {error && <div className="text-red-500 text-sm mt-1 DragFormX-Error">{error}</div>}
   </div>
-);
+)};
 
 export default CheckboxField;

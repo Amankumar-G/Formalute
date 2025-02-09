@@ -15,10 +15,10 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
     max: activeElement.max || "",
     step: activeElement.step || "",
     name: activeElement.name || "",
-    className: activeElement.className || "",
-    errorMessageMax: activeElement.errorMessageMax || "",
-    errorMessageMin: activeElement.errorMessageMin || "",
-    errorMessage: activeElement.errorMessage || "",
+    classname: activeElement.classname || "",
+    errormessagemax: activeElement.errormessagemax || "",
+    errormessagemin: activeElement.errormessagemin || "",
+    errormessage: activeElement.errormessage || "",
   });
 
   useEffect(() => {
@@ -30,10 +30,10 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
       max: activeElement.max || "",
       step: activeElement.step || "",
       name: activeElement.name || "",
-      className: activeElement.className || "",
-      errorMessageMax: activeElement.errorMessageMax || "",
-      errorMessageMin: activeElement.errorMessageMin || "",
-      errorMessage: activeElement.errorMessage || "",
+      classname: activeElement.classname || "",
+      errormessagemax: activeElement.errormessagemax || "",
+      errormessagemin: activeElement.errormessagemin || "",
+      errormessage: activeElement.errormessage || "",
     });
   }, [activeElement]);
 
@@ -79,11 +79,11 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
           onChange={handleFieldChange}
         />
         <InputField
-          id="className"
+          id="classname"
           type="text"
           label="Class Name"
           placeholder="Enter Class"
-          value={formDetails.className}
+          value={formDetails.classname}
           onChange={handleFieldChange}
         />
         <Toggle
@@ -94,11 +94,11 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
         />
         {formDetails.required && (
           <InputField
-            id="errorMessage"
+            id="errormessage"
             type="text"
             label="Error Message for Required Field"
             placeholder="Default: This field is required"
-            value={formDetails.errorMessage}
+            value={formDetails.errormessage}
             onChange={handleFieldChange}
           />
         )}
@@ -125,11 +125,11 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
           />
           {formDetails.min && (
             <InputField
-              id="errorMessageMin"
+              id="errormessagemin"
               type="text"
-              label="Error Message for Min Value"
+              label="Error Message for min Value"
               placeholder="Default: Value too low"
-              value={formDetails.errorMessageMin}
+              value={formDetails.errormessagemin}
               onChange={handleFieldChange}
             />
           )}
@@ -143,11 +143,11 @@ const NumberProperties = ({ activeElement, capitalize, handleDone }) => {
           />
           {formDetails.max && (
             <InputField
-              id="errorMessageMax"
+              id="errormessagemax"
               type="text"
-              label="Error Message for Max Value"
+              label="Error Message for max Value"
               placeholder="Default: Value too high"
-              value={formDetails.errorMessageMax}
+              value={formDetails.errormessagemax}
               onChange={handleFieldChange}
             />
           )}

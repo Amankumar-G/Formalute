@@ -1,11 +1,17 @@
 import React from "react";
 
 const FileField = ({ field, value, handleChange,error }) => {
+  const excludedKeys = new Set(["autocomplete", "spellcheck" ,"minlength" , "maxlength","classname"]); 
+  const filteredField = Object.fromEntries(
+    Object.entries(field).filter(
+      ([key, val]) => val !== "" && val !== null && val !== undefined &&
+      !excludedKeys.has(key)
+    )
+  );
   // Ensure multiple is a boolean
   const isMultiple = field.multiple === true;
-  console.log(field)
   return (
-    <div key={field.id} className={`mb-6 ${field.className}`}> {/* Updated margin for spacing */}
+    <div key={field.id} className={`mb-6 ${field.classname}`}> {/* Updated margin for spacing */}
     {field.label && (
       <label
         htmlFor={field.id}
@@ -16,7 +22,7 @@ const FileField = ({ field, value, handleChange,error }) => {
     )}
     
     <input
-      {...field}
+      {...filteredField}
       multiple={isMultiple}
       onChange={handleChange}
       type="file"

@@ -1,12 +1,15 @@
 import React from "react";
 
 const ColorRenderer = ({ field, value, handleChange}) => {
+  const excludedKeys = new Set(["autocomplete", "spellcheck" ,"minlength" , "maxlength","classname"]); 
   const filteredField = Object.fromEntries(
-    Object.entries(field).filter(([key, val]) => val !== "" && val !== null && val !== undefined)
-
+    Object.entries(field).filter(
+      ([key, val]) => val !== "" && val !== null && val !== undefined &&
+      !excludedKeys.has(key)
+    )
   );
   return (
-    <div key={field.id} className={`mb-6 ${field.className}`}>
+    <div key={field.id} className={`mb-6 ${field.classname}`}>
       {/* Label styling */}
       {field.label && (
         <label

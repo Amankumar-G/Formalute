@@ -7,14 +7,12 @@ const HiddenProperties = ({ activeElement, capitalize, handleDone }) => {
   const [formDetails, setFormDetails] = useState({
     name: activeElement.name || "",
     value: activeElement.value || "",
-    required: activeElement.required || false,
   });
 
   useEffect(() => {
     setFormDetails({
       name: activeElement.name || "",
       value: activeElement.value || "",
-      required: activeElement.required || false,
     });
   }, [activeElement]);
 
@@ -55,13 +53,6 @@ const HiddenProperties = ({ activeElement, capitalize, handleDone }) => {
       onChange={handleFieldChange}
     />
 
-    {/* Required Toggle */}
-    <Toggle
-      id="required"
-      label="REQUIRED FIELD"
-      checked={formDetails.required}
-      onChange={handleFieldChange}
-    />
   </div>
 </div>
 

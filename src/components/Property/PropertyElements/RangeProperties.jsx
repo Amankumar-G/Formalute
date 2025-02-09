@@ -14,10 +14,10 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
     step: activeElement.step || "",
     value: activeElement.value || "",
     name: activeElement.name || "",
-    className: activeElement.className || "",
-    errorMessageMax: activeElement.errorMessageMax || "",
-    errorMessageMin: activeElement.errorMessageMin || "",
-    errorMessage: activeElement.errorMessage || "",
+    classname: activeElement.classname || "",
+    errormessagemax: activeElement.errormessagemax || "",
+    errormessagemin: activeElement.errormessagemin || "",
+    errormessage: activeElement.errormessage || "",
   });
 
   useEffect(() => {
@@ -29,10 +29,10 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
       step: activeElement.step || "",
       value: activeElement.value || "",
       name: activeElement.name || "",
-      className: activeElement.className || "",
-      errorMessageMax: activeElement.errorMessageMax || "",
-      errorMessageMin: activeElement.errorMessageMin || "",
-      errorMessage: activeElement.errorMessage || "",
+      classname: activeElement.classname || "",
+      errormessagemax: activeElement.errormessagemax || "",
+      errormessagemin: activeElement.errormessagemin || "",
+      errormessage: activeElement.errormessage || "",
     });
   }, [activeElement]);
 
@@ -70,11 +70,11 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <InputField
-          id="className"
+          id="classname"
           type="text"
           label="Class Name"
           placeholder="Enter Class"
-          value={formDetails.className}
+          value={formDetails.classname}
           onChange={handleFieldChange}
         />
         <Toggle
@@ -85,11 +85,11 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
         />
         {formDetails.required && (
           <InputField
-            id="errorMessage"
+            id="errormessage"
             type="text"
             label="Error Message for Required Field"
             placeholder="Default: This field is required"
-            value={formDetails.errorMessage}
+            value={formDetails.errormessage}
             onChange={handleFieldChange}
           />
         )}
@@ -109,19 +109,10 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
             type="number"
             label="MINIMUM VALUE"
             placeholder="Enter minimum value"
-            value={formDetails.min}
+            value={formDetails.min  ? formDetails.min : 0}
             onChange={handleFieldChange}
           />
-          {formDetails.min && (
-            <InputField
-              id="errorMessageMin"
-              type="text"
-              label="Error Message for Min Value"
-              placeholder="Default: Value too low"
-              value={formDetails.errorMessageMin}
-              onChange={handleFieldChange}
-            />
-          )}
+         
           <InputField
             id="max"
             type="number"
@@ -130,16 +121,7 @@ const RangeProperties = ({ activeElement, capitalize, handleDone }) => {
             value={formDetails.max}
             onChange={handleFieldChange}
           />
-          {formDetails.max && (
-            <InputField
-              id="errorMessageMax"
-              type="text"
-              label="Error Message for Max Value"
-              placeholder="Default: Value too high"
-              value={formDetails.errorMessageMax}
-              onChange={handleFieldChange}
-            />
-          )}
+          
           <InputField
             id="step"
             type="number"

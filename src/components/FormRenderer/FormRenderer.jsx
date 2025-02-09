@@ -12,7 +12,7 @@ import HiddenField from "./RendererElements/HiddenField";
 import HTMLField from "./RendererElements/HTMLField";
 import ColorRenderer from "./RendererElements/ColorRenderer";
 import RangeRenderer from "./RendererElements/RangeRenderer";
-import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'; // Importing React Icons
+import { FiArrowLeft, FiArrowRight, FiEdit } from 'react-icons/fi'; // Importing React Icons
 // import rawJson from "./ConfigFormWithPartitions (20).json?raw";
 
 
@@ -27,7 +27,6 @@ import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'; // Importing React I
         return [];
       }
     }, [jsonConfig]);
-  
   const [formData, setFormData] = useState(() =>
     parsedConfig.reduce((acc, partition) => {
       partition.elements.forEach((field) => {
@@ -59,14 +58,14 @@ import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'; // Importing React I
             
             // Validate file size
             const field = parsedConfig.flatMap(p => p.elements).find(f => f.name === name);
-            if (field && field.sizeLimit) {
-              const maxSize = field.sizeLimit * 1024 * 1024; // Convert MB to bytes
+            if (field && field.sizelimit) {
+              const maxSize = field.sizelimit * 1024 * 1024; // Convert MB to bytes
               const oversizedFiles = fileArray.filter(file => file.size > maxSize);
   
               if (oversizedFiles.length > 0) {
                 setErrors((prevErrors) => ({
                   ...prevErrors,
-                  [name]: field.errorMessageSize || `File size must be under ${field.sizeLimit}MB.`,
+                  [name]: field.errormessagesize || `File size must be under ${field.sizelimit}MB.`,
                 }));
                 return prev; // Do not update formData if files are too large
               }
@@ -114,8 +113,7 @@ import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'; // Importing React I
   const renderField = (field) => {
     const value = formData[field.name];
     const error = errors[field.name];
-
-    const fieldProps = { field: convertAttributesToCamelCase(field), value, handleChange, error };
+    const fieldProps = { field , value, handleChange, error };
     switch (field.type) {
       case "text":
       case "email":
@@ -155,72 +153,73 @@ import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'; // Importing React I
 
   const validateField = (field, value) => {
     const errors = [];
-  
+
     // ✅ Check required fields
     if (field.required) {
-      if (field.type === 'multiple-checkbox') {
-        if (!value || value.length === 0) {
-          errors.push(field.errorMessage || 'At least one option must be selected.');
+        if (field.type === 'multiple-checkbox') {
+            if (!value || value.length === 0) {
+                errors.push(field.errormessage || 'At least one option must be selected.');
+            }
+        } else if (!value) {
+            errors.push(field.errormessage || 'This field is required.');
         }
-      } else if (!value) {
-        errors.push(field.errorMessage || 'This field is required.');
-      }
     }
-    
     // ✅ Validate number, range, and date fields
     if (['number', 'range', 'date'].includes(field.type)) {
       const numValue = Number(value);
-      if (field.min != null && numValue < field.min) {
-        errors.push(field.errorMessageMin || `Value too short`);
-      }
-      if (field.max != null && numValue > field.max) {
-        errors.push(field.errorMessageMax || `Value too long`);
-      }
+        if (field.min != "" && numValue < field.min) {
+            errors.push(field.errormessagemin || `Value too short`);
+        }
+        if (field.max != "" && numValue > field.max) {
+
+            errors.push(field.errormessagemax || `Value too long`);
+        }
     }
-  
+
     // ✅ Validate text-based fields (min/max length)
     if (['text', 'textarea', 'password', 'email', 'tel', 'url'].includes(field.type)) {
-      const length = value ? value.length : 0;
-      if (field.minLength && length < field.minLength) {
-        errors.push(field.errorMessageMinLength || `Minimum length is ${field.minLength}.`);
-      }
-      if (field.maxLength && length > field.maxLength) {
-        errors.push(field.errorMessageMaxLength || `Maximum length is ${field.maxLength}.`);
-      }
+        const length = value ? value.length : 0;
+        if (field.minlength && length < field.minlength) {
+            errors.push(field.errormessageminlength || `Minimum length is ${field.minlength}.`);
+        }
+        if (field.maxlength && length > field.maxlength) {
+            errors.push(field.errormessagemaxlength || `Maximum length is ${field.maxlength}.`);
+        }
     }
-  
+
     // ✅ Validate regex pattern
     if (field.pattern && value) {
-      const regex = new RegExp(field.pattern);
-      if (!regex.test(value)) {
-        errors.push(field.errorMessagePattern || 'Invalid format.');
-      }
+        const regex = new RegExp(field.pattern);
+        if (!regex.test(value)) {
+            errors.push(field.errormessagepattern || 'Invalid format.');
+        }
     }
-  
+
     // ✅ Validate file inputs
     if (field.type === 'file' && value.length > 0) {
-      if (field.accept) {
-        const acceptedTypes = field.accept.split(',').map(t => t.trim());
-        const isValidType = value.every(file => 
-          acceptedTypes.some(type => 
-            type === 'image/*' ? file.type.startsWith('image/') : file.type === type || file.name.endsWith(type)
-          )
-        );
-        if (!isValidType) {
-          errors.push(field.errorMessageAccept || 'Invalid file type.');
+        if (field.accept) {
+            const acceptedTypes = field.accept.split(',').map(t => t.trim());
+            const isValidType = value.every(file => 
+                acceptedTypes.some(type => 
+                    type === 'image/*' ? file.type.startsWith('image/') : file.type === type || file.name.endsWith(type)
+                )
+            );
+            if (!isValidType) {
+                errors.push(field.errormessageaccept || 'Invalid file type.');
+            }
         }
-      }
-      if (field.sizeLimit) {
-        const maxSize = field.sizeLimit * 1024 * 1024;
-        const isValidSize = value.every(file => file.size <= maxSize);
-        if (!isValidSize) {
-          errors.push(field.errorMessageSize || `File size must be under ${field.sizeLimit}MB.`);
+        if (field.sizelimit) {
+            const maxSize = field.sizelimit * 1024 * 1024;
+            const isValidSize = value.every(file => file.size <= maxSize);
+            if (!isValidSize) {
+                errors.push(field.errormessagesize || `File size must be under ${field.sizelimit}MB.`);
+            }
         }
-      }
     }
-  
+
     return errors.length ? errors.join(' ') : null;
-  };
+};
+
   
 
   const handleSubmit = (e) => {

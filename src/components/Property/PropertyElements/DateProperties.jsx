@@ -9,26 +9,24 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
   const [formDetails, setFormDetails] = useState({
     label: activeElement.label || "",
     required: activeElement.required || false,
-    placeholder: activeElement.placeholder || "",
     min: activeElement.min || "",
     max: activeElement.max || "",
     step: activeElement.step || "",
     name: activeElement.name || "",
-    className: activeElement.className || "",
-    errorMessage: activeElement.errorMessage || "",
+    classname: activeElement.classname || "",
+    errormessage: activeElement.errormessage || "",
   });
 
   useEffect(() => {
     setFormDetails({
       label: activeElement.label || "",
       required: activeElement.required || false,
-      placeholder: activeElement.placeholder || "",
       min: activeElement.min || "",
       max: activeElement.max || "",
       step: activeElement.step || "",
       name: activeElement.name || "",
-      className: activeElement.className || "",
-      errorMessage: activeElement.errorMessage || "",
+      classname: activeElement.classname || "",
+      errormessage: activeElement.errormessage || "",
     });
   }, [activeElement]);
 
@@ -68,20 +66,13 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
   
   {/* Basic Properties (placeholder & required toggle) */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <InputField
-      id="placeholder"
-      type="text"
-      label="PLACEHOLDER"
-      placeholder="Enter placeholder"
-      value={formDetails.placeholder}
-      onChange={handleFieldChange}
-    />
+
       <InputField
-      id="className"
+      id="classname"
       type="text"
       label="Class Name"
       placeholder="Enter Class"
-      value={formDetails.className}
+      value={formDetails.classname}
       onChange={handleFieldChange}
     />
     <Toggle
@@ -92,11 +83,11 @@ const DateProperties = ({ activeElement, capitalize, handleDone }) => {
     />
     {formDetails.required && (
           <InputField
-            id="errorMessage"
+            id="errormessage"
             type="text"
             label="Error Message for Required Field"
             placeholder="Default: This field is required"
-            value={formDetails.errorMessage}
+            value={formDetails.errormessage}
             onChange={handleFieldChange}
           />
         )}

@@ -9,11 +9,11 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
     required: activeElement.required || false,
     accept: activeElement.accept || ".jpg,.jpeg,.png,.pdf",
     multiple: activeElement.multiple || false,
-    sizeLimit: activeElement.sizeLimit || 10,
+    sizelimit: activeElement.sizelimit || 10,
     name: activeElement.name || "",
-    className: activeElement.className || "",
-    errorMessage: activeElement.errorMessage || "",
-    errorMessageSizeLimit: activeElement.errorMessageSizeLimit || "",
+    classname: activeElement.classname || "",
+    errormessage: activeElement.errormessage || "",
+    errormessagesizelimit: activeElement.errormessagesizelimit || "",
   });
 
   useEffect(() => {
@@ -22,11 +22,11 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
       required: activeElement.required || false,
       accept: activeElement.accept || ".jpg,.jpeg,.png,.pdf",
       multiple: activeElement.multiple || false,
-      sizeLimit: activeElement.sizeLimit || 10,
+      sizelimit: activeElement.sizelimit || 10,
       name: activeElement.name || "",
-      className: activeElement.className || "",
-      errorMessage: activeElement.errorMessage || "",
-      errorMessageSizeLimit: activeElement.errorMessageSizeLimit || "",
+      classname: activeElement.classname || "",
+      errormessage: activeElement.errormessage || "",
+      errormessagesizelimit: activeElement.errormessagesizelimit || "",
     });
   }, [activeElement]);
 
@@ -62,11 +62,11 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
           onChange={handleFieldChange}
         />
         <InputField
-          id="className"
+          id="classname"
           type="text"
           label="Class Name"
           placeholder="Enter Class"
-          value={formDetails.className}
+          value={formDetails.classname}
           onChange={handleFieldChange}
         />
       </div>
@@ -88,11 +88,11 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
           </select>
         </div>
         <InputField
-          id="sizeLimit"
+          id="sizelimit"
           type="number"
           label="SIZE LIMIT (MB)"
           placeholder="Enter size limit in MB"
-          value={formDetails.sizeLimit}
+          value={formDetails.sizelimit}
           onChange={handleFieldChange}
         />
       </div>
@@ -114,21 +114,21 @@ const FileUploadProperties = ({ activeElement, handleDone }) => {
 
       {formDetails.required && (
         <InputField
-          id="errorMessage"
+          id="errormessage"
           type="text"
           label="Error Message for Required Field"
           placeholder="Default: This field is required"
-          value={formDetails.errorMessage}
+          value={formDetails.errormessage}
           onChange={handleFieldChange}
         />
       )}
-      {formDetails.sizeLimit && (
+      {formDetails.sizelimit && (
         <InputField
-          id="errorMessageSizeLimit"
+          id="errormessagesizelimit"
           type="text"
           label="Error Message for Size Limit"
           placeholder="Default: File exceeds allowed size"
-          value={formDetails.errorMessageSizeLimit}
+          value={formDetails.errormessagesizelimit}
           onChange={handleFieldChange}
         />
       )}
