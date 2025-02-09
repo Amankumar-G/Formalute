@@ -22,12 +22,13 @@ export default {
       sourcemap: true, 
     },
     {
-      file: 'dist/DragFormX.umd.js', // Add UMD output
+      file: 'dist/DragFormX.umd.js', // UMD output
       format: 'umd',
       name: 'DragFormX', // Global variable name
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',
+        jquery: '$',  // Make sure jQuery is accessible globally as $ (common alias)
       },
       sourcemap: false,
     },
@@ -54,5 +55,5 @@ export default {
     }),
     terser(),
   ],
-  external: Object.keys(packageJson.peerDependencies || {}),
+  external: ['jquery'], // Mark jQuery as external
 };
