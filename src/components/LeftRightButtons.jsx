@@ -47,54 +47,57 @@ export const AddButton = ({ handleAddPartition }) => {
 };
 
 
-export const Stepper = ({ formPartitions, activePartitionIndex, setActivePartitionIndex, handleDeletePartition }) => {
+export const Stepper = ({ formPartitions, activePartitionIndex, setActivePartitionIndex, handleDeletePartition,PREFIX }) => {
   return (
-    <ol className="flex my-4 items-center mx-auto w-[70%] text-xs text-gray-900 font-medium sm:text-base overflow-x-auto">
+    <ol
+      className={`flex my-4 items-center mx-auto w-[70%] text-xs text-gray-900 font-medium sm:text-base overflow-x-auto ${PREFIX}-stepper`}
+    >
       {formPartitions.map((_, index) => (
         <li
           key={index}
-          className="flex w-full relative group cursor-pointer"
+          className={`flex w-full relative group cursor-pointer ${PREFIX}-step-item`}
         >
           {/* Partition Indicator */}
           <div
             onClick={() => setActivePartitionIndex(index)}
-            className={`flex flex-col items-center mx-auto relative w-full
-              ${index === activePartitionIndex - 1
-                ? "text-indigo-600 after:bg-indigo-600"
-                : index <= activePartitionIndex
+            className={`flex flex-col items-center mx-auto relative w-full ${PREFIX}-step-indicator
+              ${
+                index === activePartitionIndex - 1
                   ? "text-indigo-600 after:bg-indigo-600"
-                  : "text-gray-900 after:bg-gray-200"}
-              after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4
-              after:z-0`} // Added z-0 to ensure the line is underneath
+                  : index <= activePartitionIndex
+                  ? "text-indigo-600 after:bg-indigo-600"
+                  : "text-gray-900 after:bg-gray-200"
+              }
+              after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4 after:z-0`}
           >
             <span
-              className={`w-6 h-6 ${index === activePartitionIndex
-                ? "bg-indigo-600 text-white"
-                : index < activePartitionIndex
-                  ? "bg-indigo-600 text-white"
-                  : "bg-gray-50 text-indigo-600 border-indigo-600"
-                } border-2 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10 z-10`} // Added z-10 to bring the number above the line
+              className={`w-6 h-6 ${PREFIX}-step-number
+                ${
+                  index === activePartitionIndex
+                    ? "bg-indigo-600 text-white"
+                    : index < activePartitionIndex
+                    ? "bg-indigo-600 text-white"
+                    : "bg-gray-50 text-indigo-600 border-indigo-600"
+                } border-2 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10 z-10`}
             >
               {index + 1}
             </span>
           </div>
 
           {/* Delete Button */}
-          {/* Delete Button */}
           {handleDeletePartition && (
             <button
               onClick={(e) => {
-                e.stopPropagation(); // Prevents event bubbling
+                e.stopPropagation(); // Prevent event bubbling
                 handleDeletePartition(index);
               }}
-              className="absolute top-0 right-0 p-2 bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out shadow-md hover:scale-105"
+              className={`absolute top-0 right-0 p-2 bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out shadow-md hover:scale-105 ${PREFIX}-delete-btn`}
               aria-label={`Delete Partition ${index + 1}`}
               disabled={formPartitions.length === 1} // Disable if it's the only partition
             >
-              <FaTrashAlt className="w-4 h-4" /> {/* Trash icon */}
+              <FaTrashAlt className="w-4 h-4" />
             </button>
           )}
-
         </li>
       ))}
     </ol>

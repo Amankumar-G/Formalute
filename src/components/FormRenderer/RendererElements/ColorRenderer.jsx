@@ -1,20 +1,31 @@
 import React from "react";
 
-const ColorRenderer = ({ field, value, handleChange}) => {
-  const excludedKeys = new Set(["autocomplete", "spellcheck" ,"minlength" , "maxlength","classname"]); 
+const ColorRenderer = ({ field, value, handleChange, PREFIX = "DragFormX" }) => {
+  const excludedKeys = new Set([
+    "autocomplete",
+    "spellcheck",
+    "minlength",
+    "maxlength",
+    "classname",
+  ]);
+
   const filteredField = Object.fromEntries(
     Object.entries(field).filter(
-      ([key, val]) => val !== "" && val !== null && val !== undefined &&
-      !excludedKeys.has(key)
+      ([key, val]) =>
+        val !== "" &&
+        val !== null &&
+        val !== undefined &&
+        !excludedKeys.has(key)
     )
   );
+
   return (
-    <div key={field.id} className={`mb-6 ${field.classname}`}>
+    <div key={field.id} className={`mb-6 ${PREFIX}-ColorRenderer-Container ${field.classname || ""}`}>
       {/* Label styling */}
       {field.label && (
         <label
           htmlFor={field.id}
-          className="block text-sm font-medium text-gray-700 mb-2 DragFormX-Label"
+          className={`block text-sm font-medium text-gray-700 mb-2 ${PREFIX}-Label`}
         >
           {field.label}
         </label>
@@ -25,10 +36,9 @@ const ColorRenderer = ({ field, value, handleChange}) => {
         {...filteredField}
         value={value}
         onChange={handleChange}
-        className={`w-12 h-12 border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 DragFormX-color`}
         type="color"
+        className={`w-12 h-12 border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 ${PREFIX}-color`}
       />
-      
     </div>
   );
 };

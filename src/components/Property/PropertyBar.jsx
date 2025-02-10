@@ -40,6 +40,7 @@ const PropertyBar = ({ activeElement, setFormPartitions,showNotification, setIsP
       case "email":
       case "tel":
       case "url":
+      case "password":
             return (
               <TextProperties
               activeElement={activeElement}
@@ -47,14 +48,6 @@ const PropertyBar = ({ activeElement, setFormPartitions,showNotification, setIsP
               handleDone={handleDone}
               />
             );
-      case "password":
-        return (
-          <PasswordProperties
-          activeElement={activeElement}
-          capitalize={capitalize}
-          handleDone={handleDone}
-          />
-        );
       case "multiple-checkbox":
         return (
           <CheckboxProperties

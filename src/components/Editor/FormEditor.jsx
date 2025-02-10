@@ -67,7 +67,8 @@ const FormEditor = ({
         className={`transition-all relative duration-500 ${
           isExpanded ? "w-1/2" : "w-full"
         } overflow-hidden`}
-      >
+        >
+        {notification && <Notification notification={notification} color={color} down={formPartitions.length >1}/>}
         {activePartitionIndex > 0 && (
           <LeftButtons handleNavigatePartition={() => navigatePartition("backward")} />
         )}
@@ -90,7 +91,6 @@ const FormEditor = ({
           <AddButton handleAddPartition={addPartition} />
         )}
 
-        {notification && <Notification notification={notification} color={color}/>}
 
         <FormBuilder
           isExpanded={isExpanded}

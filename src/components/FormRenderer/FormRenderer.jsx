@@ -15,6 +15,7 @@ import RangeRenderer from "./RendererElements/RangeRenderer";
 import { FiArrowLeft, FiArrowRight, FiEdit } from 'react-icons/fi'; // Importing React Icons
 // import rawJson from "./ConfigFormWithPartitions (20).json?raw";
 
+const PREFIX = 'DragFormX';
 
   const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) => {
 
@@ -113,7 +114,7 @@ import { FiArrowLeft, FiArrowRight, FiEdit } from 'react-icons/fi'; // Importing
   const renderField = (field) => {
     const value = formData[field.name];
     const error = errors[field.name];
-    const fieldProps = { field , value, handleChange, error };
+    const fieldProps = { field , value, handleChange, error,PREFIX };
     switch (field.type) {
       case "text":
       case "email":
@@ -240,107 +241,118 @@ import { FiArrowLeft, FiArrowRight, FiEdit } from 'react-icons/fi'; // Importing
   };
 
   return (
-    <div className="relative bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8 DragFormX-container">
-      {parsedConfig.length > 1 && (
-        <Stepper
-          formPartitions={parsedConfig}
-          activePartitionIndex={activePartitionIndex}
-          setActivePartitionIndex={setActivePartitionIndex}
-        />
-      )}
-      <form
-        noValidate
-        action={action}
-        method={method}
-        onSubmit={handleSubmit}
-        className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg shadow-indigo-500/20 overflow-y-scroll DragFormX-form"
-      >
-        {parsedConfig.length > 0 && parsedConfig[activePartitionIndex] ? (
-          <div className="space-y-8 DragFormX-fields">
-            {parsedConfig[activePartitionIndex].elements.map((field) => (
-              <div key={field.id} className="space-y-4 DragFormX-field">
-                {renderField(field)}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-500 text-center DragFormX-empty">No fields to render</p>
-        )}
-
-        {parsedConfig.length > 1 ? (
-          <div className="w-full max-w-md mx-auto mt-6 bg-indigo-100 DragFormX-pagination">
-            <div className="flex items-center justify-between gap-6 p-5 bg-white DragFormX-pagination-controls">
-              {/* Back Button */}
-              {activePartitionIndex > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setActivePartitionIndex(activePartitionIndex - 1)}
-                  className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105 text-sm font-medium DragFormX-back-btn"
-                >
-                  <FiArrowLeft className="w-5 h-5" />
-                  <span>Back</span>
-                </button>
-              )}
-
-              {/* Progress Dots */}
-              <ul className="flex gap-3 items-center mx-auto DragFormX-progress-dots">
-                {parsedConfig.map((_, index) => (
-                  <li
-                    key={index}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${index <= activePartitionIndex ? "bg-indigo-600" : "bg-indigo-200"} DragFormX-progress-dot`}
-                  />
-                ))}
-              </ul>
-
-              {/* Next or Submit Button */}
-              {activePartitionIndex < parsedConfig.length - 1 ? (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                      e.preventDefault();
-                      const currentPartition = parsedConfig[activePartitionIndex];
-                      const newErrors = {};
-                      currentPartition.elements.forEach(field => {
-                        const value = formData[field.name];
-                        const error = validateField(field, value);
-                        if (error) newErrors[field.name] = error;
-                      });
-                      if (Object.keys(newErrors).length) {
-                        setErrors(newErrors);
-                      } else {
-                        setActivePartitionIndex((prev) => Math.min(prev + 1, parsedConfig.length - 1));
-                        // Clear current partition's errors
-                        const updatedErrors = { ...errors };
-                        currentPartition.elements.forEach(field => delete updatedErrors[field.name]);
-                        setErrors(updatedErrors);
-                      }
-                    }}
-                  className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105 DragFormX-next-btn"
-                >
-                  <span className="text-sm font-medium">Next</span>
-                  <FiArrowRight className="w-5 h-5" />
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="flex items-center gap-3 text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none py-2 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 DragFormX-submit-btn"
-                >
-                  <span className="text-sm font-medium">Submit</span>
-                  <FiArrowRight className="w-5 h-5" />
-                </button>
-              )}
+    <div
+    className={`relative bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8 ${PREFIX}-container`}
+  >
+    {parsedConfig.length > 1 && (
+      <Stepper
+        formPartitions={parsedConfig}
+        activePartitionIndex={activePartitionIndex}
+        setActivePartitionIndex={setActivePartitionIndex}
+        PREFIX={PREFIX}
+      />
+    )}
+    <form
+      noValidate
+      action={action}
+      method={method}
+      onSubmit={handleSubmit}
+      className={`max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg shadow-indigo-500/20 overflow-y-scroll ${PREFIX}-form`}
+    >
+      {parsedConfig.length > 0 && parsedConfig[activePartitionIndex] ? (
+        <div className={`space-y-8 ${PREFIX}-fields`}>
+          {parsedConfig[activePartitionIndex].elements.map((field) => (
+            <div key={field.id} className={`space-y-4 ${PREFIX}-field`}>
+              {renderField(field)}
             </div>
-          </div>
-        ) : (
-          <button
-            type="submit"
-            className="w-full py-3 mt-6 bg-indigo-600 text-white rounded-md font-semibold text-lg hover:bg-indigo-700 transition-all duration-300 DragFormX-submit"
+          ))}
+        </div>
+      ) : (
+        <p className={`text-gray-500 text-center ${PREFIX}-empty`}>
+          No fields to render
+        </p>
+      )}
+
+      {parsedConfig.length > 1 ? (
+        <div className={`w-full max-w-md mx-auto mt-6 bg-indigo-100 ${PREFIX}-pagination`}>
+          <div
+            className={`flex items-center justify-between gap-6 p-5 bg-white ${PREFIX}-pagination-controls`}
           >
-            Submit
-          </button>
-        )}
-      </form>
-    </div>
+            {/* Back Button */}
+            {activePartitionIndex > 0 && (
+              <button
+                type="button"
+                onClick={() => setActivePartitionIndex(activePartitionIndex - 1)}
+                className={`flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105 text-sm font-medium ${PREFIX}-back-btn`}
+              >
+                <FiArrowLeft className="w-5 h-5" />
+                <span>Back</span>
+              </button>
+            )}
+
+            {/* Progress Dots */}
+            <ul className={`flex gap-3 items-center mx-auto ${PREFIX}-progress-dots`}>
+              {parsedConfig.map((_, index) => (
+                <li
+                  key={index}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index <= activePartitionIndex ? 'bg-indigo-600' : 'bg-indigo-200'
+                  } ${PREFIX}-progress-dot`}
+                />
+              ))}
+            </ul>
+
+            {/* Next or Submit Button */}
+            {activePartitionIndex < parsedConfig.length - 1 ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const currentPartition = parsedConfig[activePartitionIndex];
+                  const newErrors = {};
+                  currentPartition.elements.forEach((field) => {
+                    const value = formData[field.name];
+                    const error = validateField(field, value);
+                    if (error) newErrors[field.name] = error;
+                  });
+                  if (Object.keys(newErrors).length) {
+                    setErrors(newErrors);
+                  } else {
+                    setActivePartitionIndex((prev) =>
+                      Math.min(prev + 1, parsedConfig.length - 1)
+                    );
+                    // Clear current partition's errors
+                    const updatedErrors = { ...errors };
+                    currentPartition.elements.forEach((field) => delete updatedErrors[field.name]);
+                    setErrors(updatedErrors);
+                  }
+                }}
+                className={`flex items-center gap-2 text-indigo-600 hover:text-indigo-700 focus:outline-none transition-all duration-300 transform hover:scale-105 ${PREFIX}-next-btn`}
+              >
+                <span className="text-sm font-medium">Next</span>
+                <FiArrowRight className="w-5 h-5" />
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className={`flex items-center gap-3 text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none py-2 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 ${PREFIX}-submit-btn`}
+              >
+                <span className="text-sm font-medium">Submit</span>
+                <FiArrowRight className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <button
+          type="submit"
+          className={`w-full py-3 mt-6 bg-indigo-600 text-white rounded-md font-semibold text-lg hover:bg-indigo-700 transition-all duration-300 ${PREFIX}-submit`}
+        >
+          Submit
+        </button>
+      )}
+    </form>
+  </div>
   );
 };
 

@@ -2,51 +2,58 @@ import React, { useState, useEffect } from "react";
 import InputField from "./InputField";
 import Toggle from "./Toggle";
 import Header from "./Header";
+import PatternSelect from "./PatternSelect";
+
+// A helper to extract the initial form details from the activeElement.
+const getInitialFormDetails = (activeElement) => ({
+  label: activeElement?.label || "",
+  name: activeElement?.name || "",
+  placeholder: activeElement?.placeholder || "",
+  classname: activeElement?.classname || "",
+  required: activeElement?.required || false,
+  errormessage: activeElement?.errormessage || "",
+  // Always store the actual regex value.
+  pattern: activeElement?.pattern || "",
+  errormessagepattern: activeElement?.errormessagepattern || "",
+  minlength: activeElement?.minlength || "",
+  errormessageminlength: activeElement?.errormessageminlength || "",
+  maxlength: activeElement?.maxlength || "",
+  errormessagemaxlength: activeElement?.errormessagemaxlength || "",
+  autocomplete: activeElement?.autocomplete || false,
+  spellcheck: activeElement?.spellcheck || false,
+});
+
+const predefinedPatterns = [
+  { value: "^[a-zA-Z]+$", label: "Letters Only" },
+  { value: "^[0-9]+$", label: "Numbers Only" },
+  { value: "^[a-zA-Z0-9]+$", label: "Alphanumeric" },
+  { value: "^\\S+@\\S+\\.\\S+$", label: "Email" },
+];
 
 const TextProperties = ({ activeElement, capitalize, handleDone }) => {
   const [showAdditionalProperties, setShowAdditionalProperties] = useState(false);
+  
+  // Initialize state from activeElement.
+  const [formDetails, setFormDetails] = useState(getInitialFormDetails(activeElement));
 
-  // Initialize with all keys defined with default values.
-  const [formDetails, setFormDetails] = useState({
-    label: activeElement?.label || "",
-    name: activeElement?.name || "",
-    placeholder: activeElement?.placeholder || "",
-    classname: activeElement?.classname || "",
-    required: activeElement?.required || false,
-    errormessage: activeElement?.errormessage || "",
-    pattern: activeElement?.pattern || "",
-    errormessagepattern: activeElement?.errormessagepattern || "",
-    minlength: activeElement?.minlength || "",
-    errormessageminlength: activeElement?.errormessageminlength || "",
-    maxlength: activeElement?.maxlength || "",
-    errormessagemaxlength: activeElement?.errormessagemaxlength || "",
-    autocomplete: activeElement?.autocomplete || false,
-    spellcheck: activeElement?.spellcheck || false,
-  });
-
+  // Update form details when activeElement changes.
   useEffect(() => {
-    setFormDetails({
-      label: activeElement?.label || "",
-      name: activeElement?.name || "",
-      placeholder: activeElement?.placeholder || "",
-      classname: activeElement?.classname || "",
-      required: activeElement?.required || false,
-      errormessage: activeElement?.errormessage || "",
-      pattern: activeElement?.pattern || "",
-      errormessagepattern: activeElement?.errormessagepattern || "",
-      minlength: activeElement?.minlength || "",
-      errormessageminlength: activeElement?.errormessageminlength || "",
-      maxlength: activeElement?.maxlength || "",
-      errormessagemaxlength: activeElement?.errormessagemaxlength || "",
-      autocomplete: activeElement?.autocomplete || false,
-      spellcheck: activeElement?.spellcheck || false,
-    });
+    setFormDetails(getInitialFormDetails(activeElement));
   }, [activeElement]);
 
+  // Handle changes from InputField or Toggle.
   const handleFieldChange = (field, value) => {
-    setFormDetails((prevDetails) => ({
-      ...prevDetails,
+    setFormDetails((prev) => ({
+      ...prev,
       [field]: value,
+    }));
+  };
+  // Update the pattern and its error message.
+  const handlePatternChange = ({ pattern, errorMessage }) => {
+    setFormDetails((prev) => ({
+      ...prev,
+      pattern,
+      errormessagepattern: errorMessage,
     }));
   };
 
@@ -94,7 +101,7 @@ const TextProperties = ({ activeElement, capitalize, handleDone }) => {
         />
       </div>
 
-      {/* Required Field Toggle with Error Message Below */}
+      {/* Required Field Toggle with Error Message */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Toggle
@@ -128,23 +135,18 @@ const TextProperties = ({ activeElement, capitalize, handleDone }) => {
       {/* Additional Properties */}
       {showAdditionalProperties && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Toggle
-              id="autocomplete"
-              label="Auto Complete"
-              checked={formDetails.autocomplete}
-              onChange={handleFieldChange}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Toggle
-              id="spellcheck"
-              label="Spell Check"
-              checked={formDetails.spellcheck}
-              onChange={handleFieldChange}
-            />
-          </div>
+          <Toggle
+            id="autocomplete"
+            label="Auto Complete"
+            checked={formDetails.autocomplete}
+            onChange={handleFieldChange}
+          />
+          <Toggle
+            id="spellcheck"
+            label="Spell Check"
+            checked={formDetails.spellcheck}
+            onChange={handleFieldChange}
+          />
 
           <div className="space-y-2">
             <InputField
@@ -186,25 +188,14 @@ const TextProperties = ({ activeElement, capitalize, handleDone }) => {
             )}
           </div>
 
-          <div className="space-y-2">
-            <InputField
-              id="pattern"
-              type="text"
-              label="Pattern"
-              placeholder="Enter allowed pattern"
-              value={formDetails.pattern}
-              onChange={handleFieldChange}
-            />
-            {formDetails.pattern && (
-              <InputField
-                id="errormessagepattern"
-                label="Error Message for Pattern"
-                placeholder="Default: Invalid format."
-                value={formDetails.errormessagepattern}
-                onChange={handleFieldChange}
-              />
-            )}
-          </div>
+          {/* Reusable PatternSelect component */}
+          <PatternSelect
+            type = {activeElement.type}
+            predefinedPatterns={predefinedPatterns}
+            pattern={formDetails.pattern}
+            errorMessage={formDetails.errormessagepattern}
+            onChange={handlePatternChange}
+          />
         </div>
       )}
     </div>
