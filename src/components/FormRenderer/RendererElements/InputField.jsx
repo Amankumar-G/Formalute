@@ -5,7 +5,7 @@ const InputField = ({
   value,
   handleChange,
   error,
-  PREFIX = "DragFormX", // Default prefix if none is provided
+  PREFIX = "Formable", // Default prefix if none is provided
 }) => {
   const excludedKeys = new Set([
     "autocomplete",

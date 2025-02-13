@@ -7,5 +7,5 @@ if (typeof window !== 'undefined') {
 }
 
 // Export main React components
-export { default as DragFormXBuilder } from './App.jsx';
-export { default as DragFormXRenderer } from './components/FormRenderer/FormRenderer.jsx';
+export { default as FormableBuilder } from './App.jsx';
+export { default as FormableRenderer } from './components/FormRenderer/FormRenderer.jsx';

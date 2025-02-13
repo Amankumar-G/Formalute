@@ -1,11 +1,11 @@
-# 🚀 DragFormX
+# 🚀 Formable
 
-![DragFormX Logo](https://example.com/dragformx-logo.png)
+![Formable Logo](https://example.com/Formable-logo.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![npm version](https://img.shields.io/npm/v/dragformx.svg)](https://www.npmjs.com/package/dragformx)
+[![npm version](https://img.shields.io/npm/v/Formable.svg)](https://www.npmjs.com/package/Formable)
 
-> **DragFormX** is a powerful drag-and-drop form builder that empowers you to create interactive, validated forms effortlessly. Whether you're designing a sleek contact form or a robust multi-step application, DragFormX offers the flexibility and features you need to bring your forms to life! 🎨✨
+> **Formable** is a powerful drag-and-drop form builder that empowers you to create interactive, validated forms effortlessly. Whether you're designing a sleek contact form or a robust multi-step application, Formable offers the flexibility and features you need to bring your forms to life! 🎨✨
 
 ---
 
@@ -29,7 +29,7 @@
 
 ## 🚀 Use Cases
 
-DragFormX is perfect for a wide range of applications:
+Formable is perfect for a wide range of applications:
 
 - **Rapid Prototyping** 🚀  
   Quickly design and test form layouts with an intuitive drag-and-drop interface.
@@ -53,7 +53,7 @@ DragFormX is perfect for a wide range of applications:
 
 ## 📝 Overview
 
-DragFormX provides an intuitive drag-and-drop interface that allows you to:
+Formable provides an intuitive drag-and-drop interface that allows you to:
 
 - **Drag Items:** Choose from over 18 form fields available in the sidebar.  
 - **Drop & Customize:** Drag fields into the editor zone, and easily customize labels, placeholders, and validations dynamically.  
@@ -103,19 +103,19 @@ Imagine your screen divided into three primary sections:
 
 
 > Example:  
->![DragFormX Demo](assets/Normal-Drag-Drop.gif)
->![DragFormX Demo](assets/Multi-Part.gif)
+>![Formable Demo](assets/Normal-Drag-Drop.gif)
+>![Formable Demo](assets/Multi-Part.gif)
 
 
 ---
 
 ## ⚙️ Installation
 
-DragFormX can be integrated into your project in multiple ways:
+Formable can be integrated into your project in multiple ways:
 
 ### React Component Integration
 
 Install via npm:
 
 ```bash
-npm install dragformx --save
+npm install formable --save

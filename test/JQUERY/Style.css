@@ -1,45 +1,45 @@
 
-  /* DragFormX Plugin Styling */
-  .DragFormX-container {
+  /* Formable Plugin Styling */
+  .Formable-container {
     padding: 20px;
     background: #2c2c2c;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
   }
   
-  .DragFormX-form {
+  .Formable-form {
     padding: 20px;
   }
   
-  .DragFormX-fields {
+  .Formable-fields {
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
   
-  .DragFormX-field {
+  .Formable-field {
     padding: 15px;
     /* background: #333; */
     border-radius: 5px;
     border: 1px solid #444;
   }
   
-  .DragFormX-empty {
+  .Formable-empty {
     text-align: center;
     color: #888;
     padding: 20px;
     border: 2px dashed #555;
   }
   
-  .DragFormX-pagination-controls {
+  .Formable-pagination-controls {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     
   }
   
-  .DragFormX-back-btn,
-  .DragFormX-next-btn {
+  .Formable-back-btn,
+  .Formable-next-btn {
     background: #1abc9c;
     color: white;
     border: none;
@@ -50,21 +50,21 @@
     transition: 0.3s;
   }
   
-  .DragFormX-next-btn:hover,
-  .DragFormX-back-btn:hover {
+  .Formable-next-btn:hover,
+  .Formable-back-btn:hover {
     background: #16a085;
   }
   
-  .DragFormX-submit {
+  .Formable-submit {
     text-align: center;
   }
-  .DragFormX-submit:active {
+  .Formable-submit:active {
     
     transform: scale(0.95,0.95);
   }
   
   
-  .DragFormX-submit-btn {
+  .Formable-submit-btn {
     background: #e74c3c;
     color: white;
     border: none;
@@ -75,18 +75,18 @@
     transition: 0.3s;
   }
   
-  .DragFormX-submit-btn:hover {
+  .Formable-submit-btn:hover {
     background: #c0392b;
   }
   
-  .DragFormX-Label {
+  .Formable-Label {
     font-size: 16px;
     font-weight: bold;
   }
   
-  .DragFormX-input,
-  .DragFormX-select,
-  .DragFormX-textarea {
+  .Formable-input,
+  .Formable-select,
+  .Formable-textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #444;
@@ -96,28 +96,28 @@
     color: #f1f1f1;
   }
   
-  .DragFormX-Error {
+  .Formable-Error {
     color: #e74c3c;
     font-size: 14px;
     margin-top: 5px;
   }
   
-  .DragFormX-color {
+  .Formable-color {
     width: 50px;
     height: 30px;
     border-radius: 5px;
     border: 1px solid #444;
   }
   
-  .DragFormX-checkbox {
+  .Formable-checkbox {
     display: flex;
     align-items: center;
     gap: 10px;
   }
   
-  .DragFormX-Checkbox-Container,
-  .DragFormX-Radio-Container,
-  .DragFormX-Range-Container {
+  .Formable-Checkbox-Container,
+  .Formable-Radio-Container,
+  .Formable-Range-Container {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -127,26 +127,26 @@
     border: 1px solid #444;
   }
   
-  .DragFormX-Checkbox-Input,
-  .DragFormX-Radio-Input,
-  .DragFormX-Range-Input {
+  .Formable-Checkbox-Input,
+  .Formable-Radio-Input,
+  .Formable-Range-Input {
     transform: scale(1.2);
   }
   
-  .DragFormX-Checkbox-Text,
-  .DragFormX-Radio-Text,
-  .DragFormX-Range-Text {
+  .Formable-Checkbox-Text,
+  .Formable-Radio-Text,
+  .Formable-Range-Text {
     font-size: 14px;
   }
   
-  .DragFormX-progress-dots {
+  .Formable-progress-dots {
     display: flex;
     justify-content: center;
     gap: 5px;
     margin-top: 10px;
   }
   
-  .DragFormX-progress-dot {
+  .Formable-progress-dot {
     width: 10px;
     height: 10px;
     background: #444;
@@ -154,7 +154,7 @@
     transition: 0.3s;
   }
   
-  .DragFormX-progress-dot.active {
+  .Formable-progress-dot.active {
     background: #1abc9c;
   }
   

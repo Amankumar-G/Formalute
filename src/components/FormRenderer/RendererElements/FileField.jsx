@@ -1,6 +1,6 @@
 import React from "react";
 
-const FileField = ({ field, value, handleChange, error, PREFIX = "DragFormX" }) => {
+const FileField = ({ field, value, handleChange, error, PREFIX = "Formable" }) => {
   const excludedKeys = new Set(["autocomplete", "spellcheck", "minlength", "maxlength", "classname"]);
   const filteredField = Object.fromEntries(
     Object.entries(field).filter(

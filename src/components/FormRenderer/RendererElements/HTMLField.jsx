@@ -1,6 +1,6 @@
 import React from "react";
 
-const HTMLField = ({ field, PREFIX = "DragFormX" }) => {
+const HTMLField = ({ field, PREFIX = "Formable" }) => {
   if (!field) return null;
 
   const {

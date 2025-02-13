@@ -22,9 +22,9 @@ export default {
       sourcemap: true, 
     },
     {
-      file: 'dist/DragFormX.umd.js', // UMD output
+      file: 'dist/Formable.umd.js', // UMD output
       format: 'umd',
-      name: 'DragFormX', // Global variable name
+      name: 'Formable', // Global variable name
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',

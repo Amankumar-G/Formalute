@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ninja Form Builder</title>
+  <title>Formable</title>
 
   <!-- jQuery CDN -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -12,8 +12,8 @@
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
-  <!-- UMD Build of DragFormX -->
-  <script src="../../dist/DragFormX.umd.js"></script>
+  <!-- UMD Build of  -->
+  <script src="../../dist/Formable.umd.js"></script>
   <!-- <link rel="stylesheet" href="Style.css"> -->
   <style>
     body {
@@ -120,7 +120,6 @@
   <!-- Sidebar -->
   <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
   <div class="sidebar">
-    <h2>DragFormX Forms</h2>
     <button onclick="showSection('form-builder')">Form Builder</button>
     <button onclick="showSection('form-renderer')">Form Renderer</button>
   </div>
@@ -152,7 +151,7 @@
         console.log("Loaded JSON Config:", json);
         savedFormConfig = JSON.stringify(json); // Keep as an object, not a string
         
-        $('#form-renderer').dragFormX({
+        $('#form-renderer').formable({
           type: "renderer",
           jsonConfig: savedFormConfig,
           onSubmit: function(data) {
@@ -163,7 +162,7 @@
       .catch((error) => console.error("Error loading JSON:", error));
   
     // Initialize Form Builder
-    $('#form-builder').dragFormX({
+    $('#form-builder').formable({
       type: "builder",
       title: "Build Your Form",
       theme: "light",
@@ -171,7 +170,7 @@
         savedFormConfig = jsonConfig; // Keep JSON as an object
         console.log("Saved Config:", savedFormConfig);
   
-        $('#form-renderer').dragFormX({
+        $('#form-renderer').formable({
           type: "renderer",
           jsonConfig: savedFormConfig,
           onSubmit: function(data) {

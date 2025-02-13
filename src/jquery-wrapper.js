@@ -1,5 +1,5 @@
 (function ($) {
-    $.fn.dragFormX = function (options) {
+    $.fn.formable = function (options) {
       const defaults = {
         type: "builder",
         jsonConfig: {},
@@ -13,18 +13,18 @@
       return this.each(function () {
         const element = this;
   
-        // Ensure React and DragFormX are available
-        if (!window.React || !window.ReactDOM || !window.DragFormX) {
-          console.error("React, ReactDOM, or DragFormX is missing!");
+        // Ensure React and Formable are available
+        if (!window.React || !window.ReactDOM || !window.Formable) {
+          console.error("React, ReactDOM, or Formable is missing!");
           return;
         }
   
-        const { DragFormXBuilder, DragFormXRenderer } = window.DragFormX;
+        const { FormableBuilder, FormableRenderer } = window.Formable;
         const root = ReactDOM.createRoot(element);
   
         if (settings.type === "builder") {
           root.render(
-            React.createElement(DragFormXBuilder, {
+            React.createElement(FormableBuilder, {
               title: settings.title,
               theme: settings.theme,
               onSave: settings.onSave
@@ -32,7 +32,7 @@
           );
         } else if (settings.type === "renderer") {
           root.render(
-            React.createElement(DragFormXRenderer, { jsonConfig: settings.jsonConfig,onSubmit: settings.onSubmit })
+            React.createElement(FormableRenderer, { jsonConfig: settings.jsonConfig,onSubmit: settings.onSubmit })
           );
         }
       });

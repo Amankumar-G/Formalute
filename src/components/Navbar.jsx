@@ -14,7 +14,7 @@ const Navbar = ({ handleExpandToggle, handleSave, handleRenderer, handleIsMultiP
     <div className="w-full z-50 bg-white shadow-lg text-gray-800 p-3 flex justify-between items-center rounded-lg border-b border-gray-200">
       {/* Navbar Title */}
       <div className="text-lg md:text-2xl font-semibold tracking-wide text-gray-900">
-        DragFormX<span className="text-blue-600">-JS</span>
+        FORMABLE<span className="text-blue-600">-JS</span>
       </div>
 
       {/* Desktop Menu */}

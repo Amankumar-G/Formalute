@@ -15,7 +15,7 @@ import RangeRenderer from "./RendererElements/RangeRenderer";
 import { FiArrowLeft, FiArrowRight, FiEdit } from 'react-icons/fi'; // Importing React Icons
 // import rawJson from "./ConfigFormWithPartitions (20).json?raw";
 
-const PREFIX = 'DragFormX';
+const PREFIX = 'Formable';
 
   const FormRenderer = ({jsonConfig,  onSubmit, action = "#", method = "POST" }) => {
 
