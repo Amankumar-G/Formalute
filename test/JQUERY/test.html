@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formable</title>
+  <title>formalute</title>
 
   <!-- jQuery CDN -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -13,7 +13,7 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
   <!-- UMD Build of  -->
-  <script src="../../dist/Formable.umd.js"></script>
+  <script src="../../dist/Formalute.umd.js"></script>
   <!-- <link rel="stylesheet" href="Style.css"> -->
   <style>
     body {
@@ -151,7 +151,7 @@
         console.log("Loaded JSON Config:", json);
         savedFormConfig = JSON.stringify(json); // Keep as an object, not a string
         
-        $('#form-renderer').formable({
+        $('#form-renderer').formalute({
           type: "renderer",
           jsonConfig: savedFormConfig,
           onSubmit: function(data) {
@@ -162,7 +162,7 @@
       .catch((error) => console.error("Error loading JSON:", error));
   
     // Initialize Form Builder
-    $('#form-builder').formable({
+    $('#form-builder').formalute({
       type: "builder",
       title: "Build Your Form",
       theme: "light",
@@ -170,7 +170,7 @@
         savedFormConfig = jsonConfig; // Keep JSON as an object
         console.log("Saved Config:", savedFormConfig);
   
-        $('#form-renderer').formable({
+        $('#form-renderer').formalute({
           type: "renderer",
           jsonConfig: savedFormConfig,
           onSubmit: function(data) {

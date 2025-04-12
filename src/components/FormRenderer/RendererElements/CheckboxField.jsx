@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckboxField = ({ field, value, handleChange, error, PREFIX = "Formable" }) => {
+const CheckboxField = ({ field, value, handleChange, error, PREFIX = "formalute" }) => {
   const excludedKeys = new Set(["autocomplete", "spellcheck", "minlength", "maxlength", "classname"]);
   const filteredField = Object.fromEntries(
     Object.entries(field).filter(

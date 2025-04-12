@@ -1,5 +1,5 @@
 (function ($) {
-    $.fn.formable = function (options) {
+    $.fn.formalute = function (options) {
       const defaults = {
         type: "builder",
         jsonConfig: {},
@@ -13,18 +13,18 @@
       return this.each(function () {
         const element = this;
   
-        // Ensure React and Formable are available
-        if (!window.React || !window.ReactDOM || !window.Formable) {
-          console.error("React, ReactDOM, or Formable is missing!");
+        // Ensure React and Formalute are available
+        if (!window.React || !window.ReactDOM || !window.Formalute) {
+          console.error("React, ReactDOM, or Formalute is missing!");
           return;
         }
   
-        const { FormableBuilder, FormableRenderer } = window.Formable;
+        const { FormaluteBuilder, FormaluteRenderer } = window.Formalute;
         const root = ReactDOM.createRoot(element);
   
         if (settings.type === "builder") {
           root.render(
-            React.createElement(FormableBuilder, {
+            React.createElement(FormaluteBuilder, {
               title: settings.title,
               theme: settings.theme,
               onSave: settings.onSave
@@ -32,7 +32,7 @@
           );
         } else if (settings.type === "renderer") {
           root.render(
-            React.createElement(FormableRenderer, { jsonConfig: settings.jsonConfig,onSubmit: settings.onSubmit })
+            React.createElement(FormaluteRenderer, { jsonConfig: settings.jsonConfig,onSubmit: settings.onSubmit })
           );
         }
       });

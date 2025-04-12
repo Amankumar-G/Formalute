@@ -1,6 +1,6 @@
 import React from "react";
 
-const ColorRenderer = ({ field, value, handleChange, PREFIX = "Formable" }) => {
+const ColorRenderer = ({ field, value, handleChange, PREFIX = "formalute" }) => {
   const excludedKeys = new Set([
     "autocomplete",
     "spellcheck",

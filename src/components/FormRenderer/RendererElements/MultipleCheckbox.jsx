@@ -5,7 +5,7 @@ const MultipleCheckbox = ({
   value,
   handleChange,
   error,
-  PREFIX = "Formable", // Default prefix value
+  PREFIX = "formalute", // Default prefix value
 }) => (
   <div key={field.id} className={`mb-6 ${PREFIX}-Checkbox-Container ${field.classname || ""}`}>
     <label className={`block text-sm font-medium text-gray-700 mb-2 ${PREFIX}-Label`}>

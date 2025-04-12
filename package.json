@@ -1,7 +1,24 @@
 {
-  "name": "formable",
-  "private": true,
-  "version": "0.0.0",
+  "name": "formalute",
+  "version": "1.0.0",
+  "description": "A flexible drag-and-drop form builder powered by @dnd-kit and React.",
+  "keywords": [
+    "form-builder",
+    "react",
+    "drag-and-drop",
+    "dnd-kit",
+    "component-library"
+  ],
+  "author": "Aman Galoliya amangaloliya@gmail.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Amankumar-G/Formalute"
+  },
+  "homepage": "https://github.com/Amankumar-G/Formalute#readme",
+  "bugs": {
+    "url": "https://github.com/Amankumar-G/Formalute/issues"
+  },
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -11,8 +28,9 @@
   "scripts": {
     "dev": "vite",
     "build": "rollup -c",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "preview": "vite preview",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@babel/runtime": "^7.26.0",

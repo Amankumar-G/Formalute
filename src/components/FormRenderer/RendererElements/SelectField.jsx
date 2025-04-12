@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SelectField = ({ field, value, handleChange, error, PREFIX = "Formable" }) => {
+const SelectField = ({ field, value, handleChange, error, PREFIX = "formalute" }) => {
   const isMultiple = field.multiple;
   const excludedKeys = new Set(["autocomplete", "spellcheck", "minlength", "maxlength", "classname"]);
   

@@ -7,5 +7,5 @@ if (typeof window !== 'undefined') {
 }
 
 // Export main React components
-export { default as FormableBuilder } from './App.jsx';
-export { default as FormableRenderer } from './components/FormRenderer/FormRenderer.jsx';
+export { default as FormaluteBuilder } from './App.jsx';
+export { default as FormaluteRenderer } from './components/FormRenderer/FormRenderer.jsx';

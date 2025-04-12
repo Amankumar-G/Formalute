@@ -1,6 +1,6 @@
 import React from "react";
 
-const HTMLField = ({ field, PREFIX = "Formable" }) => {
+const HTMLField = ({ field, PREFIX = "formalute" }) => {
   if (!field) return null;
 
   const {

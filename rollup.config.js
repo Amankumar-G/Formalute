@@ -8,31 +8,9 @@ import packageJson from './package.json' with { type: "json" };
 import tailwindcss from 'tailwindcss';
 import tailwindConfig from './tailwind.config.cjs';
 
-export default {
-  input: 'src/index.js',
-  output: [
-    {
-      file: packageJson.main,
-      format: 'cjs',
-      sourcemap: true, 
-    },
-    {
-      file: packageJson.module,
-      format: 'esm',
-      sourcemap: true, 
-    },
-    {
-      file: 'dist/Formable.umd.js', // UMD output
-      format: 'umd',
-      name: 'Formable', // Global variable name
-      globals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        jquery: '$',  // Make sure jQuery is accessible globally as $ (common alias)
-      },
-      sourcemap: false,
-    },
-  ],
+const createConfig = (input, output) => ({
+  input,
+  output,
   plugins: [
     resolve({
       extensions: ['.js', '.jsx'],
@@ -56,4 +34,35 @@ export default {
     terser(),
   ],
   external: ['jquery'], // Mark jQuery as external
-};
+});
+
+export default [
+  // ES6 and CommonJS builds using React entry point
+  createConfig('src/indexReact.js', [
+    {
+      file: packageJson.main,
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
+      file: packageJson.module,
+      format: 'esm',
+      sourcemap: true,
+    }
+  ]),
+  
+  // UMD build using jQuery entry point
+  createConfig('src/indexjQuery.js', [
+    {
+      file: 'dist/Formalute.umd.js',
+      format: 'umd',
+      name: 'Formalute',
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        jquery: '$',
+      },
+      sourcemap: false,
+    }
+  ])
+];
