@@ -1,45 +1,45 @@
 
-  /* Formable Plugin Styling */
-  .Formable-container {
+  /* formalute Plugin Styling */
+  .formalute-container {
     padding: 20px;
-    background: #2c2c2c;
+    background: #ec3434;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
   }
   
-  .Formable-form {
+  .formalute-form {
     padding: 20px;
   }
   
-  .Formable-fields {
+  .formalute-fields {
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
   
-  .Formable-field {
+  .formalute-field {
     padding: 15px;
     /* background: #333; */
     border-radius: 5px;
     border: 1px solid #444;
   }
   
-  .Formable-empty {
+  .formalute-empty {
     text-align: center;
     color: #888;
     padding: 20px;
     border: 2px dashed #555;
   }
   
-  .Formable-pagination-controls {
+  .formalute-pagination-controls {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     
   }
   
-  .Formable-back-btn,
-  .Formable-next-btn {
+  .formalute-back-btn,
+  .formalute-next-btn {
     background: #1abc9c;
     color: white;
     border: none;
@@ -50,21 +50,21 @@
     transition: 0.3s;
   }
   
-  .Formable-next-btn:hover,
-  .Formable-back-btn:hover {
+  .formalute-next-btn:hover,
+  .formalute-back-btn:hover {
     background: #16a085;
   }
   
-  .Formable-submit {
+  .formalute-submit {
     text-align: center;
   }
-  .Formable-submit:active {
+  .formalute-submit:active {
     
     transform: scale(0.95,0.95);
   }
   
   
-  .Formable-submit-btn {
+  .formalute-submit-btn {
     background: #e74c3c;
     color: white;
     border: none;
@@ -75,18 +75,18 @@
     transition: 0.3s;
   }
   
-  .Formable-submit-btn:hover {
+  .formalute-submit-btn:hover {
     background: #c0392b;
   }
   
-  .Formable-Label {
+  .formalute-Label {
     font-size: 16px;
     font-weight: bold;
   }
   
-  .Formable-input,
-  .Formable-select,
-  .Formable-textarea {
+  .formalute-input,
+  .formalute-select,
+  .formalute-textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #444;
@@ -96,28 +96,28 @@
     color: #f1f1f1;
   }
   
-  .Formable-Error {
+  .formalute-Error {
     color: #e74c3c;
     font-size: 14px;
     margin-top: 5px;
   }
   
-  .Formable-color {
+  .formalute-color {
     width: 50px;
     height: 30px;
     border-radius: 5px;
     border: 1px solid #444;
   }
   
-  .Formable-checkbox {
+  .formalute-checkbox {
     display: flex;
     align-items: center;
     gap: 10px;
   }
   
-  .Formable-Checkbox-Container,
-  .Formable-Radio-Container,
-  .Formable-Range-Container {
+  .formalute-Checkbox-Container,
+  .formalute-Radio-Container,
+  .formalute-Range-Container {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -127,26 +127,26 @@
     border: 1px solid #444;
   }
   
-  .Formable-Checkbox-Input,
-  .Formable-Radio-Input,
-  .Formable-Range-Input {
+  .formalute-Checkbox-Input,
+  .formalute-Radio-Input,
+  .formalute-Range-Input {
     transform: scale(1.2);
   }
   
-  .Formable-Checkbox-Text,
-  .Formable-Radio-Text,
-  .Formable-Range-Text {
+  .formalute-Checkbox-Text,
+  .formalute-Radio-Text,
+  .formalute-Range-Text {
     font-size: 14px;
   }
   
-  .Formable-progress-dots {
+  .formalute-progress-dots {
     display: flex;
     justify-content: center;
     gap: 5px;
     margin-top: 10px;
   }
   
-  .Formable-progress-dot {
+  .formalute-progress-dot {
     width: 10px;
     height: 10px;
     background: #444;
@@ -154,7 +154,7 @@
     transition: 0.3s;
   }
   
-  .Formable-progress-dot.active {
+  .formalute-progress-dot.active {
     background: #1abc9c;
   }
   

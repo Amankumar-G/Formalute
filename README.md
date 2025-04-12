@@ -1,11 +1,11 @@
-# 🚀 Formable
+# 🚀 Formalute
 
-![Formable Logo](https://example.com/Formable-logo.png)
+![Formalute Logo](https://example.com/Formalute-logo.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![npm version](https://img.shields.io/npm/v/Formable.svg)](https://www.npmjs.com/package/Formable)
+[![npm version](https://img.shields.io/npm/v/Formalute.svg)](https://www.npmjs.com/package/Formalute)
 
-> **Formable** is a powerful drag-and-drop form builder that empowers you to create interactive, validated forms effortlessly. Whether you're designing a sleek contact form or a robust multi-step application, Formable offers the flexibility and features you need to bring your forms to life! 🎨✨
+> **Formalute** is a powerful drag-and-drop form builder that empowers you to create interactive, validated forms effortlessly. Whether you're designing a sleek contact form or a robust multi-step application, Formalute offers the flexibility and features you need to bring your forms to life! 🎨✨
 
 ---
 
@@ -17,8 +17,8 @@
 - [🎥 Visual Walkthrough](#-visual-walkthrough)
 - [⚙️ Installation](./Manual.md)
   - [React Component Integration](Manual.md#react-component-integration)
-  - [jQuery Integration](Manual.md#using-formable-in-jquery)
-  - [Plain HTML with React CDN](Manual.md#Using-Formable-with-React.createElement)
+  - [jQuery Integration](Manual.md#using-formalute-in-jquery)
+  - [Plain HTML with React CDN](Manual.md#Using-Formalute-with-React.createElement)
 - [🎛️ Configuration & Customization](#️-configuration--customization)
 - [🤝 Contributing](#-contributing)
 - [💬 Support](#-support)
@@ -28,7 +28,7 @@
 
 ## 🚀 Use Cases
 
-Formable is perfect for a wide range of applications:
+Formalute is perfect for a wide range of applications:
 
 - **Rapid Prototyping** 🚀  
   Quickly design and test form layouts with an intuitive drag-and-drop interface.
@@ -52,7 +52,7 @@ Formable is perfect for a wide range of applications:
 
 ## 📝 Overview
 
-Formable provides an intuitive drag-and-drop interface that allows you to:
+Formalute provides an intuitive drag-and-drop interface that allows you to:
 
 - **Drag Items:** Choose from over 18 form fields available in the sidebar.  
 - **Drop & Customize:** Drag fields into the editor zone, and easily customize labels, placeholders, and validations dynamically.  
@@ -102,19 +102,19 @@ Imagine your screen divided into three primary sections:
 
 
 > Example:  
->![Formable Demo](assets/Normal-Drag-Drop.gif)
->![Formable Demo](assets/Multi-Part.gif)
+>![Formalute Demo](assets/Normal-Drag-Drop.gif)
+>![Formalute Demo](assets/Multi-Part.gif)
 
 
 ---
 
 ## ⚙️ Installation
 
-Formable can be integrated into your project in multiple ways:
+Formalute can be integrated into your project in multiple ways:
 
 ### React Component Integration
 
 Install via npm:
 
 ```bash
-npm install formable --save
+npm install formalute --save
