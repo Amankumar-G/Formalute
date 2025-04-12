@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>formalute</title>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- React and ReactDOM CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- UMD Build of  -->
+  <script src="./Formalute.umd.js"></script>
+  <!-- <link rel="stylesheet" href="Style.css"> -->
+  
+</head>
+<body>
+
+
+    <div id="form-builder" class="section active"></div>
+
+
+
+  <script type="text/javascript">
+   
+  
+    // Initialize Form Builder
+    $('#form-builder').formalute({
+      type: "builder",
+      title: "Build Your Form",
+      theme: "light",
+      onSave: function (jsonConfig) {
+        savedFormConfig = jsonConfig; // Keep JSON as an object
+        console.log("Saved Config:", savedFormConfig);
+  
+        $('#form-renderer').formalute({
+          type: "renderer",
+          jsonConfig: savedFormConfig,
+          onSubmit: function(data) {
+            handleFormSubmit(data);
+          }
+        });
+      }
+    });
+  
+   
+  </script>
+  
+  
+</body>
+</html>
