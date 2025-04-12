@@ -60,15 +60,16 @@ export default App;
 ```jsx
 import React from "react";
 import { FormaluteRenderer } from "formalute";
+import jsonConfig from './config.json' with { type: "json" };
 
-const jsonConfig = { /* Insert JSON Form Config */ };
-
-const App = () => (
+const App = () => {
+  const config = JSON.stringify(jsonConfig, null, 4)
+  return (
   <div>
     <h2>Form Renderer</h2>
-    <FormaluteRenderer jsonConfig={jsonConfig} onSubmit={(data) => console.log("Form Submitted:", data)} />
+    <FormaluteRenderer jsonConfig={config} onSubmit={(data) => console.log("Form Submitted:", data)} />
   </div>
-);
+)};
 
 export default App;
 ```
