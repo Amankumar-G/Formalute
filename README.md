@@ -9,6 +9,12 @@
 
 ---
 
+### 🚀 Live Demo
+
+> 🔗 **Try it now:** [https://amankumar-g.github.io/demo-formalute/](https://amankumar-g.github.io/demo-formalute/)
+
+---
+
 ## 📖 Table of Contents
 
 - [🚀 Use Cases](#-use-cases)

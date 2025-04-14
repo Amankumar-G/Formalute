@@ -32,7 +32,7 @@
     "preview": "vite preview",
     "prepare": "npm run build",
      "predeploy": "npm run build",
-      "deploy": "gh-pages -d build"
+      "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@babel/runtime": "^7.26.0",
