@@ -1,6 +1,6 @@
 {
   "name": "formalute",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A flexible drag-and-drop form builder powered by @dnd-kit and React.",
   "keywords": [
     "form-builder",
